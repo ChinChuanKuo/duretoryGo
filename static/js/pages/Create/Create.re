@@ -453,7 +453,6 @@ let make = _ => {
                  i,
                )
                |> dispatch;
-               state.items[i].collectitems |> Js.log;
                ActionShowProgress |> dispatch;
              | _ => ActionShowProgress |> dispatch
              };

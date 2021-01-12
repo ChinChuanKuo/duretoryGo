@@ -1,5 +1,6 @@
 open React;
 open Together;
+open Icons;
 open Data;
 open Axiosapi;
 open Status;
@@ -16,6 +17,7 @@ type item = {
   id: string,
   collitems: array(collitem),
   attribute: string,
+  creator: string,
   datetime: string,
 };
 
@@ -29,6 +31,8 @@ type state = {
   update: bool,
   delete: bool,
   export: bool,
+  showItem: bool,
+  itemCount: int,
   items: array(item),
   showYoutube: bool,
   youtubeText: string,
@@ -40,6 +44,8 @@ type action =
   | SettingFormWidth(int, int)
   | ActionShowProgress
   | ActionPermissItems(bool, bool, bool, bool)
+  | SettingFormItems(bool, int, array(item))
+  | SettingScrollItems(bool, array(item))
   | ActionSnackBar(string, bool);
 
 let reducer = (state, action) =>
@@ -59,6 +65,17 @@ let reducer = (state, action) =>
       delete,
       export,
     }
+  | SettingFormItems(showItem, itemCount, items) => {
+      ...state,
+      showItem,
+      itemCount,
+      items,
+    }
+  | SettingScrollItems(showItem, items) => {
+      ...state,
+      showItem,
+      items: Array.append(state.items, items),
+    }
   | ActionSnackBar(youtubeText, showYoutube) => {
       ...state,
       youtubeText,
@@ -76,6 +93,8 @@ let initialState = {
   update: false,
   delete: false,
   export: false,
+  showItem: false,
+  itemCount: 0,
   items: [||],
   showYoutube: false,
   youtubeText: "",
@@ -90,6 +109,36 @@ let make = _ => {
     Js.Global.setTimeout(() => ActionSnackBar("", false) |> dispatch, 5000)
     |> ignore;
   };
+
+  let searchAJax = () =>
+    Js.Promise.(
+      state.items
+      |> Js_array.length
+      |> string_of_int
+      |> otherData("newid" |> Locals.select)
+      |> Default.search
+      |> then_(response =>
+           {
+             switch (response##data##status) {
+             | "istrue" =>
+               SettingFormItems(
+                 response##data##showItem,
+                 response##data##itemCount,
+                 response##data##items,
+               )
+               |> dispatch;
+               ActionShowProgress |> dispatch;
+             | _ =>
+               SettingError |> dispatch;
+               response##data##status |> statusModule |> barShowRestoreAction;
+               ActionShowProgress |> dispatch;
+             };
+           }
+           |> resolve
+         )
+      |> catch(error => error |> Js.log |> resolve)
+      |> ignore
+    );
 
   let permissAJax = () =>
     Js.Promise.(
@@ -106,7 +155,7 @@ let make = _ => {
                response##data##export,
              )
              |> dispatch;
-             ActionShowProgress |> dispatch;
+             searchAJax();
            }
            |> resolve
          )
@@ -160,17 +209,134 @@ let make = _ => {
     Some(() => sizeId);
   });
 
+  let scrollAJax = length =>
+    Js.Promise.(
+      "newid"
+      |> Locals.select
+      |> otherData(length)
+      |> Default.scroll
+      |> then_(response =>
+           {
+             SettingScrollItems(
+               response##data##showItem,
+               response##data##items,
+             )
+             |> dispatch;
+             ActionShowProgress |> dispatch;
+           }
+           |> resolve
+         )
+      |> catch(error => error |> Js.log |> resolve)
+      |> ignore
+    );
+
+  let clickScrollBar =
+    useCallback(_ => {
+      ActionShowProgress |> dispatch;
+      state.items |> Js_array.length |> string_of_int |> scrollAJax;
+    });
+
   <>
     <NewFacetube showProgress={state.showProgress} error={state.error}>
       <GridItem
-        style=marginAuto
-        top="0"
-        right="32"
-        bottom="0"
-        left="32"
-        xs="12"
-        maxWidth="770px">
-        null
+        style=marginAuto top="0" right="32" bottom="0" left="32" xs="12">
+        <GridContainer direction="column" justify="center" alignItem="stretch">
+          <GridItem right="24" bottom="0" left="24" xs="auto">
+            <GridContainer direction="row" justify="start" alignItem="center">
+              {state.items
+               |> Array.mapi((i, item) =>
+                    <div>
+                      <GridItem
+                        style={ReactDOMRe.Style.make(
+                          ~height="250px",
+                          ~marginRight="12px",
+                          (),
+                        )}
+                        top="0"
+                        right="0"
+                        bottom="0" 
+                        left="0"
+                        width="276px"
+                        cursor="pointer"
+                        enterBorderWidth="2"
+                        borderWidth="2"
+                        enterBorderColor="rgba(255,0,0,0.8)"
+                        enterBorderRadius="4"
+                        borderRadius="1"
+                        xs="no">
+                        <Card>
+                          <GridContainer
+                            direction="column"
+                            justify="center"
+                            alignItem="stretch">
+                            <GridItem
+                              top="0" right="0" bottom="0" left="0" xs="no">
+                              <div
+                                style={ReactDOMRe.Style.make(
+                                  ~height="155px",
+                                  (),
+                                )}
+                              />
+                            </GridItem>
+                            <GridItem
+                              top="0"
+                              right="12"
+                              bottom="0"
+                              left="16"
+                              xs="auto">
+                              <GridContainer
+                                direction="row"
+                                justify="center"
+                                alignItem="center">
+                                <GridItem
+                                  top="0"
+                                  right="0"
+                                  bottom="0"
+                                  left="0"
+                                  xs="no">
+                                  <Avatar
+                                    top="0"
+                                    right="12"
+                                    bottom="0"
+                                    left="0"
+                                    color="#909090"
+                                    enterBorderColor="transparent"
+                                    downBorderColor="transparent"
+                                    backgroundColor="rgba(0,0,0,0.08)">
+                                    {item.creator |> string}
+                                  </Avatar>
+                                </GridItem>
+                                <GridItem
+                                  top="0"
+                                  right="0"
+                                  bottom="0"
+                                  left="0"
+                                  xs="auto">
+                                  <Typography variant="subheading" noWrap=true>
+                                    {item.attribute |> string}
+                                  </Typography>
+                                </GridItem>
+                              </GridContainer>
+                            </GridItem>
+                            <GridItem
+                              top="0"
+                              right="12"
+                              bottom="0"
+                              left="72"
+                              xs="auto">
+                              <Typography variant="caption" color="#606060">
+                                {item.datetime |> string}
+                              </Typography>
+                            </GridItem>
+                          </GridContainer>
+                        </Card>
+                      </GridItem>
+                    </div>
+                  )
+               |> array}
+            </GridContainer>
+          </GridItem>
+        </GridContainer>
       </GridItem>
     </NewFacetube>
     <SnackbarYoutube showYoutube={state.showYoutube} position="bottomLeft">

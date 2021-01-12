@@ -695,7 +695,6 @@ function Create(Props) {
                         response.data.files,
                         i
                       ]));
-                console.log(Caml_array.caml_array_get(state.items, i).collectitems);
                 tmp = Curry._1(dispatch, /* ActionShowProgress */2);
               } else {
                 tmp = Curry._1(dispatch, /* ActionShowProgress */2);
