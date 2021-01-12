@@ -105,7 +105,7 @@ var $$Option = {
 };
 
 function upload(formData) {
-  return Axios$1.post("http://localhost:5000/Files/uploadData", formData, {
+  return Axios$1.post("http://10.10.50.50:2250/Files/uploadData", formData, {
               headers: Axios.$$Headers.fromObj({
                     "Content-Type": "multipart/form-data"
                   })
@@ -150,11 +150,11 @@ var Default = {
 };
 
 function search$2(data) {
-  return Axios$1.post("http://localhost:5000/Formor/searchData", data);
+  return Axios$1.post("http://10.10.50.50:2250/Formor/searchData", data);
 }
 
 function insert$1(data) {
-  return Axios$1.post("http://localhost:5000/Formor/insertData", data);
+  return Axios$1.post("http://10.10.50.50:2250/Formor/insertData", data);
 }
 
 var Formor = {
@@ -163,11 +163,11 @@ var Formor = {
 };
 
 function search$3(data) {
-  return Axios$1.post("http://localhost:5000/Create/searchData", data);
+  return Axios$1.post("http://10.10.50.50:2250/Create/searchData", data);
 }
 
 function insert$2(data) {
-  return Axios$1.post("http://localhost:5000/Create/insertData", data);
+  return Axios$1.post("http://10.10.50.50:2250/Create/insertData", data);
 }
 
 var Create = {

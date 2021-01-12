@@ -59,7 +59,7 @@ module Option = {
 module Files = {
   let upload = formData =>
     postDatac(
-      "http://localhost:5000/Files/uploadData",
+      "http://10.10.50.50:2250/Files/uploadData",
       formData,
       makeConfig(
         ~headers=Headers.fromObj({"Content-Type": "multipart/form-data"}),
@@ -85,14 +85,14 @@ module Default = {
 
 module Formor = {
   let search = data =>
-    postData("http://localhost:5000/Formor/searchData", data);
+    postData("http://10.10.50.50:2250/Formor/searchData", data);
   let insert = data =>
-    postData("http://localhost:5000/Formor/insertData", data);
+    postData("http://10.10.50.50:2250/Formor/insertData", data);
 };
 
 module Create = {
   let search = data =>
-    postData("http://localhost:5000/Create/searchData", data);
+    postData("http://10.10.50.50:2250/Create/searchData", data);
   let insert = data =>
-    postData("http://localhost:5000/Create/insertData", data);
+    postData("http://10.10.50.50:2250/Create/insertData", data);
 };
