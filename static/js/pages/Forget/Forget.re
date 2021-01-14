@@ -1,6 +1,7 @@
 open React;
 open Data;
 open Axiosapi;
+open Status;
 open Storage;
 
 type state = {
@@ -113,9 +114,7 @@ let make = _ => {
              | "istrue" => Path.codePath |> ReasonReactRouter.push
              | _ =>
                restoreAction();
-               response##data##status
-               |> Status.accountModule
-               |> barShowRestoreAction;
+               response##data##status |> accountModule |> barShowRestoreAction;
              }
            )
            |> resolve

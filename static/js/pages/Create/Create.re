@@ -5,6 +5,7 @@ open Icons;
 open Data;
 open Items;
 open Axiosapi;
+open Status;
 open Path;
 open Storage;
 open AnswerColor;
@@ -279,9 +280,7 @@ let make = _ => {
                ActionShowProgress |> dispatch;
              | _ =>
                SettingError |> dispatch;
-               response##data##status
-               |> Status.statusModule
-               |> barShowRestoreAction;
+               response##data##status |> statusModule |> barShowRestoreAction;
                ActionShowProgress |> dispatch;
              };
            }
@@ -359,9 +358,7 @@ let make = _ => {
                "saveSuccess" |> Sessions.create("form");
                homePath |> ReasonReactRouter.push;
              | _ =>
-               response##data##status
-               |> Status.statusModule
-               |> barShowRestoreAction;
+               response##data##status |> statusModule |> barShowRestoreAction;
                ActionShowProgress |> dispatch;
              };
            }
@@ -544,274 +541,303 @@ let make = _ => {
               direction="column" justify="center" alignItem="stretch">
               {state.items
                |> Array.mapi((i, item) =>
-                    <GridItem right="0" left="0" xs="auto">
-                      {switch (item.outValue) {
-                       | "label" =>
-                         <Typography variant="subtitle2" noWrap=true>
-                           {item.values |> string}
-                         </Typography>
-                       | "image" =>
-                         <ImageUpload
-                           webLoad={state.showProgress}
-                           showDrop={item.showDrop}
-                           showFile={item.showFile}
-                           src={item.values}
-                           fileRef
-                           onDragOver={event => dragOver(event, i)}
-                           onDragLeave={event => dragLeave(event, i)}
-                           onDrop={event =>
-                             i
-                             |> dropFile(
-                                  event,
-                                  ReactEventRe.Synthetic.nativeEvent(event)##dataTransfer##files[0],
-                                )
-                           }
-                           disabled={state.showProgress}
-                           onClick=chooseFile
-                           onChange={event =>
-                             i
-                             |> uploadFile(
-                                  ReactEvent.Form.target(event)##files[0],
-                                )
-                           }
-                         />
-                       | "collections" =>
-                         <ImageUpload
-                           webLoad={state.showProgress}
-                           showDrop={item.showDrop}
-                           showFile={item.showFile}
-                           src={item.values}
-                           fileRef
-                           onDragOver={event => dragOver(event, i)}
-                           onDragLeave={event => dragLeave(event, i)}
-                           onDrop={event =>
-                             i
-                             |> dropFiles(
-                                  event,
-                                  ReactEventRe.Synthetic.nativeEvent(event)##dataTransfer##files[0],
-                                )
-                           }
-                           disabled={state.showProgress}
-                           onClick=chooseFile
-                           onChange={event =>
-                             i
-                             |> uploadFiles(
-                                  ReactEvent.Form.target(event)##files[0],
-                                )
-                           }
-                         />
-                       | "text" =>
-                         <TextFieldOutline
-                           width="50"
-                           top="0"
-                           left="0"
-                           borderTop="10"
-                           borderBottom="10"
-                           enterBorderColor="rgba(255,0,0,0.8)"
-                           downBorderColor="rgba(255,0,0,0.6)"
-                           borderColor="rgba(0,0,0,0.2)"
-                           value={item.values}
-                           disabled={state.showProgress}
-                           onChange={event =>
-                             i
-                             |> changeItem(
-                                  ReactEvent.Form.target(event)##value,
-                                )
-                           }>
-                           {item.title |> string}
-                         </TextFieldOutline>
-                       | "textline" =>
-                         <TextFieldOutline
-                           top="0"
-                           left="0"
-                           borderTop="10"
-                           borderBottom="10"
-                           enterBorderColor="rgba(255,0,0,0.8)"
-                           downBorderColor="rgba(255,0,0,0.6)"
-                           borderColor="rgba(0,0,0,0.2)"
-                           value={item.values}
-                           disabled={state.showProgress}
-                           onChange={event =>
-                             i
-                             |> changeItem(
-                                  ReactEvent.Form.target(event)##value,
-                                )
-                           }>
-                           {item.title |> string}
-                         </TextFieldOutline>
-                       | "textarea" =>
-                         <TextFieldMultiline
-                           top="0"
-                           bottom="0"
-                           left="0"
-                           labelColor="rgba(255,0,0,0.8)"
-                           borderTop="10"
-                           borderBottom="10"
-                           enterBorderColor="rgba(255,0,0,0.8)"
-                           downBorderColor="rgba(255,0,0,0.6)"
-                           borderColor="rgba(0,0,0,0.2)"
-                           rows=3
-                           value={item.values}
-                           disabled={state.showProgress}
-                           onChange={event =>
-                             i
-                             |> changeItem(
-                                  ReactEvent.Form.target(event)##value,
-                                )
-                           }>
-                           {item.title |> string}
-                         </TextFieldMultiline>
-                       | "droplist" =>
-                         <>
-                           <SelectOutline
-                             top="0"
-                             left="0"
-                             tile={item.title}
-                             enterBorderColor="rgba(255,0,0,0.8)"
-                             downBorderColor="rgba(255,0,0,0.6)"
-                             borderColor="rgba(0,0,0,0.2)"
-                             value={item.values}
-                             disabled={state.showProgress}
-                             onClick={_ => i |> showMenuItem}>
-                             ...(
-                                  item.showMenu
-                                    ? <SelectMenu
-                                        top="50%"
-                                        transform="translate(0, -50%)"
-                                        maxHeight="280"
-                                        minHeight="0"
-                                        topLeft="12"
-                                        topRight="12"
-                                        bottomRight="12"
-                                        bottomLeft="12"
-                                        paddingRight="8"
-                                        paddingLeft="8">
-                                        {item.optionitems
-                                         |> Array.map(optionitem =>
-                                              <MenuItem
-                                                top="0"
-                                                right="8"
-                                                bottom="0"
-                                                left="8"
-                                                disablePadding={
-                                                                 optionitem.
-                                                                   optionPadding
-                                                               }
-                                                topLeft="12"
-                                                topRight="12"
-                                                bottomRight="12"
-                                                bottomLeft="12"
-                                                onClick={_ =>
-                                                  i
-                                                  |> clickMenuItem(
-                                                       optionitem.value,
-                                                     )
-                                                }>
-                                                {optionitem.value |> string}
-                                              </MenuItem>
-                                            )
-                                         |> array}
-                                      </SelectMenu>
-                                    : null,
-                                  <IconGeneral
-                                    animation={item.showMenu |> topDownRorate}
-                                    src=arrowDownBlack
-                                  />,
-                                )
-                           </SelectOutline>
-                           <BackgroundBoard
-                             showBackground={item.showMenu}
-                             backgroundColor="transparent"
-                             onClick={_ => i |> showMenuItem}
-                           />
-                         </>
-                       | _ =>
-                         <GridContainer
-                           direction="column"
-                           justify="center"
-                           alignItem="stretch">
-                           {item.answeritems
-                            |> Array.mapi((ai, answeritem) =>
-                                 <GridItem
+                    <>
+                      <GridItem right="0" left="0" xs="auto">
+                        <GridContainer
+                          direction="column"
+                          justify="start"
+                          alignItem="stretch">
+                          <GridItem
+                            top="0" right="20" bottom="0" left="20" xs="auto">
+                            <Typography
+                              variant="subheading"
+                              fontSize="1.2rem"
+                              fontWeight="bolder">
+                              {item.title |> string}
+                            </Typography>
+                          </GridItem>
+                          <GridItem top="6" bottom="0" xs="auto">
+                            {switch (item.outValue) {
+                             | "label" =>
+                               <Typography variant="subtitle2" noWrap=true>
+                                 {item.values |> string}
+                               </Typography>
+                             | "image" =>
+                               <ImageUpload
+                                 webLoad={state.showProgress}
+                                 showDrop={item.showDrop}
+                                 showFile={item.showFile}
+                                 src={item.values}
+                                 fileRef
+                                 onDragOver={event => i |> dragOver(event)}
+                                 onDragLeave={event => i |> dragLeave(event)}
+                                 onDrop={event =>
+                                   i
+                                   |> dropFile(
+                                        event,
+                                        ReactEventRe.Synthetic.nativeEvent(
+                                          event,
+                                        )##dataTransfer##files[0],
+                                      )
+                                 }
+                                 disabled={state.showProgress}
+                                 onClick=chooseFile
+                                 onChange={event =>
+                                   i
+                                   |> uploadFile(
+                                        ReactEvent.Form.target(event)##files[0],
+                                      )
+                                 }
+                               />
+                             | "collections" =>
+                               <ImageUpload
+                                 webLoad={state.showProgress}
+                                 showDrop={item.showDrop}
+                                 showFile={item.showFile}
+                                 src={item.values}
+                                 fileRef
+                                 onDragOver={event => i |> dragOver(event)}
+                                 onDragLeave={event => i |> dragLeave(event)}
+                                 onDrop={event =>
+                                   i
+                                   |> dropFiles(
+                                        event,
+                                        ReactEventRe.Synthetic.nativeEvent(
+                                          event,
+                                        )##dataTransfer##files[0],
+                                      )
+                                 }
+                                 disabled={state.showProgress}
+                                 onClick=chooseFile
+                                 onChange={event =>
+                                   i
+                                   |> uploadFiles(
+                                        ReactEvent.Form.target(event)##files[0],
+                                      )
+                                 }
+                               />
+                             | "text" =>
+                               <TextFieldStandard
+                                 width="50"
+                                 top="0"
+                                 left="0"
+                                 borderTop="10"
+                                 borderBottom="10"
+                                 enterBorderColor="rgba(255,0,0,0.8)"
+                                 downBorderColor="rgba(255,0,0,0.6)"
+                                 borderColor="rgba(0,0,0,0.2)"
+                                 value={item.values}
+                                 disabled={state.showProgress}
+                                 onChange={event =>
+                                   i
+                                   |> changeItem(
+                                        ReactEvent.Form.target(event)##value,
+                                      )
+                                 }>
+                                 null
+                               </TextFieldStandard>
+                             | "textline" =>
+                               <TextFieldStandard
+                                 top="0"
+                                 left="0"
+                                 borderTop="10"
+                                 borderBottom="10"
+                                 enterBorderColor="rgba(255,0,0,0.8)"
+                                 downBorderColor="rgba(255,0,0,0.6)"
+                                 borderColor="rgba(0,0,0,0.2)"
+                                 value={item.values}
+                                 disabled={state.showProgress}
+                                 onChange={event =>
+                                   i
+                                   |> changeItem(
+                                        ReactEvent.Form.target(event)##value,
+                                      )
+                                 }>
+                                 null
+                               </TextFieldStandard>
+                             | "textarea" =>
+                               <TextFieldMultiline
+                                 top="0"
+                                 bottom="0"
+                                 left="0"
+                                 labelColor="rgba(255,0,0,0.8)"
+                                 borderTop="10"
+                                 borderBottom="10"
+                                 enterBorderColor="rgba(255,0,0,0.8)"
+                                 downBorderColor="rgba(255,0,0,0.6)"
+                                 borderColor="rgba(0,0,0,0.2)"
+                                 rows=3
+                                 value={item.values}
+                                 disabled={state.showProgress}
+                                 onChange={event =>
+                                   i
+                                   |> changeItem(
+                                        ReactEvent.Form.target(event)##value,
+                                      )
+                                 }>
+                                 null
+                               </TextFieldMultiline>
+                             | "droplist" =>
+                               <>
+                                 <SelectStandard
                                    top="0"
-                                   bottom="6"
                                    left="0"
-                                   right="0"
-                                   xs="auto">
-                                   <GridContainer
-                                     direction="row"
-                                     justify="start"
-                                     alignItem="center">
-                                     <GridItem
-                                       top="0"
-                                       right="0"
-                                       bottom="0"
-                                       left="0"
-                                       xs="no">
-                                       <IconButton
-                                         padding="4"
-                                         disabled={state.showProgress}>
-                                         <IconAction
-                                           animation="leftRight"
-                                           src=radioButtonUncheckedBlack
-                                         />
-                                       </IconButton>
-                                     </GridItem>
-                                     <GridItem
-                                       top="0"
-                                       right="6"
-                                       bottom="0"
-                                       left="0"
-                                       xs="auto">
-                                       <TextFieldStandard
+                                   enterBorderColor="rgba(255,0,0,0.8)"
+                                   downBorderColor="rgba(255,0,0,0.6)"
+                                   borderColor="rgba(0,0,0,0.2)"
+                                   value={item.values}
+                                   disabled={state.showProgress}
+                                   onClick={_ => i |> showMenuItem}>
+                                   ...(
+                                        item.showMenu
+                                          ? <SelectMenu
+                                              top="50%"
+                                              transform="translate(0, -50%)"
+                                              maxHeight="280"
+                                              minHeight="0"
+                                              topLeft="12"
+                                              topRight="12"
+                                              bottomRight="12"
+                                              bottomLeft="12"
+                                              paddingRight="8"
+                                              paddingLeft="8">
+                                              {item.optionitems
+                                               |> Array.map(optionitem =>
+                                                    <MenuItem
+                                                      top="0"
+                                                      right="8"
+                                                      bottom="0"
+                                                      left="8"
+                                                      disablePadding={
+                                                                    optionitem.
+                                                                    optionPadding
+                                                                    }
+                                                      topLeft="12"
+                                                      topRight="12"
+                                                      bottomRight="12"
+                                                      bottomLeft="12"
+                                                      onClick={_ =>
+                                                        i
+                                                        |> clickMenuItem(
+                                                             optionitem.value,
+                                                           )
+                                                      }>
+                                                      {optionitem.value
+                                                       |> string}
+                                                    </MenuItem>
+                                                  )
+                                               |> array}
+                                            </SelectMenu>
+                                          : null,
+                                        <IconGeneral
+                                          animation={
+                                            item.showMenu |> topDownRorate
+                                          }
+                                          src=arrowDownBlack
+                                        />,
+                                      )
+                                 </SelectStandard>
+                                 <BackgroundBoard
+                                   showBackground={item.showMenu}
+                                   backgroundColor="transparent"
+                                   onClick={_ => i |> showMenuItem}
+                                 />
+                               </>
+                             | _ =>
+                               <GridContainer
+                                 direction="column"
+                                 justify="center"
+                                 alignItem="stretch">
+                                 {item.answeritems
+                                  |> Array.mapi((ai, answeritem) =>
+                                       <GridItem
                                          top="0"
-                                         enterBorderColor={
-                                           answeritem.showAnswer |> enterBorder
-                                         }
-                                         downBorderColor={
-                                           answeritem.showAnswer |> downBorder
-                                         }
-                                         borderColor={
-                                           answeritem.showAnswer |> border
-                                         }
-                                         placeholder="Option"
-                                         value={answeritem.value}
-                                         disabled=true>
-                                         null
-                                       </TextFieldStandard>
-                                     </GridItem>
-                                     <GridItem
-                                       top="0"
-                                       right="6"
-                                       bottom="0"
-                                       left="0"
-                                       xs="no">
-                                       <IconButton
-                                         padding="4"
-                                         disabled={state.showProgress}
-                                         onClick={_ =>
-                                           i
-                                           |> clickElementItem(
-                                                item.outValue,
-                                                ai,
-                                              )
-                                         }>
-                                         <IconAction
-                                           animation="leftRight"
-                                           src={
-                                             answeritem.showAnswer
-                                               ? doneSuccessful : errorWarn
-                                           }
-                                         />
-                                       </IconButton>
-                                     </GridItem>
-                                   </GridContainer>
-                                 </GridItem>
-                               )
-                            |> array}
-                         </GridContainer>
-                       }}
-                    </GridItem>
+                                         bottom="6"
+                                         left="0"
+                                         right="0"
+                                         xs="auto">
+                                         <GridContainer
+                                           direction="row"
+                                           justify="start"
+                                           alignItem="center">
+                                           <GridItem
+                                             top="0"
+                                             right="0"
+                                             bottom="0"
+                                             left="0"
+                                             xs="no">
+                                             <IconButton
+                                               padding="4"
+                                               disabled={state.showProgress}>
+                                               <IconAction
+                                                 animation="leftRight"
+                                                 src=radioButtonUncheckedBlack
+                                               />
+                                             </IconButton>
+                                           </GridItem>
+                                           <GridItem
+                                             top="0"
+                                             right="6"
+                                             bottom="0"
+                                             left="0"
+                                             xs="auto">
+                                             <TextFieldStandard
+                                               top="0"
+                                               enterBorderColor={
+                                                 answeritem.showAnswer
+                                                 |> enterBorder
+                                               }
+                                               downBorderColor={
+                                                 answeritem.showAnswer
+                                                 |> downBorder
+                                               }
+                                               borderColor={
+                                                 answeritem.showAnswer
+                                                 |> border
+                                               }
+                                               placeholder="Option"
+                                               value={answeritem.value}
+                                               disabled=true>
+                                               null
+                                             </TextFieldStandard>
+                                           </GridItem>
+                                           <GridItem
+                                             top="0"
+                                             right="6"
+                                             bottom="0"
+                                             left="0"
+                                             xs="no">
+                                             <IconButton
+                                               padding="4"
+                                               disabled={state.showProgress}
+                                               onClick={_ =>
+                                                 i
+                                                 |> clickElementItem(
+                                                      item.outValue,
+                                                      ai,
+                                                    )
+                                               }>
+                                               <IconAction
+                                                 animation="leftRight"
+                                                 src={
+                                                   answeritem.showAnswer
+                                                     ? doneSuccessful
+                                                     : errorWarn
+                                                 }
+                                               />
+                                             </IconButton>
+                                           </GridItem>
+                                         </GridContainer>
+                                       </GridItem>
+                                     )
+                                  |> array}
+                               </GridContainer>
+                             }}
+                          </GridItem>
+                        </GridContainer>
+                      </GridItem>
+                      <GridItem xs="auto"> <Divider /> </GridItem>
+                    </>
                   )
                |> array}
             </GridContainer>

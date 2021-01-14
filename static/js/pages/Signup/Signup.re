@@ -1,5 +1,6 @@
 open React;
 open Data;
+open Status;
 open Storage;
 
 type state = {
@@ -95,9 +96,7 @@ let make = _ => {
              | "istrue" => Path.loginPath |> ReasonReactRouter.push
              | _ =>
                restoreAction();
-               response##data##status
-               |> Status.accountModule
-               |> barShowRestoreAction;
+               response##data##status |> accountModule |> barShowRestoreAction;
              },
            )
          )

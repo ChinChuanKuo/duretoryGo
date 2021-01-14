@@ -105,7 +105,7 @@ var $$Option = {
 };
 
 function upload(formData) {
-  return Axios$1.post("http://10.10.50.50:2250/Files/uploadData", formData, {
+  return Axios$1.post("http://localhost:5000/Files/uploadData", formData, {
               headers: Axios.$$Headers.fromObj({
                     "Content-Type": "multipart/form-data"
                   })
@@ -137,42 +137,57 @@ var Files = {
 };
 
 function search$1(data) {
-  return Axios$1.post("http://10.10.50.50:2250/Home/searchData", data);
+  return Axios$1.post("http://localhost:5000/Home/searchData", data);
 }
 
 function scroll(data) {
-  return Axios$1.post("http://10.10.50.50:2250/Home/scrollData", data);
+  return Axios$1.post("http://localhost:5000/Home/scrollData", data);
+}
+
+function $$delete(data) {
+  return Axios$1.post("http://localhost:5000/Home/deleteData", data);
+}
+
+function sItem(data) {
+  return Axios$1.post("http://localhost:5000/Home/sItemData", data);
+}
+
+function insert$1(data) {
+  return Axios$1.post("http://localhost:5000/Home/insertData", data);
 }
 
 var Default = {
   search: search$1,
-  scroll: scroll
+  scroll: scroll,
+  $$delete: $$delete,
+  sItem: sItem,
+  insert: insert$1
 };
 
 function search$2(data) {
-  return Axios$1.post("http://10.10.50.50:2250/Formor/searchData", data);
+  return Axios$1.post("http://localhost:5000/Formor/searchData", data);
 }
 
-function insert$1(data) {
-  return Axios$1.post("http://10.10.50.50:2250/Formor/insertData", data);
+function insert$2(data) {
+  return Axios$1.post("http://localhost:5000/Formor/insertData", data);
 }
 
 var Formor = {
   search: search$2,
-  insert: insert$1
+  insert: insert$2
 };
 
 function search$3(data) {
-  return Axios$1.post("http://10.10.50.50:2250/Create/searchData", data);
+  return Axios$1.post("http://localhost:5000/Create/searchData", data);
 }
 
-function insert$2(data) {
-  return Axios$1.post("http://10.10.50.50:2250/Create/insertData", data);
+function insert$3(data) {
+  return Axios$1.post("http://localhost:5000/Create/insertData", data);
 }
 
 var Create = {
   search: search$3,
-  insert: insert$2
+  insert: insert$3
 };
 
 export {

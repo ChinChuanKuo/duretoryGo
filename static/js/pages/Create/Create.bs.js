@@ -11,6 +11,7 @@ import * as Path$BtsCore from "../../features/Path.bs.js";
 import * as Icons$BtsCore from "../../material-ui/icon/Icons.bs.js";
 import * as Button$BtsCore from "../../material-ui/core/Button/Button.bs.js";
 import * as Status$BtsCore from "../../features/Status.bs.js";
+import * as Divider$BtsCore from "../../material-ui/core/Divider/Divider.bs.js";
 import * as Axiosapi$BtsCore from "../../features/Axiosapi.bs.js";
 import * as GridItem$BtsCore from "../../material-ui/core/Grid/GridItem.bs.js";
 import * as MenuItem$BtsCore from "../../material-ui/core/MenuItem/MenuItem.bs.js";
@@ -26,10 +27,9 @@ import * as ImageUpload$BtsCore from "../../example/Uploads/ImageUpload.bs.js";
 import * as NewFacetube$BtsCore from "../../example/Facebook/NewFacetube.bs.js";
 import * as GridContainer$BtsCore from "../../material-ui/core/Grid/GridContainer.bs.js";
 import * as IconAnimation$BtsCore from "../../controls/IconAnimation.bs.js";
-import * as SelectOutline$BtsCore from "../../material-ui/core/Select/SelectOutline.bs.js";
+import * as SelectStandard$BtsCore from "../../material-ui/core/Select/SelectStandard.bs.js";
 import * as BackgroundBoard$BtsCore from "../../example/Boards/BackgroundBoard.bs.js";
 import * as SnackbarYoutube$BtsCore from "../../material-ui/core/Snackbar/SnackbarYoutube.bs.js";
-import * as TextFieldOutline$BtsCore from "../../material-ui/core/TextField/TextFieldOutline.bs.js";
 import * as TextFieldStandard$BtsCore from "../../material-ui/core/TextField/TextFieldStandard.bs.js";
 import * as TextFieldMultiline$BtsCore from "../../material-ui/core/TextField/TextFieldMultiline.bs.js";
 
@@ -858,10 +858,9 @@ function Create(Props) {
                                                           });
                                                       break;
                                                   case "droplist" :
-                                                      tmp = React.createElement(React.Fragment, undefined, React.createElement(SelectOutline$BtsCore.make, {
+                                                      tmp = React.createElement(React.Fragment, undefined, React.createElement(SelectStandard$BtsCore.make, {
                                                                 top: "0",
                                                                 left: "0",
-                                                                tile: item.title,
                                                                 enterBorderColor: "rgba(255,0,0,0.8)",
                                                                 downBorderColor: "rgba(255,0,0,0.6)",
                                                                 borderColor: "rgba(0,0,0,0.2)",
@@ -944,7 +943,7 @@ function Create(Props) {
                                                           });
                                                       break;
                                                   case "text" :
-                                                      tmp = React.createElement(TextFieldOutline$BtsCore.make, {
+                                                      tmp = React.createElement(TextFieldStandard$BtsCore.make, {
                                                             width: "50",
                                                             top: "0",
                                                             left: "0",
@@ -958,7 +957,7 @@ function Create(Props) {
                                                             onChange: (function ($$event) {
                                                                 return Curry._2(changeItem, $$event.target.value, i);
                                                               }),
-                                                            children: item.title
+                                                            children: null
                                                           });
                                                       break;
                                                   case "textarea" :
@@ -978,11 +977,11 @@ function Create(Props) {
                                                             onChange: (function ($$event) {
                                                                 return Curry._2(changeItem, $$event.target.value, i);
                                                               }),
-                                                            children: item.title
+                                                            children: null
                                                           });
                                                       break;
                                                   case "textline" :
-                                                      tmp = React.createElement(TextFieldOutline$BtsCore.make, {
+                                                      tmp = React.createElement(TextFieldStandard$BtsCore.make, {
                                                             top: "0",
                                                             left: "0",
                                                             borderTop: "10",
@@ -995,7 +994,7 @@ function Create(Props) {
                                                             onChange: (function ($$event) {
                                                                 return Curry._2(changeItem, $$event.target.value, i);
                                                               }),
-                                                            children: item.title
+                                                            children: null
                                                           });
                                                       break;
                                                   default:
@@ -1067,12 +1066,37 @@ function Create(Props) {
                                                                 }), item.answeritems)
                                                         });
                                                 }
-                                                return React.createElement(GridItem$BtsCore.make, {
-                                                            right: "0",
-                                                            left: "0",
-                                                            xs: "auto",
-                                                            children: tmp
-                                                          });
+                                                return React.createElement(React.Fragment, undefined, React.createElement(GridItem$BtsCore.make, {
+                                                                right: "0",
+                                                                left: "0",
+                                                                xs: "auto",
+                                                                children: React.createElement(GridContainer$BtsCore.make, {
+                                                                      direction: "column",
+                                                                      justify: "start",
+                                                                      alignItem: "stretch",
+                                                                      children: null
+                                                                    }, React.createElement(GridItem$BtsCore.make, {
+                                                                          top: "0",
+                                                                          right: "20",
+                                                                          bottom: "0",
+                                                                          left: "20",
+                                                                          xs: "auto",
+                                                                          children: React.createElement(Typography$BtsCore.make, {
+                                                                                variant: "subheading",
+                                                                                fontSize: "1.2rem",
+                                                                                fontWeight: "bolder",
+                                                                                children: item.title
+                                                                              })
+                                                                        }), React.createElement(GridItem$BtsCore.make, {
+                                                                          top: "6",
+                                                                          bottom: "0",
+                                                                          xs: "auto",
+                                                                          children: tmp
+                                                                        }))
+                                                              }), React.createElement(GridItem$BtsCore.make, {
+                                                                xs: "auto",
+                                                                children: React.createElement(Divider$BtsCore.make, { })
+                                                              }));
                                               }), state.items)
                                       })
                                 }))

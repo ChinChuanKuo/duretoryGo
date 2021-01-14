@@ -3,6 +3,7 @@ open Icons;
 open Data;
 open Items;
 open Together;
+open Status;
 open Storage;
 [%bs.raw {|require('../../../scss/pages/Together/together.scss')|}];
 
@@ -221,9 +222,7 @@ let make = _ => {
              | "istrue" => ActionShowProgress |> dispatch
              | _ =>
                SettingError |> dispatch;
-               response##data##status
-               |> Status.statusModule
-               |> barShowRestoreAction;
+               response##data##status |> statusModule |> barShowRestoreAction;
                ActionShowProgress |> dispatch;
              };
            }
@@ -258,9 +257,7 @@ let make = _ => {
       |> Axiosapi.Icon.insert
       |> then_(response => {
            {
-             response##data##status
-             |> Status.statusModule
-             |> barShowRestoreAction;
+             response##data##status |> statusModule |> barShowRestoreAction;
              ActionShowProgress |> dispatch;
            }
            |> resolve

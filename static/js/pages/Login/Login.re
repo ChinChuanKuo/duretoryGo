@@ -1,6 +1,7 @@
 open React;
 open Data;
 open Basic;
+open Status;
 open Storage;
 open ObjectFormat;
 
@@ -126,9 +127,7 @@ let make = _ => {
                Path.forgetPath |> ReasonReactRouter.push;
              | _ =>
                restoreAction();
-               response##data##status
-               |> Status.accountModule
-               |> barShowRestoreAction;
+               response##data##status |> accountModule |> barShowRestoreAction;
              }
            )
            |> resolve
@@ -156,9 +155,9 @@ let make = _ => {
            (
              switch (response##data##status) {
              | "istrue" =>
-               Locals.create("newid", response##data##newid);
-               Locals.create("name", response##data##name);
-               Locals.create("allname", response##data##allname);
+               response##data##newid |> Locals.create("newid");
+               response##data##name |> Locals.create("name");
+               response##data##allname |> Locals.create("allname");
                "autoPath"
                |> Sessions.select
                |> checkObjects
@@ -166,9 +165,7 @@ let make = _ => {
                |> ReasonReactRouter.push;
              | _ =>
                restoreAction();
-               response##data##status
-               |> Status.accountModule
-               |> barShowRestoreAction;
+               response##data##status |> accountModule |> barShowRestoreAction;
              }
            )
            |> resolve

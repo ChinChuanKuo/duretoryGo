@@ -331,9 +331,7 @@ let make = _ => {
                ActionShowProgress |> dispatch;
              | _ =>
                SettingError |> dispatch;
-               response##data##status
-               |> Status.statusModule
-               |> barShowRestoreAction;
+               response##data##status |> statusModule |> barShowRestoreAction;
                ActionShowProgress |> dispatch;
              };
            }

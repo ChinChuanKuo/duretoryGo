@@ -1,6 +1,7 @@
 open React;
 open Axiosapi;
 open Data;
+open Status;
 open Storage;
 
 type state = {
@@ -120,9 +121,7 @@ let make = _ => {
              | "istrue" => Path.loginPath |> ReasonReactRouter.push
              | _ =>
                restoreAction();
-               response##data##status
-               |> Status.accountModule
-               |> barShowRestoreAction;
+               response##data##status |> accountModule |> barShowRestoreAction;
              }
            )
            |> resolve
@@ -134,7 +133,7 @@ let make = _ => {
   let checkResendData = () =>
     if (state.fstPassword != state.sndPassword) {
       restoreAction();
-      "errorDifPassword" |> Status.accountModule |> barShowRestoreAction;
+      "errorDifPassword" |> accountModule |> barShowRestoreAction;
     } else {
       ActionOtherLoad(true) |> dispatch;
       resendUserAJax();
