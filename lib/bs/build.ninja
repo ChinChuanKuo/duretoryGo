@@ -14,7 +14,7 @@ rule build_ast_from_re
   description = [34mBuilding[39m [2m${out}[22m
 build  static/js/App.reast : build_ast_from_re $src_root_dir/static/js/App.re
 rule build_deps
-  command = $bsdep -hash 67b894e0f95a22d0fcc90df6d561e3c3 $g_ns -g $bsb_dir_group $in
+  command = $bsdep -hash b4c8cf8a009fcb5fd34bea9751c7492e $g_ns -g $bsb_dir_group $in
   restat = 1
   description = [34mBuilding[39m [2m${out}[22m
 build  static/js/App.d : build_deps static/js/App.reast
@@ -344,6 +344,10 @@ build  static/js/example/Uploads/OtherUpload-BtsCore.cmj |  static/js/example/Up
 build  static/js/example/Uploads/GeneralUpload.reast : build_ast_from_re $src_root_dir/static/js/example/Uploads/GeneralUpload.re
 build  static/js/example/Uploads/GeneralUpload.d : build_deps static/js/example/Uploads/GeneralUpload.reast
 build  static/js/example/Uploads/GeneralUpload-BtsCore.cmj |  static/js/example/Uploads/GeneralUpload-BtsCore.cmi $src_root_dir/static/js/example/Uploads/GeneralUpload.bs.js : ml_cmj_cmi static/js/example/Uploads/GeneralUpload.reast ||  static/js/example/Uploads/GeneralUpload.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output es6:static/js/example/Uploads
+build  static/js/example/Uploads/CollectionUpload.reast : build_ast_from_re $src_root_dir/static/js/example/Uploads/CollectionUpload.re
+build  static/js/example/Uploads/CollectionUpload.d : build_deps static/js/example/Uploads/CollectionUpload.reast
+build  static/js/example/Uploads/CollectionUpload-BtsCore.cmj |  static/js/example/Uploads/CollectionUpload-BtsCore.cmi $src_root_dir/static/js/example/Uploads/CollectionUpload.bs.js : ml_cmj_cmi static/js/example/Uploads/CollectionUpload.reast ||  static/js/example/Uploads/CollectionUpload.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output es6:static/js/example/Uploads
 build  static/js/example/ToolBar/ToolBar.reast : build_ast_from_re $src_root_dir/static/js/example/ToolBar/ToolBar.re
 build  static/js/example/ToolBar/ToolBar.d : build_deps static/js/example/ToolBar/ToolBar.reast

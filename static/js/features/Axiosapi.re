@@ -59,7 +59,7 @@ module Option = {
 module Files = {
   let upload = formData =>
     postDatac(
-      "http://10.10.50.50:2250/Files/uploadData",
+      "http://localhost:5000/Files/uploadData",
       formData,
       makeConfig(
         ~headers=Headers.fromObj({"Content-Type": "multipart/form-data"}),
@@ -80,26 +80,26 @@ module Default = {
   /*let search = data =>
     postDatac("/Home/searchData", data, makeConfig(~timeout=30000, ()));*/
   let search = data =>
-    postData("http://10.10.50.50:2250/Home/searchData", data);
+    postData("http://localhost:5000/Home/searchData", data);
   let scroll = data =>
-    postData("http://10.10.50.50:2250/Home/scrollData", data);
+    postData("http://localhost:5000/Home/scrollData", data);
   let delete = data =>
-    postData("http://10.10.50.50:2250/Home/deleteData", data);
-  let sItem = data => postData("http://10.10.50.50:2250/Home/sItemData", data);
+    postData("http://localhost:5000/Home/deleteData", data);
+  let sItem = data => postData("http://localhost:5000/Home/sItemData", data);
   let insert = data =>
-    postData("http://10.10.50.50:2250/Home/insertData", data);
+    postData("http://localhost:5000/Home/insertData", data);
 };
 
 module Formor = {
   let search = data =>
-    postData("http://10.10.50.50:2250/Formor/searchData", data);
+    postData("http://localhost:5000/Formor/searchData", data);
   let insert = data =>
-    postData("http://10.10.50.50:2250/Formor/insertData", data);
+    postData("http://localhost:5000/Formor/insertData", data);
 };
 
 module Create = {
   let search = data =>
-    postData("http://10.10.50.50:2250/Create/searchData", data);
+    postData("http://localhost:5000/Create/searchData", data);
   let insert = data =>
-    postData("http://10.10.50.50:2250/Create/insertData", data);
+    postData("http://localhost:5000/Create/insertData", data);
 };
