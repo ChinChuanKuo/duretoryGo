@@ -682,19 +682,11 @@ function Home(Props) {
               Axiosapi$BtsCore.Default.sFilter(Data$BtsCore.sFiltData(state.filtitems.filter((function (filtitem) {
                                   return filtitem.filtValue !== "";
                                 })), itemIndex, value, localStorage.getItem("newid"))).then((function (response) {
-                        var match = response.data.status;
-                        var tmp;
-                        if (match === "istrue") {
-                          tmp = Curry._1(dispatch, /* SettingFormItems */Block.__(3, [
-                                  response.data.showItem,
-                                  response.data.itemCount,
-                                  response.data.items
-                                ]));
-                        } else {
-                          Curry._1(dispatch, /* SettingError */0);
-                          tmp = barShowRestoreAction(Status$BtsCore.statusModule(response.data.status));
-                        }
-                        return Promise.resolve(tmp);
+                        return Promise.resolve((Curry._1(dispatch, /* SettingFormItems */Block.__(3, [
+                                            response.data.showItem,
+                                            response.data.itemCount,
+                                            response.data.items
+                                          ])), barShowRestoreAction(Status$BtsCore.statusModule(response.data.status))));
                       })).catch((function (error) {
                       return Promise.resolve((console.log(error), undefined));
                     }));

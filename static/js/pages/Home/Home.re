@@ -574,18 +574,13 @@ let make = _ => {
       |> Default.sFilter
       |> then_(response =>
            {
-             switch (response##data##status) {
-             | "istrue" =>
-               SettingFormItems(
-                 response##data##showItem,
-                 response##data##itemCount,
-                 response##data##items,
-               )
-               |> dispatch
-             | _ =>
-               SettingError |> dispatch;
-               response##data##status |> statusModule |> barShowRestoreAction;
-             };
+             SettingFormItems(
+               response##data##showItem,
+               response##data##itemCount,
+               response##data##items,
+             )
+             |> dispatch;
+             response##data##status |> statusModule |> barShowRestoreAction;
            }
            |> resolve
          )

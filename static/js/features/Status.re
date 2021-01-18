@@ -3,6 +3,7 @@ let statusModule = status =>
   switch (status) {
   | "nodata" => "undefined about database"
   | "islock" => "can not use information"
+  | "success" => "this form search successfully"
   | "errorFormLogin" => "if want used features, you need login"
   | "errorFormLength" => "the field column is to long"
   | "errorSearch" => "sorry, you can not search information"

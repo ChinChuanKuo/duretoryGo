@@ -19,6 +19,8 @@ function statusModule(status) {
         return "this form save successfully";
     case "sendSuccess" :
         return "this form Send successfully";
+    case "success" :
+        return "this form search successfully";
     default:
       return status;
   }
