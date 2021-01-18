@@ -1751,3 +1751,13 @@
 11	227	1610704418018742874	static/js/pages/Home/Home-BtsCore.cmj	155c43dda77fd9d2
 11	227	1610704418018742874	static/js/pages/Home/Home-BtsCore.cmi	155c43dda77fd9d2
 11	227	1610704418018742874	/Users/chinchuankuo/Documents/go/src/duretoryGo/static/js/pages/Home/Home.bs.js	155c43dda77fd9d2
+11	60	1610943690235769603	static/js/pages/Create/Create.reast	fadfd31996238b7f
+60	71	1610943690235769603	static/js/pages/Create/Create.d	aaa633982d3f143c
+72	196	1610943690235769603	static/js/pages/Create/Create-BtsCore.cmj	f6463dcd697ac040
+72	196	1610943690235769603	static/js/pages/Create/Create-BtsCore.cmi	f6463dcd697ac040
+72	196	1610943690235769603	/Users/chinchuankuo/Documents/go/src/duretoryGo/static/js/pages/Create/Create.bs.js	f6463dcd697ac040
+12	71	1610943690935921064	static/js/pages/Create/Create.reast	fadfd31996238b7f
+71	78	1610943690935921064	static/js/pages/Create/Create.d	aaa633982d3f143c
+78	199	1610943690935921064	static/js/pages/Create/Create-BtsCore.cmj	f6463dcd697ac040
+78	199	1610943690935921064	static/js/pages/Create/Create-BtsCore.cmi	f6463dcd697ac040
+78	199	1610943690935921064	/Users/chinchuankuo/Documents/go/src/duretoryGo/static/js/pages/Create/Create.bs.js	f6463dcd697ac040
