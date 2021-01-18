@@ -59,3 +59,17 @@ let sLocalData = (longitude, latitude, value, newid) => {
   "value": value,
   "newid": newid,
 };
+
+[@genType]
+let sScollData = (items, value, newid) => {
+  "items": items,
+  "value": value,
+  "newid": newid,
+};
+[@genType]
+let sFiltData = (items, index, value, newid) => {
+  "items": items,
+  "index": index,
+  "value": value,
+  "newid": newid,
+};

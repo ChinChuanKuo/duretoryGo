@@ -4,6 +4,7 @@ import * as $$Array from "bs-platform/lib/es6/array.js";
 import * as Block from "bs-platform/lib/es6/block.js";
 import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
+import * as Caml_obj from "bs-platform/lib/es6/caml_obj.js";
 import * as Caml_array from "bs-platform/lib/es6/caml_array.js";
 import * as ReactIntl from "react-intl";
 import * as Card$BtsCore from "../../material-ui/core/Card/Card.bs.js";
@@ -35,6 +36,7 @@ import * as DialogActions$BtsCore from "../../material-ui/core/Dialog/DialogActi
 import * as DialogContent$BtsCore from "../../material-ui/core/Dialog/DialogContent.bs.js";
 import * as GridContainer$BtsCore from "../../material-ui/core/Grid/GridContainer.bs.js";
 import * as IconAnimation$BtsCore from "../../controls/IconAnimation.bs.js";
+import * as SelectOutline$BtsCore from "../../material-ui/core/Select/SelectOutline.bs.js";
 import * as SelectStandard$BtsCore from "../../material-ui/core/Select/SelectStandard.bs.js";
 import * as BackgroundBoard$BtsCore from "../../example/Boards/BackgroundBoard.bs.js";
 import * as SnackbarYoutube$BtsCore from "../../material-ui/core/Snackbar/SnackbarYoutube.bs.js";
@@ -61,758 +63,435 @@ function reducer(state, action) {
   if (typeof action === "number") {
     switch (action) {
       case /* SettingError */0 :
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: !state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: state.showItem,
-                  itemCount: state.itemCount,
-                  items: state.items,
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: state.formitems,
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
+          var newrecord = Caml_obj.caml_obj_dup(state);
+          newrecord.error = !state.error;
+          return newrecord;
       case /* SettingFormLoad */1 :
-          return {
-                  formLoad: !state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: state.showItem,
-                  itemCount: state.itemCount,
-                  items: state.items,
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: state.formitems,
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
+          var newrecord$1 = Caml_obj.caml_obj_dup(state);
+          newrecord$1.formLoad = !state.formLoad;
+          return newrecord$1;
       case /* ActionShowProgress */2 :
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: !state.showProgress,
-                  error: state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: state.showItem,
-                  itemCount: state.itemCount,
-                  items: state.items,
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: state.formitems,
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
+          var newrecord$2 = Caml_obj.caml_obj_dup(state);
+          newrecord$2.showProgress = !state.showProgress;
+          return newrecord$2;
       case /* CloseAnimationFull */3 :
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: state.showItem,
-                  itemCount: state.itemCount,
-                  items: state.items,
-                  showFull: !state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: state.formitems,
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
+          var newrecord$3 = Caml_obj.caml_obj_dup(state);
+          newrecord$3.showFull = !state.showFull;
+          return newrecord$3;
       
     }
   } else {
     switch (action.tag | 0) {
       case /* SettingFormWidth */0 :
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: action[0],
-                  formHeight: action[1],
-                  showProgress: state.showProgress,
-                  error: state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: state.showItem,
-                  itemCount: state.itemCount,
-                  items: state.items,
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: state.formitems,
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
+          var newrecord$4 = Caml_obj.caml_obj_dup(state);
+          newrecord$4.formHeight = action[1];
+          newrecord$4.formWidth = action[0];
+          return newrecord$4;
       case /* ActionPermissItems */1 :
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: state.error,
-                  insert: action[0],
-                  update: action[1],
-                  delete: action[2],
-                  export: action[3],
-                  showItem: state.showItem,
-                  itemCount: state.itemCount,
-                  items: state.items,
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: state.formitems,
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
-      case /* SettingFormItems */2 :
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: action[0],
-                  itemCount: action[1],
-                  items: action[2],
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: state.formitems,
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
-      case /* SettingScrollItems */3 :
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: action[0],
-                  itemCount: state.itemCount,
-                  items: $$Array.append(state.items, action[1]),
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: state.formitems,
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
-      case /* ShowAnimationFull */4 :
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: state.showItem,
-                  itemCount: state.itemCount,
-                  items: state.items,
-                  showFull: !state.showFull,
-                  formIndex: action[0],
-                  formId: action[1],
-                  formTitle: action[2],
-                  formitems: action[3],
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
-      case /* SettingCollections */5 :
-          var index = action[1];
-          var collectionIndex = action[0];
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: state.showItem,
-                  itemCount: state.itemCount,
-                  items: $$Array.mapi((function (i, item) {
-                          if (index === i) {
-                            return {
-                                    id: item.id,
-                                    index: collectionIndex,
-                                    collections: item.collections,
-                                    attribute: item.attribute,
-                                    creator: item.creator,
-                                    datetime: item.datetime,
-                                    itemDelete: item.itemDelete
-                                  };
-                          } else {
-                            return item;
-                          }
-                        }), state.items),
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: state.formitems,
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
-      case /* ClearForm */6 :
-          var id = action[0];
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: state.itemCount === 1,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: state.showItem,
-                  itemCount: state.itemCount - 1 | 0,
-                  items: state.items.filter((function (item) {
-                          return item.id !== id;
-                        })),
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: state.formitems,
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
-      case /* ShowDrop */7 :
+          var newrecord$5 = Caml_obj.caml_obj_dup(state);
+          newrecord$5.export = action[3];
+          newrecord$5.delete = action[2];
+          newrecord$5.update = action[1];
+          newrecord$5.insert = action[0];
+          return newrecord$5;
+      case /* SettingFiltItems */2 :
+          var newrecord$6 = Caml_obj.caml_obj_dup(state);
+          newrecord$6.filtitems = action[0];
+          return newrecord$6;
+      case /* SettingFormItems */3 :
+          var newrecord$7 = Caml_obj.caml_obj_dup(state);
+          newrecord$7.items = action[2];
+          newrecord$7.itemCount = action[1];
+          newrecord$7.showItem = action[0];
+          return newrecord$7;
+      case /* SettingScrollItems */4 :
+          var newrecord$8 = Caml_obj.caml_obj_dup(state);
+          newrecord$8.items = $$Array.append(state.items, action[1]);
+          newrecord$8.showItem = action[0];
+          return newrecord$8;
+      case /* ShowAnimationFull */5 :
+          var newrecord$9 = Caml_obj.caml_obj_dup(state);
+          newrecord$9.formitems = action[3];
+          newrecord$9.formTitle = action[2];
+          newrecord$9.formId = action[1];
+          newrecord$9.formIndex = action[0];
+          newrecord$9.showFull = !state.showFull;
+          return newrecord$9;
+      case /* ShowFiltMenu */6 :
+          var index = action[0];
+          var newrecord$10 = Caml_obj.caml_obj_dup(state);
+          newrecord$10.filtitems = $$Array.mapi((function (i, filtitem) {
+                  if (index === i) {
+                    return {
+                            filtIndex: filtitem.filtIndex,
+                            filtTile: filtitem.filtTile,
+                            filtValue: filtitem.filtValue,
+                            filtMenu: !filtitem.filtMenu,
+                            filtOptions: filtitem.filtOptions
+                          };
+                  } else {
+                    return filtitem;
+                  }
+                }), state.filtitems);
+          return newrecord$10;
+      case /* ClickFiltMenu */7 :
           var index$1 = action[1];
+          var value = action[0];
+          var newrecord$11 = Caml_obj.caml_obj_dup(state);
+          newrecord$11.filtitems = $$Array.mapi((function (i, filtitem) {
+                  if (index$1 === i) {
+                    return {
+                            filtIndex: filtitem.filtIndex,
+                            filtTile: filtitem.filtTile,
+                            filtValue: value,
+                            filtMenu: !filtitem.filtMenu,
+                            filtOptions: filtitem.filtOptions
+                          };
+                  } else {
+                    return filtitem;
+                  }
+                }), state.filtitems);
+          return newrecord$11;
+      case /* SettingCollections */8 :
+          var index$2 = action[1];
+          var collectionIndex = action[0];
+          var newrecord$12 = Caml_obj.caml_obj_dup(state);
+          newrecord$12.items = $$Array.mapi((function (i, item) {
+                  if (index$2 === i) {
+                    return {
+                            id: item.id,
+                            index: collectionIndex,
+                            collections: item.collections,
+                            attribute: item.attribute,
+                            creator: item.creator,
+                            datetime: item.datetime,
+                            itemDelete: item.itemDelete
+                          };
+                  } else {
+                    return item;
+                  }
+                }), state.items);
+          return newrecord$12;
+      case /* ClearForm */9 :
+          var id = action[0];
+          var newrecord$13 = Caml_obj.caml_obj_dup(state);
+          newrecord$13.items = state.items.filter((function (item) {
+                  return item.id !== id;
+                }));
+          newrecord$13.itemCount = state.itemCount - 1 | 0;
+          newrecord$13.error = state.itemCount === 1;
+          return newrecord$13;
+      case /* ShowDrop */10 :
+          var index$3 = action[1];
           var droped = action[0];
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: state.showItem,
-                  itemCount: state.itemCount,
-                  items: state.items,
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: $$Array.mapi((function (i, item) {
-                          if (index$1 === i) {
-                            return {
-                                    iid: item.iid,
-                                    title: item.title,
-                                    values: item.values,
-                                    showMenu: item.showMenu,
-                                    showDrop: droped,
-                                    showFile: item.showFile,
-                                    showImage: item.showImage,
-                                    showVideo: item.showVideo,
-                                    showAudio: item.showAudio,
-                                    outValue: item.outValue,
-                                    showShow: item.showShow,
-                                    showCheck: item.showCheck,
-                                    showFilter: item.showFilter,
-                                    collectionIndex: item.collectionIndex,
-                                    collectionitems: item.collectionitems,
-                                    optionitems: item.optionitems,
-                                    answeritems: item.answeritems,
-                                    formModify: item.formModify
-                                  };
-                          } else {
-                            return item;
-                          }
-                        }), state.formitems),
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
-      case /* ShowFile */8 :
-          var index$2 = action[4];
+          var newrecord$14 = Caml_obj.caml_obj_dup(state);
+          newrecord$14.formitems = $$Array.mapi((function (i, item) {
+                  if (index$3 === i) {
+                    return {
+                            iid: item.iid,
+                            title: item.title,
+                            values: item.values,
+                            showMenu: item.showMenu,
+                            showDrop: droped,
+                            showFile: item.showFile,
+                            showImage: item.showImage,
+                            showVideo: item.showVideo,
+                            showAudio: item.showAudio,
+                            outValue: item.outValue,
+                            showShow: item.showShow,
+                            showCheck: item.showCheck,
+                            showFilter: item.showFilter,
+                            collectionIndex: item.collectionIndex,
+                            collectionitems: item.collectionitems,
+                            optionitems: item.optionitems,
+                            answeritems: item.answeritems,
+                            formModify: item.formModify
+                          };
+                  } else {
+                    return item;
+                  }
+                }), state.formitems);
+          return newrecord$14;
+      case /* ShowFile */11 :
+          var index$4 = action[4];
           var values = action[3];
           var showAudio = action[2];
           var showVideo = action[1];
           var showImage = action[0];
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: state.showItem,
-                  itemCount: state.itemCount,
-                  items: state.items,
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: $$Array.mapi((function (i, item) {
-                          if (index$2 === i) {
-                            return {
-                                    iid: item.iid,
-                                    title: item.title,
-                                    values: values,
-                                    showMenu: item.showMenu,
-                                    showDrop: item.showDrop,
-                                    showFile: true,
-                                    showImage: showImage,
-                                    showVideo: showVideo,
-                                    showAudio: showAudio,
-                                    outValue: item.outValue,
-                                    showShow: item.showShow,
-                                    showCheck: item.showCheck,
-                                    showFilter: item.showFilter,
-                                    collectionIndex: item.collectionIndex,
-                                    collectionitems: item.collectionitems,
-                                    optionitems: item.optionitems,
-                                    answeritems: item.answeritems,
-                                    formModify: true
-                                  };
-                          } else {
-                            return item;
-                          }
-                        }), state.formitems),
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
-      case /* ShowFiles */9 :
-          var index$3 = action[4];
+          var newrecord$15 = Caml_obj.caml_obj_dup(state);
+          newrecord$15.formitems = $$Array.mapi((function (i, item) {
+                  if (index$4 === i) {
+                    return {
+                            iid: item.iid,
+                            title: item.title,
+                            values: values,
+                            showMenu: item.showMenu,
+                            showDrop: item.showDrop,
+                            showFile: true,
+                            showImage: showImage,
+                            showVideo: showVideo,
+                            showAudio: showAudio,
+                            outValue: item.outValue,
+                            showShow: item.showShow,
+                            showCheck: item.showCheck,
+                            showFilter: item.showFilter,
+                            collectionIndex: item.collectionIndex,
+                            collectionitems: item.collectionitems,
+                            optionitems: item.optionitems,
+                            answeritems: item.answeritems,
+                            formModify: true
+                          };
+                  } else {
+                    return item;
+                  }
+                }), state.formitems);
+          return newrecord$15;
+      case /* ShowFiles */12 :
+          var index$5 = action[4];
           var values$1 = action[3];
           var showAudio$1 = action[2];
           var showVideo$1 = action[1];
           var showImage$1 = action[0];
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: state.showItem,
-                  itemCount: state.itemCount,
-                  items: state.items,
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: $$Array.mapi((function (i, item) {
-                          if (index$3 === i) {
-                            return {
-                                    iid: item.iid,
-                                    title: item.title,
-                                    values: values$1,
-                                    showMenu: item.showMenu,
-                                    showDrop: item.showDrop,
-                                    showFile: true,
-                                    showImage: item.showImage,
-                                    showVideo: item.showVideo,
-                                    showAudio: item.showAudio,
-                                    outValue: item.outValue,
-                                    showShow: item.showShow,
-                                    showCheck: item.showCheck,
-                                    showFilter: item.showFilter,
-                                    collectionIndex: item.collectionIndex,
-                                    collectionitems: $$Array.append(item.collectionitems, newcollectitem(item.collectionitems.length + 1 | 0, showImage$1, showVideo$1, showAudio$1, values$1)),
-                                    optionitems: item.optionitems,
-                                    answeritems: item.answeritems,
-                                    formModify: true
-                                  };
-                          } else {
-                            return item;
-                          }
-                        }), state.formitems),
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
-      case /* ShowCollection */10 :
-          var index$4 = action[1];
+          var newrecord$16 = Caml_obj.caml_obj_dup(state);
+          newrecord$16.formitems = $$Array.mapi((function (i, item) {
+                  if (index$5 === i) {
+                    return {
+                            iid: item.iid,
+                            title: item.title,
+                            values: values$1,
+                            showMenu: item.showMenu,
+                            showDrop: item.showDrop,
+                            showFile: true,
+                            showImage: item.showImage,
+                            showVideo: item.showVideo,
+                            showAudio: item.showAudio,
+                            outValue: item.outValue,
+                            showShow: item.showShow,
+                            showCheck: item.showCheck,
+                            showFilter: item.showFilter,
+                            collectionIndex: item.collectionIndex,
+                            collectionitems: $$Array.append(item.collectionitems, newcollectitem(item.collectionitems.length + 1 | 0, showImage$1, showVideo$1, showAudio$1, values$1)),
+                            optionitems: item.optionitems,
+                            answeritems: item.answeritems,
+                            formModify: true
+                          };
+                  } else {
+                    return item;
+                  }
+                }), state.formitems);
+          return newrecord$16;
+      case /* ShowCollection */13 :
+          var index$6 = action[1];
           var collectionIndex$1 = action[0];
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: state.showItem,
-                  itemCount: state.itemCount,
-                  items: state.items,
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: $$Array.mapi((function (i, item) {
-                          if (index$4 === i) {
-                            return {
-                                    iid: item.iid,
-                                    title: item.title,
-                                    values: item.values,
-                                    showMenu: item.showMenu,
-                                    showDrop: item.showDrop,
-                                    showFile: item.showFile,
-                                    showImage: item.showImage,
-                                    showVideo: item.showVideo,
-                                    showAudio: item.showAudio,
-                                    outValue: item.outValue,
-                                    showShow: item.showShow,
-                                    showCheck: item.showCheck,
-                                    showFilter: item.showFilter,
-                                    collectionIndex: collectionIndex$1,
-                                    collectionitems: item.collectionitems,
-                                    optionitems: item.optionitems,
-                                    answeritems: item.answeritems,
-                                    formModify: item.formModify
-                                  };
-                          } else {
-                            return item;
-                          }
-                        }), state.formitems),
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
-      case /* ChangeItem */11 :
-          var index$5 = action[1];
-          var value = action[0];
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: state.showItem,
-                  itemCount: state.itemCount,
-                  items: state.items,
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: $$Array.mapi((function (i, item) {
-                          if (index$5 === i) {
-                            return {
-                                    iid: item.iid,
-                                    title: item.title,
-                                    values: value,
-                                    showMenu: item.showMenu,
-                                    showDrop: item.showDrop,
-                                    showFile: item.showFile,
-                                    showImage: item.showImage,
-                                    showVideo: item.showVideo,
-                                    showAudio: item.showAudio,
-                                    outValue: item.outValue,
-                                    showShow: item.showShow,
-                                    showCheck: item.showCheck,
-                                    showFilter: item.showFilter,
-                                    collectionIndex: item.collectionIndex,
-                                    collectionitems: item.collectionitems,
-                                    optionitems: item.optionitems,
-                                    answeritems: item.answeritems,
-                                    formModify: true
-                                  };
-                          } else {
-                            return item;
-                          }
-                        }), state.formitems),
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
-      case /* ShowMenuItem */12 :
-          var index$6 = action[0];
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: state.showItem,
-                  itemCount: state.itemCount,
-                  items: state.items,
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: $$Array.mapi((function (i, item) {
-                          if (index$6 === i) {
-                            return {
-                                    iid: item.iid,
-                                    title: item.title,
-                                    values: item.values,
-                                    showMenu: !item.showMenu,
-                                    showDrop: item.showDrop,
-                                    showFile: item.showFile,
-                                    showImage: item.showImage,
-                                    showVideo: item.showVideo,
-                                    showAudio: item.showAudio,
-                                    outValue: item.outValue,
-                                    showShow: item.showShow,
-                                    showCheck: item.showCheck,
-                                    showFilter: item.showFilter,
-                                    collectionIndex: item.collectionIndex,
-                                    collectionitems: item.collectionitems,
-                                    optionitems: item.optionitems,
-                                    answeritems: item.answeritems,
-                                    formModify: item.formModify
-                                  };
-                          } else {
-                            return item;
-                          }
-                        }), state.formitems),
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
-      case /* ClickMenuItem */13 :
+          var newrecord$17 = Caml_obj.caml_obj_dup(state);
+          newrecord$17.formitems = $$Array.mapi((function (i, item) {
+                  if (index$6 === i) {
+                    return {
+                            iid: item.iid,
+                            title: item.title,
+                            values: item.values,
+                            showMenu: item.showMenu,
+                            showDrop: item.showDrop,
+                            showFile: item.showFile,
+                            showImage: item.showImage,
+                            showVideo: item.showVideo,
+                            showAudio: item.showAudio,
+                            outValue: item.outValue,
+                            showShow: item.showShow,
+                            showCheck: item.showCheck,
+                            showFilter: item.showFilter,
+                            collectionIndex: collectionIndex$1,
+                            collectionitems: item.collectionitems,
+                            optionitems: item.optionitems,
+                            answeritems: item.answeritems,
+                            formModify: item.formModify
+                          };
+                  } else {
+                    return item;
+                  }
+                }), state.formitems);
+          return newrecord$17;
+      case /* ChangeItem */14 :
           var index$7 = action[1];
           var value$1 = action[0];
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: state.showItem,
-                  itemCount: state.itemCount,
-                  items: state.items,
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: $$Array.mapi((function (i, item) {
-                          if (index$7 === i) {
-                            return {
-                                    iid: item.iid,
-                                    title: item.title,
-                                    values: value$1,
-                                    showMenu: !item.showMenu,
-                                    showDrop: item.showDrop,
-                                    showFile: item.showFile,
-                                    showImage: item.showImage,
-                                    showVideo: item.showVideo,
-                                    showAudio: item.showAudio,
-                                    outValue: item.outValue,
-                                    showShow: item.showShow,
-                                    showCheck: item.showCheck,
-                                    showFilter: item.showFilter,
-                                    collectionIndex: item.collectionIndex,
-                                    collectionitems: item.collectionitems,
-                                    optionitems: item.optionitems,
-                                    answeritems: item.answeritems,
-                                    formModify: true
-                                  };
-                          } else {
-                            return item;
-                          }
-                        }), state.formitems),
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
-      case /* ClickRadioItem */14 :
-          var index$8 = action[1];
-          var rindex = action[0];
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: state.showItem,
-                  itemCount: state.itemCount,
-                  items: state.items,
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: $$Array.mapi((function (i, item) {
-                          if (index$8 === i) {
-                            return {
-                                    iid: item.iid,
-                                    title: item.title,
-                                    values: item.values,
-                                    showMenu: item.showMenu,
-                                    showDrop: item.showDrop,
-                                    showFile: item.showFile,
-                                    showImage: item.showImage,
-                                    showVideo: item.showVideo,
-                                    showAudio: item.showAudio,
-                                    outValue: item.outValue,
-                                    showShow: item.showShow,
-                                    showCheck: item.showCheck,
-                                    showFilter: item.showFilter,
-                                    collectionIndex: item.collectionIndex,
-                                    collectionitems: item.collectionitems,
-                                    optionitems: item.optionitems,
-                                    answeritems: $$Array.mapi((function (ri, answeritem) {
-                                            return {
-                                                    id: answeritem.id,
-                                                    value: answeritem.value,
-                                                    showAnswer: rindex === ri ? !answeritem.showAnswer : false
-                                                  };
-                                          }), item.answeritems),
-                                    formModify: true
-                                  };
-                          } else {
-                            return item;
-                          }
-                        }), state.formitems),
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
-      case /* ClickCheckboxItem */15 :
+          var newrecord$18 = Caml_obj.caml_obj_dup(state);
+          newrecord$18.formitems = $$Array.mapi((function (i, item) {
+                  if (index$7 === i) {
+                    return {
+                            iid: item.iid,
+                            title: item.title,
+                            values: value$1,
+                            showMenu: item.showMenu,
+                            showDrop: item.showDrop,
+                            showFile: item.showFile,
+                            showImage: item.showImage,
+                            showVideo: item.showVideo,
+                            showAudio: item.showAudio,
+                            outValue: item.outValue,
+                            showShow: item.showShow,
+                            showCheck: item.showCheck,
+                            showFilter: item.showFilter,
+                            collectionIndex: item.collectionIndex,
+                            collectionitems: item.collectionitems,
+                            optionitems: item.optionitems,
+                            answeritems: item.answeritems,
+                            formModify: true
+                          };
+                  } else {
+                    return item;
+                  }
+                }), state.formitems);
+          return newrecord$18;
+      case /* ShowMenuItem */15 :
+          var index$8 = action[0];
+          var newrecord$19 = Caml_obj.caml_obj_dup(state);
+          newrecord$19.formitems = $$Array.mapi((function (i, item) {
+                  if (index$8 === i) {
+                    return {
+                            iid: item.iid,
+                            title: item.title,
+                            values: item.values,
+                            showMenu: !item.showMenu,
+                            showDrop: item.showDrop,
+                            showFile: item.showFile,
+                            showImage: item.showImage,
+                            showVideo: item.showVideo,
+                            showAudio: item.showAudio,
+                            outValue: item.outValue,
+                            showShow: item.showShow,
+                            showCheck: item.showCheck,
+                            showFilter: item.showFilter,
+                            collectionIndex: item.collectionIndex,
+                            collectionitems: item.collectionitems,
+                            optionitems: item.optionitems,
+                            answeritems: item.answeritems,
+                            formModify: item.formModify
+                          };
+                  } else {
+                    return item;
+                  }
+                }), state.formitems);
+          return newrecord$19;
+      case /* ClickMenuItem */16 :
           var index$9 = action[1];
+          var value$2 = action[0];
+          var newrecord$20 = Caml_obj.caml_obj_dup(state);
+          newrecord$20.formitems = $$Array.mapi((function (i, item) {
+                  if (index$9 === i) {
+                    return {
+                            iid: item.iid,
+                            title: item.title,
+                            values: value$2,
+                            showMenu: !item.showMenu,
+                            showDrop: item.showDrop,
+                            showFile: item.showFile,
+                            showImage: item.showImage,
+                            showVideo: item.showVideo,
+                            showAudio: item.showAudio,
+                            outValue: item.outValue,
+                            showShow: item.showShow,
+                            showCheck: item.showCheck,
+                            showFilter: item.showFilter,
+                            collectionIndex: item.collectionIndex,
+                            collectionitems: item.collectionitems,
+                            optionitems: item.optionitems,
+                            answeritems: item.answeritems,
+                            formModify: true
+                          };
+                  } else {
+                    return item;
+                  }
+                }), state.formitems);
+          return newrecord$20;
+      case /* ClickRadioItem */17 :
+          var index$10 = action[1];
+          var rindex = action[0];
+          var newrecord$21 = Caml_obj.caml_obj_dup(state);
+          newrecord$21.formitems = $$Array.mapi((function (i, item) {
+                  if (index$10 === i) {
+                    return {
+                            iid: item.iid,
+                            title: item.title,
+                            values: item.values,
+                            showMenu: item.showMenu,
+                            showDrop: item.showDrop,
+                            showFile: item.showFile,
+                            showImage: item.showImage,
+                            showVideo: item.showVideo,
+                            showAudio: item.showAudio,
+                            outValue: item.outValue,
+                            showShow: item.showShow,
+                            showCheck: item.showCheck,
+                            showFilter: item.showFilter,
+                            collectionIndex: item.collectionIndex,
+                            collectionitems: item.collectionitems,
+                            optionitems: item.optionitems,
+                            answeritems: $$Array.mapi((function (ri, answeritem) {
+                                    return {
+                                            id: answeritem.id,
+                                            value: answeritem.value,
+                                            showAnswer: rindex === ri ? !answeritem.showAnswer : false
+                                          };
+                                  }), item.answeritems),
+                            formModify: true
+                          };
+                  } else {
+                    return item;
+                  }
+                }), state.formitems);
+          return newrecord$21;
+      case /* ClickCheckboxItem */18 :
+          var index$11 = action[1];
           var rindex$1 = action[0];
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: state.showItem,
-                  itemCount: state.itemCount,
-                  items: state.items,
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: $$Array.mapi((function (i, item) {
-                          if (index$9 === i) {
-                            return {
-                                    iid: item.iid,
-                                    title: item.title,
-                                    values: item.values,
-                                    showMenu: item.showMenu,
-                                    showDrop: item.showDrop,
-                                    showFile: item.showFile,
-                                    showImage: item.showImage,
-                                    showVideo: item.showVideo,
-                                    showAudio: item.showAudio,
-                                    outValue: item.outValue,
-                                    showShow: item.showShow,
-                                    showCheck: item.showCheck,
-                                    showFilter: item.showFilter,
-                                    collectionIndex: item.collectionIndex,
-                                    collectionitems: item.collectionitems,
-                                    optionitems: item.optionitems,
-                                    answeritems: $$Array.mapi((function (ri, answeritem) {
-                                            if (rindex$1 === ri) {
-                                              return {
-                                                      id: answeritem.id,
-                                                      value: answeritem.value,
-                                                      showAnswer: !answeritem.showAnswer
-                                                    };
-                                            } else {
-                                              return answeritem;
-                                            }
-                                          }), item.answeritems),
-                                    formModify: true
-                                  };
-                          } else {
-                            return item;
-                          }
-                        }), state.formitems),
-                  showYoutube: state.showYoutube,
-                  youtubeText: state.youtubeText
-                };
-      case /* ActionSnackBar */16 :
-          return {
-                  formLoad: state.formLoad,
-                  formWidth: state.formWidth,
-                  formHeight: state.formHeight,
-                  showProgress: state.showProgress,
-                  error: state.error,
-                  insert: state.insert,
-                  update: state.update,
-                  delete: state.delete,
-                  export: state.export,
-                  showItem: state.showItem,
-                  itemCount: state.itemCount,
-                  items: state.items,
-                  showFull: state.showFull,
-                  formIndex: state.formIndex,
-                  formId: state.formId,
-                  formTitle: state.formTitle,
-                  formitems: state.formitems,
-                  showYoutube: action[1],
-                  youtubeText: action[0]
-                };
+          var newrecord$22 = Caml_obj.caml_obj_dup(state);
+          newrecord$22.formitems = $$Array.mapi((function (i, item) {
+                  if (index$11 === i) {
+                    return {
+                            iid: item.iid,
+                            title: item.title,
+                            values: item.values,
+                            showMenu: item.showMenu,
+                            showDrop: item.showDrop,
+                            showFile: item.showFile,
+                            showImage: item.showImage,
+                            showVideo: item.showVideo,
+                            showAudio: item.showAudio,
+                            outValue: item.outValue,
+                            showShow: item.showShow,
+                            showCheck: item.showCheck,
+                            showFilter: item.showFilter,
+                            collectionIndex: item.collectionIndex,
+                            collectionitems: item.collectionitems,
+                            optionitems: item.optionitems,
+                            answeritems: $$Array.mapi((function (ri, answeritem) {
+                                    if (rindex$1 === ri) {
+                                      return {
+                                              id: answeritem.id,
+                                              value: answeritem.value,
+                                              showAnswer: !answeritem.showAnswer
+                                            };
+                                    } else {
+                                      return answeritem;
+                                    }
+                                  }), item.answeritems),
+                            formModify: true
+                          };
+                  } else {
+                    return item;
+                  }
+                }), state.formitems);
+          return newrecord$22;
+      case /* ActionSnackBar */19 :
+          var newrecord$23 = Caml_obj.caml_obj_dup(state);
+          newrecord$23.youtubeText = action[0];
+          newrecord$23.showYoutube = action[1];
+          return newrecord$23;
       
     }
   }
 }
+
+var initialState_filtitems = [];
 
 var initialState_items = [];
 
@@ -828,6 +507,7 @@ var initialState = {
   update: false,
   delete: false,
   export: false,
+  filtitems: initialState_filtitems,
   showItem: false,
   itemCount: 0,
   items: initialState_items,
@@ -872,12 +552,12 @@ function Home(Props) {
   var state = match[0];
   var fileRef = React.useRef(null);
   var barShowRestoreAction = function (youtubeText) {
-    Curry._1(dispatch, /* ActionSnackBar */Block.__(16, [
+    Curry._1(dispatch, /* ActionSnackBar */Block.__(19, [
             youtubeText,
             true
           ]));
     setTimeout((function (param) {
-            return Curry._1(dispatch, /* ActionSnackBar */Block.__(16, [
+            return Curry._1(dispatch, /* ActionSnackBar */Block.__(19, [
                           "",
                           false
                         ]));
@@ -889,7 +569,7 @@ function Home(Props) {
               var match = response.data.status;
               var tmp;
               if (match === "istrue") {
-                Curry._1(dispatch, /* SettingFormItems */Block.__(2, [
+                Curry._1(dispatch, /* SettingFormItems */Block.__(3, [
                         response.data.showItem,
                         response.data.itemCount,
                         response.data.items
@@ -906,6 +586,14 @@ function Home(Props) {
           }));
     
   };
+  var filterAJax = function (param) {
+    Axiosapi$BtsCore.Default.filter(Data$BtsCore.userData(localStorage.getItem("newid"))).then((function (response) {
+              return Promise.resolve((Curry._1(dispatch, /* SettingFiltItems */Block.__(2, [response.data.items])), searchAJax(undefined)));
+            })).catch((function (error) {
+            return Promise.resolve((console.log(error), undefined));
+          }));
+    
+  };
   var permissAJax = function (param) {
     Axiosapi$BtsCore.Form.permiss(Data$BtsCore.userData(localStorage.getItem("newid"))).then((function (response) {
               return Promise.resolve((Curry._1(dispatch, /* ActionPermissItems */Block.__(1, [
@@ -913,7 +601,7 @@ function Home(Props) {
                                   response.data.update,
                                   response.data.delete,
                                   response.data.export
-                                ])), searchAJax(undefined)));
+                                ])), filterAJax(undefined)));
             })).catch((function (error) {
             return Promise.resolve((console.log(error), undefined));
           }));
@@ -970,8 +658,10 @@ function Home(Props) {
   var clickScrollBar = React.useCallback((function (param) {
           Curry._1(dispatch, /* ActionShowProgress */2);
           var length = String(state.items.length);
-          Axiosapi$BtsCore.Default.scroll(Data$BtsCore.otherData(localStorage.getItem("newid"), length)).then((function (response) {
-                    return Promise.resolve((Curry._1(dispatch, /* SettingScrollItems */Block.__(3, [
+          Axiosapi$BtsCore.Default.scroll(Data$BtsCore.sScollData(state.filtitems.filter((function (filtitem) {
+                              return filtitem.filtValue !== "";
+                            })), length, localStorage.getItem("newid"))).then((function (response) {
+                    return Promise.resolve((Curry._1(dispatch, /* SettingScrollItems */Block.__(4, [
                                         response.data.showItem,
                                         response.data.items
                                       ])), Curry._1(dispatch, /* ActionShowProgress */2)));
@@ -980,13 +670,44 @@ function Home(Props) {
                 }));
           
         }));
+  var showFiltMenu = React.useCallback((function (index) {
+          return Curry._1(dispatch, /* ShowFiltMenu */Block.__(6, [index]));
+        }));
+  var clickFiltMenu = React.useCallback((function (value) {
+          return (function (itemIndex, index) {
+              Curry._1(dispatch, /* ClickFiltMenu */Block.__(7, [
+                      value,
+                      index
+                    ]));
+              Axiosapi$BtsCore.Default.sFilter(Data$BtsCore.sFiltData(state.filtitems.filter((function (filtitem) {
+                                  return filtitem.filtValue !== "";
+                                })), itemIndex, value, localStorage.getItem("newid"))).then((function (response) {
+                        var match = response.data.status;
+                        var tmp;
+                        if (match === "istrue") {
+                          tmp = Curry._1(dispatch, /* SettingFormItems */Block.__(3, [
+                                  response.data.showItem,
+                                  response.data.itemCount,
+                                  response.data.items
+                                ]));
+                        } else {
+                          Curry._1(dispatch, /* SettingError */0);
+                          tmp = barShowRestoreAction(Status$BtsCore.statusModule(response.data.status));
+                        }
+                        return Promise.resolve(tmp);
+                      })).catch((function (error) {
+                      return Promise.resolve((console.log(error), undefined));
+                    }));
+              
+            });
+        }));
   var showPreviousCollections = React.useCallback((function (id) {
           return (function (index, $$event) {
               $$event.preventDefault();
               $$event.stopPropagation();
               var length = Caml_array.caml_array_get(state.items, index).collections.length - 1 | 0;
               var collectionIndex = id === 0 ? length : id - 1 | 0;
-              return Curry._1(dispatch, /* SettingCollections */Block.__(5, [
+              return Curry._1(dispatch, /* SettingCollections */Block.__(8, [
                             collectionIndex,
                             index
                           ]));
@@ -998,7 +719,7 @@ function Home(Props) {
               $$event.stopPropagation();
               var length = Caml_array.caml_array_get(state.items, index).collections.length - 1 | 0;
               var collectionIndex = id === length ? 0 : id + 1 | 0;
-              return Curry._1(dispatch, /* SettingCollections */Block.__(5, [
+              return Curry._1(dispatch, /* SettingCollections */Block.__(8, [
                             collectionIndex,
                             index
                           ]));
@@ -1013,7 +734,7 @@ function Home(Props) {
                         var match = response.data.status;
                         var tmp;
                         if (match === "istrue") {
-                          Curry._1(dispatch, /* ClearForm */Block.__(6, [id]));
+                          Curry._1(dispatch, /* ClearForm */Block.__(9, [id]));
                           barShowRestoreAction(Status$BtsCore.statusModule("deleteSuccess"));
                           tmp = Curry._1(dispatch, /* ActionShowProgress */2);
                         } else {
@@ -1034,7 +755,7 @@ function Home(Props) {
                         var match = response.data.status;
                         var tmp;
                         if (match === "istrue") {
-                          Curry._1(dispatch, /* ShowAnimationFull */Block.__(4, [
+                          Curry._1(dispatch, /* ShowAnimationFull */Block.__(5, [
                                   i,
                                   id,
                                   response.data.tile,
@@ -1077,7 +798,7 @@ function Home(Props) {
           return (function (i) {
               $$event.preventDefault();
               $$event.stopPropagation();
-              return Curry._1(dispatch, /* ShowDrop */Block.__(7, [
+              return Curry._1(dispatch, /* ShowDrop */Block.__(10, [
                             true,
                             i
                           ]));
@@ -1087,7 +808,7 @@ function Home(Props) {
           return (function (i) {
               $$event.preventDefault();
               $$event.stopPropagation();
-              return Curry._1(dispatch, /* ShowDrop */Block.__(7, [
+              return Curry._1(dispatch, /* ShowDrop */Block.__(10, [
                             false,
                             i
                           ]));
@@ -1100,7 +821,7 @@ function Home(Props) {
               var match = response.data.status;
               var tmp;
               if (match === "istrue") {
-                Curry._1(dispatch, /* ShowFile */Block.__(8, [
+                Curry._1(dispatch, /* ShowFile */Block.__(11, [
                         response.data.images,
                         response.data.videos,
                         response.data.audios,
@@ -1122,7 +843,7 @@ function Home(Props) {
               $$event.preventDefault();
               $$event.stopPropagation();
               Curry._1(dispatch, /* ActionShowProgress */2);
-              Curry._1(dispatch, /* ShowDrop */Block.__(7, [
+              Curry._1(dispatch, /* ShowDrop */Block.__(10, [
                       false,
                       i
                     ]));
@@ -1142,7 +863,7 @@ function Home(Props) {
               var match = response.data.status;
               var tmp;
               if (match === "istrue") {
-                Curry._1(dispatch, /* ShowFiles */Block.__(9, [
+                Curry._1(dispatch, /* ShowFiles */Block.__(12, [
                         response.data.images,
                         response.data.videos,
                         response.data.audios,
@@ -1164,7 +885,7 @@ function Home(Props) {
               $$event.preventDefault();
               $$event.stopPropagation();
               Curry._1(dispatch, /* ActionShowProgress */2);
-              Curry._1(dispatch, /* ShowDrop */Block.__(7, [
+              Curry._1(dispatch, /* ShowDrop */Block.__(10, [
                       false,
                       i
                     ]));
@@ -1191,7 +912,7 @@ function Home(Props) {
               $$event.stopPropagation();
               var length = Caml_array.caml_array_get(state.formitems, index).collectionitems.length - 1 | 0;
               var collectionIndex = id === 0 ? length : id - 1 | 0;
-              return Curry._1(dispatch, /* ShowCollection */Block.__(10, [
+              return Curry._1(dispatch, /* ShowCollection */Block.__(13, [
                             collectionIndex,
                             index
                           ]));
@@ -1203,7 +924,7 @@ function Home(Props) {
               $$event.stopPropagation();
               var length = Caml_array.caml_array_get(state.formitems, index).collectionitems.length - 1 | 0;
               var collectionIndex = id === length ? 0 : id + 1 | 0;
-              return Curry._1(dispatch, /* ShowCollection */Block.__(10, [
+              return Curry._1(dispatch, /* ShowCollection */Block.__(13, [
                             collectionIndex,
                             index
                           ]));
@@ -1211,18 +932,18 @@ function Home(Props) {
         }));
   var changeItem = React.useCallback((function (value) {
           return (function (i) {
-              return Curry._1(dispatch, /* ChangeItem */Block.__(11, [
+              return Curry._1(dispatch, /* ChangeItem */Block.__(14, [
                             value,
                             i
                           ]));
             });
         }));
   var showMenuItem = React.useCallback((function (i) {
-          return Curry._1(dispatch, /* ShowMenuItem */Block.__(12, [i]));
+          return Curry._1(dispatch, /* ShowMenuItem */Block.__(15, [i]));
         }));
   var clickMenuItem = React.useCallback((function (value) {
           return (function (i) {
-              return Curry._1(dispatch, /* ClickMenuItem */Block.__(13, [
+              return Curry._1(dispatch, /* ClickMenuItem */Block.__(16, [
                             value,
                             i
                           ]));
@@ -1231,12 +952,12 @@ function Home(Props) {
   var clickElementItem = React.useCallback((function (value) {
           return (function (ri, i) {
               if (value === "checkbox") {
-                return Curry._1(dispatch, /* ClickCheckboxItem */Block.__(15, [
+                return Curry._1(dispatch, /* ClickCheckboxItem */Block.__(18, [
                               ri,
                               i
                             ]));
               } else {
-                return Curry._1(dispatch, /* ClickRadioItem */Block.__(14, [
+                return Curry._1(dispatch, /* ClickRadioItem */Block.__(17, [
                               ri,
                               i
                             ]));
@@ -1261,219 +982,294 @@ function Home(Props) {
                             direction: "column",
                             justify: "center",
                             alignItem: "stretch",
-                            children: React.createElement(GridItem$BtsCore.make, {
-                                  right: "24",
-                                  bottom: "0",
-                                  left: "24",
-                                  xs: "auto",
-                                  children: React.createElement(GridContainer$BtsCore.make, {
-                                        direction: "row",
-                                        justify: "start",
-                                        alignItem: "center",
-                                        children: $$Array.mapi((function (i, item) {
-                                                return React.createElement("div", {
-                                                            onClick: (function (param) {
-                                                                return Curry._2(clickFormBoard, i, item.id);
-                                                              })
-                                                          }, React.createElement(GridItem$BtsCore.make, {
-                                                                style: {
-                                                                  height: "250px",
-                                                                  marginRight: "12px"
-                                                                },
-                                                                top: "0",
-                                                                right: "0",
-                                                                bottom: "0",
-                                                                left: "0",
-                                                                width: "276px",
-                                                                cursor: "pointer",
-                                                                enterBorderWidth: "2",
-                                                                borderWidth: "2",
-                                                                enterBorderColor: "rgba(255,0,0,0.8)",
-                                                                enterBorderRadius: "4",
-                                                                borderRadius: "1",
-                                                                xs: "no",
-                                                                children: React.createElement(Card$BtsCore.make, {
-                                                                      children: React.createElement(GridContainer$BtsCore.make, {
-                                                                            direction: "column",
-                                                                            justify: "center",
-                                                                            alignItem: "stretch",
-                                                                            children: null
-                                                                          }, React.createElement(GridItem$BtsCore.make, {
-                                                                                style: Object.assign(({}), positionRelative, {
-                                                                                      height: "159px"
-                                                                                    }),
-                                                                                top: "0",
-                                                                                right: "0",
-                                                                                bottom: "0",
-                                                                                left: "0",
-                                                                                width: "276px",
-                                                                                xs: "no",
-                                                                                children: React.createElement(GridContainer$BtsCore.make, {
-                                                                                      direction: "row",
-                                                                                      justify: "center",
-                                                                                      alignItem: "center",
-                                                                                      children: null
-                                                                                    }, React.createElement(GridItem$BtsCore.make, {
-                                                                                          top: "0",
-                                                                                          right: "0",
-                                                                                          bottom: "0",
-                                                                                          left: "0",
-                                                                                          xs: "no",
-                                                                                          children: React.createElement("div", {
-                                                                                                style: Object.assign(({}), outsideCollections, {
-                                                                                                      left: "0"
-                                                                                                    })
-                                                                                              }, React.createElement(IconButton$BtsCore.make, {
-                                                                                                    padding: "6",
-                                                                                                    disabled: state.showProgress,
-                                                                                                    onClick: (function ($$event) {
-                                                                                                        return Curry._3(showPreviousCollections, item.index, i, $$event);
-                                                                                                      }),
-                                                                                                    children: React.createElement(IconAction$BtsCore.make, {
-                                                                                                          animation: "leftRight",
-                                                                                                          src: Icons$BtsCore.arrowBackIosBlack
-                                                                                                        })
-                                                                                                  }))
-                                                                                        }), React.createElement(GridItem$BtsCore.make, {
-                                                                                          style: {
-                                                                                            height: "155px"
-                                                                                          },
-                                                                                          top: "0",
-                                                                                          right: "0",
-                                                                                          bottom: "0",
-                                                                                          left: "0",
-                                                                                          xs: "auto",
-                                                                                          children: $$Array.mapi((function (ci, collitem) {
-                                                                                                  return React.createElement("div", {
-                                                                                                              style: {
-                                                                                                                display: item.index === ci ? "block" : "none",
-                                                                                                                height: "155px",
-                                                                                                                left: "50%",
-                                                                                                                position: "absolute",
-                                                                                                                transform: "translate(-50%, 0)"
-                                                                                                              }
-                                                                                                            }, React.createElement(Image$BtsCore.make, {
-                                                                                                                  width: "auto",
-                                                                                                                  height: "100%",
-                                                                                                                  borderRadius: "6",
-                                                                                                                  src: "data:image/jpg;base64," + collitem
-                                                                                                                }));
-                                                                                                }), item.collections)
-                                                                                        }), React.createElement(GridItem$BtsCore.make, {
-                                                                                          top: "0",
-                                                                                          right: "0",
-                                                                                          bottom: "0",
-                                                                                          left: "0",
-                                                                                          xs: "no",
-                                                                                          children: React.createElement("div", {
-                                                                                                style: Object.assign(({}), outsideCollections, {
-                                                                                                      right: "0"
-                                                                                                    })
-                                                                                              }, React.createElement(IconButton$BtsCore.make, {
-                                                                                                    padding: "6",
-                                                                                                    disabled: state.showProgress,
-                                                                                                    onClick: (function ($$event) {
-                                                                                                        return Curry._3(showNextCollections, item.index, i, $$event);
-                                                                                                      }),
-                                                                                                    children: React.createElement(IconAction$BtsCore.make, {
-                                                                                                          animation: "leftRight",
-                                                                                                          src: Icons$BtsCore.arrowForwardIosBlack
-                                                                                                        })
-                                                                                                  }))
-                                                                                        }))
-                                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                                bottom: "0",
-                                                                                left: "16",
-                                                                                xs: "auto",
-                                                                                children: React.createElement(GridContainer$BtsCore.make, {
-                                                                                      direction: "row",
-                                                                                      justify: "center",
-                                                                                      alignItem: "start",
-                                                                                      children: null
-                                                                                    }, React.createElement(GridItem$BtsCore.make, {
-                                                                                          top: "0",
-                                                                                          right: "0",
-                                                                                          bottom: "0",
-                                                                                          left: "0",
-                                                                                          xs: "no",
-                                                                                          children: React.createElement(Avatar$BtsCore.make, {
-                                                                                                top: "0",
-                                                                                                right: "12",
-                                                                                                bottom: "0",
-                                                                                                left: "0",
-                                                                                                color: "#909090",
-                                                                                                enterBorderColor: "transparent",
-                                                                                                downBorderColor: "transparent",
-                                                                                                backgroundColor: "rgba(0,0,0,0.08)",
-                                                                                                children: item.creator
-                                                                                              })
-                                                                                        }), React.createElement(GridItem$BtsCore.make, {
-                                                                                          top: "0",
-                                                                                          right: "0",
-                                                                                          bottom: "0",
-                                                                                          left: "0",
-                                                                                          xs: "auto",
-                                                                                          children: React.createElement(GridContainer$BtsCore.make, {
-                                                                                                direction: "column",
-                                                                                                justify: "center",
-                                                                                                alignItem: "stretch",
-                                                                                                children: null
-                                                                                              }, React.createElement(GridItem$BtsCore.make, {
-                                                                                                    top: "0",
-                                                                                                    right: "0",
-                                                                                                    bottom: "3",
-                                                                                                    left: "0",
-                                                                                                    xs: "auto",
-                                                                                                    children: React.createElement(Typography$BtsCore.make, {
-                                                                                                          variant: "subheading",
-                                                                                                          noWrap: true,
-                                                                                                          children: item.attribute
-                                                                                                        })
-                                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                            children: null
+                          }, React.createElement(GridItem$BtsCore.make, {
+                                style: {
+                                  position: "sticky",
+                                  top: "0px",
+                                  zIndex: "1"
+                                },
+                                bottom: "0",
+                                xs: "auto",
+                                children: React.createElement(GridContainer$BtsCore.make, {
+                                      direction: "row",
+                                      justify: "center",
+                                      alignItem: "center",
+                                      children: $$Array.mapi((function (i, filtitem) {
+                                              return React.createElement(GridItem$BtsCore.make, {
+                                                          top: "0",
+                                                          right: "0",
+                                                          bottom: "0",
+                                                          left: "0",
+                                                          xs: "auto",
+                                                          children: null
+                                                        }, React.createElement(SelectOutline$BtsCore.make, {
+                                                              labelColor: "rgba(255,0,0,0.8)",
+                                                              tile: filtitem.filtTile,
+                                                              enterBorderColor: "rgba(255,0,0,0.8)",
+                                                              downBorderColor: "rgba(255,0,0,0.6)",
+                                                              borderColor: "rgba(0,0,0,0.2)",
+                                                              value: filtitem.filtValue,
+                                                              disabled: state.showProgress,
+                                                              onClick: (function (param) {
+                                                                  return Curry._1(showFiltMenu, i);
+                                                                }),
+                                                              children: /* tuple */[
+                                                                filtitem.filtMenu ? React.createElement(SelectMenu$BtsCore.make, {
+                                                                        top: "0%",
+                                                                        transform: "translate(0, 0%)",
+                                                                        maxHeight: "280",
+                                                                        minHeight: "0",
+                                                                        topLeft: "12",
+                                                                        topRight: "12",
+                                                                        bottomRight: "12",
+                                                                        bottomLeft: "12",
+                                                                        paddingRight: "8",
+                                                                        paddingLeft: "8",
+                                                                        children: $$Array.map((function (filtOption) {
+                                                                                return React.createElement(MenuItem$BtsCore.make, {
+                                                                                            top: "0",
+                                                                                            right: "8",
+                                                                                            bottom: "0",
+                                                                                            left: "8",
+                                                                                            disablePadding: filtOption.optionPadding,
+                                                                                            topLeft: "12",
+                                                                                            topRight: "12",
+                                                                                            bottomRight: "12",
+                                                                                            bottomLeft: "12",
+                                                                                            onClick: (function (param) {
+                                                                                                return Curry._3(clickFiltMenu, filtOption.value, filtitem.filtIndex, i);
+                                                                                              }),
+                                                                                            children: filtOption.value
+                                                                                          });
+                                                                              }), filtitem.filtOptions)
+                                                                      }) : null,
+                                                                React.createElement(IconGeneral$BtsCore.make, {
+                                                                      animation: IconAnimation$BtsCore.topDownRorate(filtitem.filtMenu),
+                                                                      src: Icons$BtsCore.arrowDownBlack
+                                                                    })
+                                                              ]
+                                                            }), React.createElement(BackgroundBoard$BtsCore.make, {
+                                                              showBackground: filtitem.filtMenu,
+                                                              backgroundColor: "transparent",
+                                                              onClick: (function (param) {
+                                                                  return Curry._1(showFiltMenu, i);
+                                                                })
+                                                            }));
+                                            }), state.filtitems)
+                                    })
+                              }), React.createElement(GridItem$BtsCore.make, {
+                                right: "24",
+                                bottom: "0",
+                                left: "24",
+                                xs: "auto",
+                                children: React.createElement(GridContainer$BtsCore.make, {
+                                      direction: "row",
+                                      justify: "start",
+                                      alignItem: "center",
+                                      children: $$Array.mapi((function (i, item) {
+                                              return React.createElement("div", {
+                                                          onClick: (function (param) {
+                                                              return Curry._2(clickFormBoard, i, item.id);
+                                                            })
+                                                        }, React.createElement(GridItem$BtsCore.make, {
+                                                              style: {
+                                                                height: "250px",
+                                                                marginRight: "12px"
+                                                              },
+                                                              top: "0",
+                                                              right: "0",
+                                                              bottom: "0",
+                                                              left: "0",
+                                                              width: "276px",
+                                                              cursor: "pointer",
+                                                              enterBorderWidth: "2",
+                                                              borderWidth: "2",
+                                                              enterBorderColor: "rgba(255,0,0,0.8)",
+                                                              enterBorderRadius: "4",
+                                                              borderRadius: "1",
+                                                              xs: "no",
+                                                              children: React.createElement(Card$BtsCore.make, {
+                                                                    children: React.createElement(GridContainer$BtsCore.make, {
+                                                                          direction: "column",
+                                                                          justify: "center",
+                                                                          alignItem: "stretch",
+                                                                          children: null
+                                                                        }, React.createElement(GridItem$BtsCore.make, {
+                                                                              style: Object.assign(({}), positionRelative, {
+                                                                                    height: "159px"
+                                                                                  }),
+                                                                              top: "0",
+                                                                              right: "0",
+                                                                              bottom: "0",
+                                                                              left: "0",
+                                                                              width: "276px",
+                                                                              xs: "no",
+                                                                              children: React.createElement(GridContainer$BtsCore.make, {
+                                                                                    direction: "row",
+                                                                                    justify: "center",
+                                                                                    alignItem: "center",
+                                                                                    children: null
+                                                                                  }, React.createElement(GridItem$BtsCore.make, {
+                                                                                        top: "0",
+                                                                                        right: "0",
+                                                                                        bottom: "0",
+                                                                                        left: "0",
+                                                                                        xs: "no",
+                                                                                        children: React.createElement("div", {
+                                                                                              style: Object.assign(({}), outsideCollections, {
+                                                                                                    left: "0"
+                                                                                                  })
+                                                                                            }, React.createElement(IconButton$BtsCore.make, {
+                                                                                                  padding: "6",
+                                                                                                  disabled: state.showProgress,
+                                                                                                  onClick: (function ($$event) {
+                                                                                                      return Curry._3(showPreviousCollections, item.index, i, $$event);
+                                                                                                    }),
+                                                                                                  children: React.createElement(IconAction$BtsCore.make, {
+                                                                                                        animation: "leftRight",
+                                                                                                        src: Icons$BtsCore.arrowBackIosBlack
+                                                                                                      })
+                                                                                                }))
+                                                                                      }), React.createElement(GridItem$BtsCore.make, {
+                                                                                        style: {
+                                                                                          height: "155px"
+                                                                                        },
+                                                                                        top: "0",
+                                                                                        right: "0",
+                                                                                        bottom: "0",
+                                                                                        left: "0",
+                                                                                        xs: "auto",
+                                                                                        children: $$Array.mapi((function (ci, collitem) {
+                                                                                                return React.createElement("div", {
+                                                                                                            style: {
+                                                                                                              display: item.index === ci ? "block" : "none",
+                                                                                                              height: "155px",
+                                                                                                              left: "50%",
+                                                                                                              position: "absolute",
+                                                                                                              transform: "translate(-50%, 0)"
+                                                                                                            }
+                                                                                                          }, React.createElement(Image$BtsCore.make, {
+                                                                                                                width: "auto",
+                                                                                                                height: "100%",
+                                                                                                                borderRadius: "6",
+                                                                                                                src: "data:image/jpg;base64," + collitem
+                                                                                                              }));
+                                                                                              }), item.collections)
+                                                                                      }), React.createElement(GridItem$BtsCore.make, {
+                                                                                        top: "0",
+                                                                                        right: "0",
+                                                                                        bottom: "0",
+                                                                                        left: "0",
+                                                                                        xs: "no",
+                                                                                        children: React.createElement("div", {
+                                                                                              style: Object.assign(({}), outsideCollections, {
+                                                                                                    right: "0"
+                                                                                                  })
+                                                                                            }, React.createElement(IconButton$BtsCore.make, {
+                                                                                                  padding: "6",
+                                                                                                  disabled: state.showProgress,
+                                                                                                  onClick: (function ($$event) {
+                                                                                                      return Curry._3(showNextCollections, item.index, i, $$event);
+                                                                                                    }),
+                                                                                                  children: React.createElement(IconAction$BtsCore.make, {
+                                                                                                        animation: "leftRight",
+                                                                                                        src: Icons$BtsCore.arrowForwardIosBlack
+                                                                                                      })
+                                                                                                }))
+                                                                                      }))
+                                                                            }), React.createElement(GridItem$BtsCore.make, {
+                                                                              bottom: "0",
+                                                                              left: "16",
+                                                                              xs: "auto",
+                                                                              children: React.createElement(GridContainer$BtsCore.make, {
+                                                                                    direction: "row",
+                                                                                    justify: "center",
+                                                                                    alignItem: "start",
+                                                                                    children: null
+                                                                                  }, React.createElement(GridItem$BtsCore.make, {
+                                                                                        top: "0",
+                                                                                        right: "0",
+                                                                                        bottom: "0",
+                                                                                        left: "0",
+                                                                                        xs: "no",
+                                                                                        children: React.createElement(Avatar$BtsCore.make, {
+                                                                                              top: "0",
+                                                                                              right: "12",
+                                                                                              bottom: "0",
+                                                                                              left: "0",
+                                                                                              color: "#909090",
+                                                                                              enterBorderColor: "transparent",
+                                                                                              downBorderColor: "transparent",
+                                                                                              backgroundColor: "rgba(0,0,0,0.08)",
+                                                                                              children: item.creator
+                                                                                            })
+                                                                                      }), React.createElement(GridItem$BtsCore.make, {
+                                                                                        top: "0",
+                                                                                        right: "0",
+                                                                                        bottom: "0",
+                                                                                        left: "0",
+                                                                                        xs: "auto",
+                                                                                        children: React.createElement(GridContainer$BtsCore.make, {
+                                                                                              direction: "column",
+                                                                                              justify: "center",
+                                                                                              alignItem: "stretch",
+                                                                                              children: null
+                                                                                            }, React.createElement(GridItem$BtsCore.make, {
+                                                                                                  top: "0",
+                                                                                                  right: "0",
+                                                                                                  bottom: "3",
+                                                                                                  left: "0",
+                                                                                                  xs: "auto",
+                                                                                                  children: React.createElement(Typography$BtsCore.make, {
+                                                                                                        variant: "subheading",
+                                                                                                        noWrap: true,
+                                                                                                        children: item.attribute
+                                                                                                      })
+                                                                                                }), React.createElement(GridItem$BtsCore.make, {
+                                                                                                  top: "0",
+                                                                                                  right: "0",
+                                                                                                  bottom: "0",
+                                                                                                  left: "0",
+                                                                                                  xs: "auto",
+                                                                                                  children: React.createElement(Typography$BtsCore.make, {
+                                                                                                        variant: "caption",
+                                                                                                        color: "#606060",
+                                                                                                        children: item.datetime
+                                                                                                      })
+                                                                                                }), item.itemDelete ? React.createElement(GridItem$BtsCore.make, {
+                                                                                                    style: positionRelative,
                                                                                                     top: "0",
                                                                                                     right: "0",
                                                                                                     bottom: "0",
                                                                                                     left: "0",
                                                                                                     xs: "auto",
-                                                                                                    children: React.createElement(Typography$BtsCore.make, {
-                                                                                                          variant: "caption",
-                                                                                                          color: "#606060",
-                                                                                                          children: item.datetime
-                                                                                                        })
-                                                                                                  }), item.itemDelete ? React.createElement(GridItem$BtsCore.make, {
-                                                                                                      style: positionRelative,
-                                                                                                      top: "0",
-                                                                                                      right: "0",
-                                                                                                      bottom: "0",
-                                                                                                      left: "0",
-                                                                                                      xs: "auto",
-                                                                                                      children: React.createElement("div", {
-                                                                                                            style: {
-                                                                                                              bottom: "-100%",
-                                                                                                              position: "absolute",
-                                                                                                              right: "0",
-                                                                                                              transform: "translate(0px, 20px)"
-                                                                                                            }
-                                                                                                          }, React.createElement(IconButton$BtsCore.make, {
-                                                                                                                padding: "6",
-                                                                                                                disabled: state.showProgress,
-                                                                                                                onClick: (function ($$event) {
-                                                                                                                    return Curry._2(deleteForm, item.id, $$event);
-                                                                                                                  }),
-                                                                                                                children: React.createElement(IconAction$BtsCore.make, {
-                                                                                                                      animation: "leftRight",
-                                                                                                                      src: Icons$BtsCore.deleteBlack
-                                                                                                                    })
-                                                                                                              }))
-                                                                                                    }) : null)
-                                                                                        }))
-                                                                              }))
-                                                                    })
-                                                              }));
-                                              }), state.items)
-                                      })
-                                })
-                          }), React.createElement(BottomScroll$BtsCore.make, {
+                                                                                                    children: React.createElement("div", {
+                                                                                                          style: {
+                                                                                                            bottom: "-100%",
+                                                                                                            position: "absolute",
+                                                                                                            right: "0",
+                                                                                                            transform: "translate(0px, 20px)"
+                                                                                                          }
+                                                                                                        }, React.createElement(IconButton$BtsCore.make, {
+                                                                                                              padding: "6",
+                                                                                                              disabled: state.showProgress,
+                                                                                                              onClick: (function ($$event) {
+                                                                                                                  return Curry._2(deleteForm, item.id, $$event);
+                                                                                                                }),
+                                                                                                              children: React.createElement(IconAction$BtsCore.make, {
+                                                                                                                    animation: "leftRight",
+                                                                                                                    src: Icons$BtsCore.deleteBlack
+                                                                                                                  })
+                                                                                                            }))
+                                                                                                  }) : null)
+                                                                                      }))
+                                                                            }))
+                                                                  })
+                                                            }));
+                                            }), state.items)
+                                    })
+                              })), React.createElement(BottomScroll$BtsCore.make, {
                             showBar: state.showItem,
                             disabled: state.showProgress,
                             onClick: clickScrollBar

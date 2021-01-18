@@ -49,6 +49,14 @@ type formitem = {
   formModify: bool,
 };
 
+type filtitem = {
+  filtIndex: int,
+  filtTile: string,
+  filtValue: string,
+  filtMenu: bool,
+  filtOptions: array(optionitem),
+};
+
 type item = {
   id: string,
   index: int,
@@ -69,6 +77,7 @@ type state = {
   update: bool,
   delete: bool,
   export: bool,
+  filtitems: array(filtitem),
   showItem: bool,
   itemCount: int,
   items: array(item),
@@ -100,9 +109,12 @@ type action =
   | SettingFormWidth(int, int)
   | ActionShowProgress
   | ActionPermissItems(bool, bool, bool, bool)
+  | SettingFiltItems(array(filtitem))
   | SettingFormItems(bool, int, array(item))
   | SettingScrollItems(bool, array(item))
   | ShowAnimationFull(int, string, string, array(formitem))
+  | ShowFiltMenu(int)
+  | ClickFiltMenu(string, int)
   | SettingCollections(int, int)
   | ClearForm(string)
   | ShowDrop(bool, int)
@@ -134,6 +146,7 @@ let reducer = (state, action) =>
       delete,
       export,
     }
+  | SettingFiltItems(filtitems) => {...state, filtitems}
   | SettingFormItems(showItem, itemCount, items) => {
       ...state,
       showItem,
@@ -152,6 +165,27 @@ let reducer = (state, action) =>
       formTitle: value,
       formitems,
       showFull: !state.showFull,
+    }
+  | ShowFiltMenu(index) => {
+      ...state,
+      filtitems:
+        Array.mapi(
+          (i, filtitem) =>
+            index == i
+              ? {...filtitem, filtMenu: !filtitem.filtMenu} : filtitem,
+          state.filtitems,
+        ),
+    }
+  | ClickFiltMenu(value, index) => {
+      ...state,
+      filtitems:
+        Array.mapi(
+          (i, filtitem) =>
+            index == i
+              ? {...filtitem, filtValue: value, filtMenu: !filtitem.filtMenu}
+              : filtitem,
+          state.filtitems,
+        ),
     }
   | SettingCollections(collectionIndex, index) => {
       ...state,
@@ -327,6 +361,7 @@ let initialState = {
   update: false,
   delete: false,
   export: false,
+  filtitems: [||],
   showItem: false,
   itemCount: 0,
   items: [||],
@@ -403,6 +438,23 @@ let make = _ => {
       |> ignore
     );
 
+  let filterAJax = () =>
+    Js.Promise.(
+      "newid"
+      |> Locals.select
+      |> userData
+      |> Default.filter
+      |> then_(response =>
+           {
+             SettingFiltItems(response##data##items) |> dispatch;
+             searchAJax();
+           }
+           |> resolve
+         )
+      |> catch(error => error |> Js.log |> resolve)
+      |> ignore
+    );
+
   let permissAJax = () =>
     Js.Promise.(
       "newid"
@@ -418,7 +470,7 @@ let make = _ => {
                response##data##export,
              )
              |> dispatch;
-             searchAJax();
+             filterAJax();
            }
            |> resolve
          )
@@ -474,8 +526,15 @@ let make = _ => {
 
   let scrollAJax = length =>
     Js.Promise.(
-      length
-      |> otherData("newid" |> Locals.select)
+      "newid"
+      |> Locals.select
+      |> sScollData(
+           Js_array.filter(
+             (filtitem: filtitem) => filtitem.filtValue !== "",
+             state.filtitems,
+           ),
+           length,
+         )
       |> Default.scroll
       |> then_(response =>
            {
@@ -496,6 +555,48 @@ let make = _ => {
     useCallback(_ => {
       ActionShowProgress |> dispatch;
       state.items |> Js_array.length |> string_of_int |> scrollAJax;
+    });
+
+  let showFiltMenu = useCallback(index => ShowFiltMenu(index) |> dispatch);
+
+  let sfilterAJax = (index, value) =>
+    Js.Promise.(
+      "newid"
+      |> Locals.select
+      |> sFiltData(
+           Js_array.filter(
+             (filtitem: filtitem) => filtitem.filtValue !== "",
+             state.filtitems,
+           ),
+           index,
+           value,
+         )
+      |> Default.sFilter
+      |> then_(response =>
+           {
+             switch (response##data##status) {
+             | "istrue" =>
+               SettingFormItems(
+                 response##data##showItem,
+                 response##data##itemCount,
+                 response##data##items,
+               )
+               |> dispatch
+             | _ =>
+               SettingError |> dispatch;
+               response##data##status |> statusModule |> barShowRestoreAction;
+             };
+           }
+           |> resolve
+         )
+      |> catch(error => error |> Js.log |> resolve)
+      |> ignore
+    );
+
+  let clickFiltMenu =
+    useCallback((value, itemIndex, index) => {
+      ClickFiltMenu(value, index) |> dispatch;
+      value |> sfilterAJax(itemIndex);
     });
 
   let showPreviousCollections =
@@ -776,6 +877,85 @@ let make = _ => {
       <GridItem
         style=marginAuto top="0" right="32" bottom="0" left="32" xs="12">
         <GridContainer direction="column" justify="center" alignItem="stretch">
+          <GridItem
+            style={ReactDOMRe.Style.make(
+              ~position="sticky",
+              ~top="0px",
+              ~zIndex="1",
+              (),
+            )}
+            bottom="0"
+            xs="auto">
+            <GridContainer direction="row" justify="center" alignItem="center">
+              {state.filtitems
+               |> Array.mapi((i, filtitem) =>
+                    <GridItem top="0" right="0" bottom="0" left="0" xs="auto">
+                      <SelectOutline
+                        labelColor="rgba(255,0,0,0.8)"
+                        tile={filtitem.filtTile}
+                        enterBorderColor="rgba(255,0,0,0.8)"
+                        downBorderColor="rgba(255,0,0,0.6)"
+                        borderColor="rgba(0,0,0,0.2)"
+                        value={filtitem.filtValue}
+                        disabled={state.showProgress}
+                        onClick={_ => i |> showFiltMenu}>
+                        ...(
+                             filtitem.filtMenu
+                               ? <SelectMenu
+                                   top="0%"
+                                   transform="translate(0, 0%)"
+                                   maxHeight="280"
+                                   minHeight="0"
+                                   topLeft="12"
+                                   topRight="12"
+                                   bottomRight="12"
+                                   bottomLeft="12"
+                                   paddingRight="8"
+                                   paddingLeft="8">
+                                   {filtitem.filtOptions
+                                    |> Array.map(filtOption =>
+                                         <MenuItem
+                                           top="0"
+                                           right="8"
+                                           bottom="0"
+                                           left="8"
+                                           disablePadding={
+                                                            filtOption.
+                                                              optionPadding
+                                                          }
+                                           topLeft="12"
+                                           topRight="12"
+                                           bottomRight="12"
+                                           bottomLeft="12"
+                                           onClick={_ =>
+                                             i
+                                             |> clickFiltMenu(
+                                                  filtOption.value,
+                                                  filtitem.filtIndex,
+                                                )
+                                           }>
+                                           {filtOption.value |> string}
+                                         </MenuItem>
+                                       )
+                                    |> array}
+                                 </SelectMenu>
+                               : null,
+                             <IconGeneral
+                               animation={filtitem.filtMenu |> topDownRorate}
+                               src=arrowDownBlack
+                             />,
+                           )
+                      </SelectOutline>
+                      <BackgroundBoard
+                        showBackground={filtitem.filtMenu}
+                        backgroundColor="transparent"
+                        onClick={_ => i |> showFiltMenu}
+                      />
+                    </GridItem>
+                  )
+               |> array}
+            </GridContainer>
+          </GridItem>
           <GridItem right="24" bottom="0" left="24" xs="auto">
             <GridContainer direction="row" justify="start" alignItem="center">
               {state.items

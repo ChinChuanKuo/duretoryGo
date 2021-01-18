@@ -105,6 +105,23 @@ function sLocalData(longitude, latitude, value, newid) {
         };
 }
 
+function sScollData(items, value, newid) {
+  return {
+          items: items,
+          value: value,
+          newid: newid
+        };
+}
+
+function sFiltData(items, index, value, newid) {
+  return {
+          items: items,
+          index: index,
+          value: value,
+          newid: newid
+        };
+}
+
 export {
   userData ,
   loginData ,
@@ -119,6 +136,8 @@ export {
   iFileData ,
   iFormData ,
   sLocalData ,
+  sScollData ,
+  sFiltData ,
   
 }
 /* No side effect */
