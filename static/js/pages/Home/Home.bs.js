@@ -1409,7 +1409,7 @@ function Home(Props) {
                                                                             position: "sticky",
                                                                             top: "0px"
                                                                           },
-                                                                          top: "0",
+                                                                          top: "36",
                                                                           right: "56",
                                                                           bottom: "0",
                                                                           left: "0",
