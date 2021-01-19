@@ -89,7 +89,8 @@ module Default = {
     postData("http://10.10.50.50:2250/Home/sFilterData", data);
   let delete = data =>
     postData("http://10.10.50.50:2250/Home/deleteData", data);
-  let sItem = data => postData("http://10.10.50.50:2250/Home/sItemData", data);
+  let sItem = data =>
+    postData("http://10.10.50.50:2250/Home/sItemData", data);
   let insert = data =>
     postData("http://10.10.50.50:2250/Home/insertData", data);
 };

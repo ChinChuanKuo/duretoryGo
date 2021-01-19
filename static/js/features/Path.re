@@ -29,3 +29,5 @@ let permissPath: string = "/permiss";
 
 [@genType]
 let createPath: string = "/create";
+[@genType]
+let formorPath: string = "/formor";

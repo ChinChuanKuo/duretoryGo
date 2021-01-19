@@ -393,5 +393,10 @@
         "id": "Formor.filter",
         "defaultMessage": "Filter",
         "message": ""
+    },
+    {
+        "id": "Path.formor",
+        "defaultMessage": "Formor",
+        "message": "Form Setting"
     }
 ]

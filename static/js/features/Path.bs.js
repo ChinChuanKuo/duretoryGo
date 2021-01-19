@@ -31,6 +31,8 @@ var permissPath = "/permiss";
 
 var createPath = "/create";
 
+var formorPath = "/formor";
+
 export {
   homePath ,
   loginPath ,
@@ -47,6 +49,7 @@ export {
   bookmarksPath ,
   permissPath ,
   createPath ,
+  formorPath ,
   
 }
 /* No side effect */

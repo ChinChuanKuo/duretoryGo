@@ -393,5 +393,10 @@
         "id": "Formor.filter",
         "defaultMessage": "Filter",
         "message": "篩選條件"
+    },
+    {
+        "id": "Path.formor",
+        "defaultMessage": "Formor",
+        "message": "欄位設定"
     }
 ]
