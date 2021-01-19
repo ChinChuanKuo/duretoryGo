@@ -1361,8 +1361,8 @@ let make = _ => {
                           direction="row" justify="between" alignItem="start">
                           <GridItem
                             style={ReactDOMRe.Style.make(
-                              ~height=
-                                {string_of_int(state.formHeight) ++ "px"},
+                              ~position="sticky",
+                              ~top="14px",
                               (),
                             )}
                             top="0"

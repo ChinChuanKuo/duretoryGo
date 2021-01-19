@@ -1405,7 +1405,8 @@ function Home(Props) {
                                                                       children: null
                                                                     }, React.createElement(GridItem$BtsCore.make, {
                                                                           style: {
-                                                                            height: String(state.formHeight) + "px"
+                                                                            position: "sticky",
+                                                                            top: "14px"
                                                                           },
                                                                           top: "0",
                                                                           right: "56",
