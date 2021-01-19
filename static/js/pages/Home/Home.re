@@ -49,27 +49,15 @@ type formitem = {
   formModify: bool,
 };
 
+type dataitem = {
+  key: string,
+  data: string,
+};
+
 type viewitem = {
   viewIndex: int,
   viewections: array(string),
-  attrTile: string,
-  attribute: string,
-  cateTile: string,
-  category: string,
-  custTile: string,
-  customer: string,
-  sotiTile: string,
-  sotime: string,
-  mbTile: string,
-  mb: string,
-  sampTile: string,
-  sample: string,
-  specTile: string,
-  species: string,
-  counTile: string,
-  count: string,
-  desiTile: string,
-  designer: string,
+  dataitems: array(dataitem),
 };
 
 type filtitem = {
@@ -1425,233 +1413,43 @@ let make = _ => {
                               </GridItem>
                             </GridContainer>
                           </GridItem>
-                          <GridItem right="56" bottom="0" left="0" xs="auto">
+                          <GridItem
+                            top="36" right="56" bottom="0" left="0" xs="auto">
                             <GridContainer
                               direction="column"
                               justify="center"
                               alignItem="stretch">
-                              <GridItem right="40" left="40" xs="auto">
-                                <Typography
-                                  variant="tile"
-                                  fontSize="1.25rem"
-                                  fontWeight="bolder"
-                                  noWrap=true>
-                                  {item.attrTile |> string}
-                                </Typography>
-                              </GridItem>
-                              <GridItem
-                                top="6"
-                                right="40"
-                                left="40"
-                                bottom="6"
-                                xs="auto">
-                                <Typography
-                                  variant="subheading"
-                                  fontWeight="500"
-                                  noWrap=true>
-                                  {item.attribute |> string}
-                                </Typography>
-                              </GridItem>
-                              <GridItem right="40" left="40" xs="auto">
-                                <Divider />
-                              </GridItem>
-                              <GridItem right="40" left="40" xs="auto">
-                                <Typography
-                                  variant="tile"
-                                  fontSize="1.25rem"
-                                  fontWeight="bolder"
-                                  noWrap=true>
-                                  {item.cateTile |> string}
-                                </Typography>
-                              </GridItem>
-                              <GridItem
-                                top="6"
-                                right="40"
-                                left="40"
-                                bottom="6"
-                                xs="auto">
-                                <Typography
-                                  variant="subheading"
-                                  fontWeight="500"
-                                  noWrap=true>
-                                  {item.category |> string}
-                                </Typography>
-                              </GridItem>
-                              <GridItem right="40" left="40" xs="auto">
-                                <Divider />
-                              </GridItem>
-                              <GridItem right="40" left="40" xs="auto">
-                                <Typography
-                                  variant="tile"
-                                  fontSize="1.25rem"
-                                  fontWeight="bolder"
-                                  noWrap=true>
-                                  {item.custTile |> string}
-                                </Typography>
-                              </GridItem>
-                              <GridItem
-                                top="6"
-                                right="40"
-                                left="40"
-                                bottom="6"
-                                xs="auto">
-                                <Typography
-                                  variant="subheading"
-                                  fontWeight="500"
-                                  noWrap=true>
-                                  {item.customer |> string}
-                                </Typography>
-                              </GridItem>
-                              <GridItem right="40" left="40" xs="auto">
-                                <Divider />
-                              </GridItem>
-                              <GridItem right="40" left="40" xs="auto">
-                                <Typography
-                                  variant="tile"
-                                  fontSize="1.25rem"
-                                  fontWeight="bolder"
-                                  noWrap=true>
-                                  {item.sotiTile |> string}
-                                </Typography>
-                              </GridItem>
-                              <GridItem
-                                top="6"
-                                right="40"
-                                left="40"
-                                bottom="6"
-                                xs="auto">
-                                <Typography
-                                  variant="subheading"
-                                  fontWeight="500"
-                                  noWrap=true>
-                                  {item.sotime |> string}
-                                </Typography>
-                              </GridItem>
-                              <GridItem right="40" left="40" xs="auto">
-                                <Divider />
-                              </GridItem>
-                              <GridItem right="40" left="40" xs="auto">
-                                <Typography
-                                  variant="tile"
-                                  fontSize="1.25rem"
-                                  fontWeight="bolder"
-                                  noWrap=true>
-                                  {item.mbTile |> string}
-                                </Typography>
-                              </GridItem>
-                              <GridItem
-                                top="6"
-                                right="40"
-                                left="40"
-                                bottom="6"
-                                xs="auto">
-                                <Typography
-                                  variant="subheading"
-                                  fontWeight="500"
-                                  noWrap=true>
-                                  {item.mb |> string}
-                                </Typography>
-                              </GridItem>
-                              <GridItem right="40" left="40" xs="auto">
-                                <Divider />
-                              </GridItem>
-                              <GridItem right="40" left="40" xs="auto">
-                                <Typography
-                                  variant="tile"
-                                  fontSize="1.25rem"
-                                  fontWeight="bolder"
-                                  noWrap=true>
-                                  {item.sampTile |> string}
-                                </Typography>
-                              </GridItem>
-                              <GridItem
-                                top="6"
-                                right="40"
-                                left="40"
-                                bottom="6"
-                                xs="auto">
-                                <Typography
-                                  variant="subheading"
-                                  fontWeight="500"
-                                  noWrap=true>
-                                  {item.sample |> string}
-                                </Typography>
-                              </GridItem>
-                              <GridItem right="40" left="40" xs="auto">
-                                <Divider />
-                              </GridItem>
-                              <GridItem right="40" left="40" xs="auto">
-                                <Typography
-                                  variant="tile"
-                                  fontSize="1.25rem"
-                                  fontWeight="bolder"
-                                  noWrap=true>
-                                  {item.specTile |> string}
-                                </Typography>
-                              </GridItem>
-                              <GridItem
-                                top="6"
-                                right="40"
-                                left="40"
-                                bottom="6"
-                                xs="auto">
-                                <Typography
-                                  variant="subheading"
-                                  fontWeight="500"
-                                  noWrap=true>
-                                  {item.species |> string}
-                                </Typography>
-                              </GridItem>
-                              <GridItem right="40" left="40" xs="auto">
-                                <Divider />
-                              </GridItem>
-                              <GridItem right="40" left="40" xs="auto">
-                                <Typography
-                                  variant="tile"
-                                  fontSize="1.25rem"
-                                  fontWeight="bolder"
-                                  noWrap=true>
-                                  {item.counTile |> string}
-                                </Typography>
-                              </GridItem>
-                              <GridItem
-                                top="6"
-                                right="40"
-                                left="40"
-                                bottom="6"
-                                xs="auto">
-                                <Typography
-                                  variant="subheading"
-                                  fontWeight="500"
-                                  noWrap=true>
-                                  {item.count |> string}
-                                </Typography>
-                              </GridItem>
-                              <GridItem right="40" left="40" xs="auto">
-                                <Divider />
-                              </GridItem>
-                              <GridItem right="40" left="40" xs="auto">
-                                <Typography
-                                  variant="tile"
-                                  fontSize="1.25rem"
-                                  fontWeight="bolder"
-                                  noWrap=true>
-                                  {item.desiTile |> string}
-                                </Typography>
-                              </GridItem>
-                              <GridItem
-                                top="6"
-                                right="40"
-                                left="40"
-                                bottom="6"
-                                xs="auto">
-                                <Typography
-                                  variant="subheading"
-                                  fontWeight="500"
-                                  noWrap=true>
-                                  {item.designer |> string}
-                                </Typography>
-                              </GridItem>
+                              {item.dataitems
+                               |> Array.map(dataitem =>
+                                    <>
+                                      <GridItem right="40" left="40" xs="auto">
+                                        <Typography
+                                          variant="tile"
+                                          fontSize="1.25rem"
+                                          fontWeight="bolder"
+                                          noWrap=true>
+                                          {dataitem.key |> string}
+                                        </Typography>
+                                      </GridItem>
+                                      <GridItem
+                                        top="6"
+                                        right="40"
+                                        left="40"
+                                        bottom="6"
+                                        xs="auto">
+                                        <Typography
+                                          variant="subheading"
+                                          fontWeight="500"
+                                          noWrap=true>
+                                          {dataitem.data |> string}
+                                        </Typography>
+                                      </GridItem>
+                                      <GridItem right="40" left="40" xs="auto">
+                                        <Divider />
+                                      </GridItem>
+                                    </>
+                                  )
+                               |> array}
                             </GridContainer>
                           </GridItem>
                         </GridContainer>
