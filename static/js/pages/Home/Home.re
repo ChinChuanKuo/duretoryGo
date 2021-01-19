@@ -49,6 +49,29 @@ type formitem = {
   formModify: bool,
 };
 
+type viewitem = {
+  viewIndex: int,
+  viewections: array(string),
+  attrTile: string,
+  attribute: string,
+  cateTile: string,
+  category: string,
+  custTile: string,
+  customer: string,
+  sotiTile: string,
+  sotime: string,
+  mbTile: string,
+  mb: string,
+  sampTile: string,
+  sample: string,
+  specTile: string,
+  species: string,
+  counTile: string,
+  count: string,
+  desiTile: string,
+  designer: string,
+};
+
 type filtitem = {
   filtIndex: int,
   filtTile: string,
@@ -81,6 +104,10 @@ type state = {
   showItem: bool,
   itemCount: int,
   items: array(item),
+  viewFull: bool,
+  viewId: string,
+  viewTitle: string,
+  viewitems: array(viewitem),
   showFull: bool,
   formIndex: int,
   formId: string,
@@ -112,6 +139,8 @@ type action =
   | SettingFiltItems(array(filtitem))
   | SettingFormItems(bool, int, array(item))
   | SettingScrollItems(bool, array(item))
+  | SettingSingleItem(int, array(item))
+  | ShowAnimationViewFull(string, string, array(viewitem))
   | ShowAnimationFull(int, string, string, array(formitem))
   | ShowFiltMenu(int)
   | ClickFiltMenu(string, int)
@@ -126,6 +155,7 @@ type action =
   | ClickMenuItem(string, int)
   | ClickRadioItem(int, int)
   | ClickCheckboxItem(int, int)
+  | CloseAnimationViewFull
   | CloseAnimationFull
   | ActionSnackBar(string, bool);
 
@@ -157,6 +187,30 @@ let reducer = (state, action) =>
       ...state,
       showItem,
       items: Array.append(state.items, items),
+    }
+  | SettingSingleItem(index, items) => {
+      ...state,
+      items:
+        Array.mapi(
+          (i, item) =>
+            index == i
+              ? {
+                ...item,
+                index: 0,
+                collections: items[0].collections,
+                tile: items[0].tile,
+                datetime: items[0].datetime,
+              }
+              : item,
+          state.items,
+        ),
+    }
+  | ShowAnimationViewFull(id, value, viewitems) => {
+      ...state,
+      viewId: id,
+      viewTitle: value,
+      viewitems,
+      viewFull: !state.viewFull,
     }
   | ShowAnimationFull(index, id, value, formitems) => {
       ...state,
@@ -343,6 +397,7 @@ let reducer = (state, action) =>
           state.formitems,
         ),
     }
+  | CloseAnimationViewFull => {...state, viewFull: !state.viewFull}
   | CloseAnimationFull => {...state, showFull: !state.showFull}
   | ActionSnackBar(youtubeText, showYoutube) => {
       ...state,
@@ -365,6 +420,10 @@ let initialState = {
   showItem: false,
   itemCount: 0,
   items: [||],
+  viewFull: false,
+  viewId: "",
+  viewTitle: "",
+  viewitems: [||],
   showFull: false,
   formIndex: 0,
   formId: "",
@@ -612,6 +671,77 @@ let make = _ => {
       SettingCollections(collectionIndex, index) |> dispatch;
     });
 
+  let sViewAJax = id =>
+    Js.Promise.(
+      "newid"
+      |> Locals.select
+      |> dFormData(id)
+      |> Default.sView
+      |> then_(response => {
+           (
+             switch (response##data##status) {
+             | "istrue" =>
+               ShowAnimationViewFull(
+                 id,
+                 response##data##tile,
+                 response##data##items,
+               )
+               |> dispatch;
+               ActionShowProgress |> dispatch;
+             | _ =>
+               response##data##status |> statusModule |> barShowRestoreAction;
+               ActionShowProgress |> dispatch;
+             }
+           )
+           |> resolve
+         })
+      |> catch(error => error |> Js.log |> resolve)
+      |> ignore
+    );
+
+  let clickFormBoard =
+    useCallback(id => {
+      ActionShowProgress |> dispatch;
+      id |> sViewAJax;
+    });
+
+  let sItemAJax = (index, id) =>
+    Js.Promise.(
+      "newid"
+      |> Locals.select
+      |> dFormData(id)
+      |> Default.sItem
+      |> then_(response => {
+           (
+             switch (response##data##status) {
+             | "istrue" =>
+               ShowAnimationFull(
+                 index,
+                 id,
+                 response##data##tile,
+                 response##data##items,
+               )
+               |> dispatch;
+               ActionShowProgress |> dispatch;
+             | _ =>
+               response##data##status |> statusModule |> barShowRestoreAction;
+               ActionShowProgress |> dispatch;
+             }
+           )
+           |> resolve
+         })
+      |> catch(error => error |> Js.log |> resolve)
+      |> ignore
+    );
+
+  let editForm =
+    useCallback((i, id, event) => {
+      ReactEvent.Mouse.preventDefault(event);
+      ReactEvent.Mouse.stopPropagation(event);
+      ActionShowProgress |> dispatch;
+      id |> sItemAJax(i);
+    });
+
   let deleteAJax = id =>
     Js.Promise.(
       "newid"
@@ -644,40 +774,32 @@ let make = _ => {
       id |> deleteAJax;
     });
 
-  let sItemAJax = (index, id) =>
+  let sRefreshAJax = () =>
     Js.Promise.(
       "newid"
       |> Locals.select
-      |> dFormData(id)
-      |> Default.sItem
-      |> then_(response => {
-           (
+      |> dFormData(state.formId)
+      |> Default.sRefresh
+      |> then_(response =>
+           {
              switch (response##data##status) {
              | "istrue" =>
-               ShowAnimationFull(
-                 index,
-                 id,
-                 response##data##tile,
-                 response##data##items,
-               )
+               SettingSingleItem(state.formIndex, response##data##items)
                |> dispatch;
+               CloseAnimationFull |> dispatch;
+               "saveSuccess" |> statusModule |> barShowRestoreAction;
                ActionShowProgress |> dispatch;
              | _ =>
+               CloseAnimationFull |> dispatch;
                response##data##status |> statusModule |> barShowRestoreAction;
                ActionShowProgress |> dispatch;
-             }
-           )
+             };
+           }
            |> resolve
-         })
+         )
       |> catch(error => error |> Js.log |> resolve)
       |> ignore
     );
-
-  let clickFormBoard =
-    useCallback((i, id) => {
-      ActionShowProgress |> dispatch;
-      id |> sItemAJax(i);
-    });
 
   let insertAJax = () =>
     Js.Promise.(
@@ -696,10 +818,7 @@ let make = _ => {
       |> then_(response =>
            {
              switch (response##data##status) {
-             | "istrue" =>
-               CloseAnimationFull |> dispatch;
-               "saveSuccess" |> statusModule |> barShowRestoreAction;
-               ActionShowProgress |> dispatch;
+             | "istrue" => sRefreshAJax()
              | _ =>
                response##data##status |> statusModule |> barShowRestoreAction;
                ActionShowProgress |> dispatch;
@@ -865,6 +984,9 @@ let make = _ => {
       }
     );
 
+  let closeAnimationViewFull =
+    useCallback(_ => CloseAnimationViewFull |> dispatch);
+
   let closeAnimationFull = useCallback(_ => CloseAnimationFull |> dispatch);
 
   <>
@@ -955,7 +1077,7 @@ let make = _ => {
             <GridContainer direction="row" justify="start" alignItem="center">
               {state.items
                |> Array.mapi((i, item) =>
-                    <div onClick={_ => item.id |> clickFormBoard(i)}>
+                    <div onClick={_ => item.id |> clickFormBoard}>
                       <GridItem
                         style={ReactDOMRe.Style.make(
                           ~height="250px",
@@ -1139,15 +1261,38 @@ let make = _ => {
                                         {item.datetime |> string}
                                       </Typography>
                                     </GridItem>
-                                    {state.delete
-                                       ? <GridItem
-                                           style=positionRelative
-                                           top="0"
-                                           right="0"
-                                           bottom="0"
-                                           left="0"
-                                           xs="auto">
-                                           <div
+                                    <GridItem
+                                      style=positionRelative
+                                      top="0"
+                                      right="0"
+                                      bottom="0"
+                                      left="0"
+                                      xs="auto">
+                                      {state.update
+                                         ? <div
+                                             style={ReactDOMRe.Style.make(
+                                               ~position="absolute",
+                                               ~right="50%",
+                                               ~bottom="-100%",
+                                               ~transform=
+                                                 "translate(50px, 20px)",
+                                               (),
+                                             )}>
+                                             <IconButton
+                                               padding="6"
+                                               disabled={state.showProgress}
+                                               onClick={event =>
+                                                 event |> editForm(i, item.id)
+                                               }>
+                                               <IconAction
+                                                 animation="leftRight"
+                                                 src=editBlack
+                                               />
+                                             </IconButton>
+                                           </div>
+                                         : null}
+                                      {state.delete
+                                         ? <div
                                              style={ReactDOMRe.Style.make(
                                                ~position="absolute",
                                                ~right="0",
@@ -1168,8 +1313,8 @@ let make = _ => {
                                                />
                                              </IconButton>
                                            </div>
-                                         </GridItem>
-                                       : null}
+                                         : null}
+                                    </GridItem>
                                   </GridContainer>
                                 </GridItem>
                               </GridContainer>
@@ -1190,6 +1335,269 @@ let make = _ => {
         />
       </GridItem>
     </NewFacetube>
+    <DialogFull showAnimation={state.viewFull}>
+      <DialogTitle top="22" left="64">
+        <Typography variant="tile" fontWeight="600">
+          {state.viewTitle |> string}
+        </Typography>
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText>
+          <GridItem
+            style=marginAuto
+            top="0"
+            right="0"
+            bottom="0"
+            left="54"
+            xs="12"
+            maxWidth="770px">
+            <GridContainer
+              direction="column" justify="center" alignItem="stretch">
+              {state.viewitems
+               |> Array.map(item =>
+                    <>
+                      <GridItem right="0" left="0" xs="auto">
+                        <GridContainer
+                          direction="row" justify="center" alignItem="center">
+                          <GridItem
+                            top="0" right="0" bottom="0" left="0" xs="no">
+                            <IconButton
+                              padding="6" disabled={state.showProgress}>
+                              <IconAction
+                                animation="leftRight"
+                                src=arrowBackIosBlack
+                              />
+                            </IconButton>
+                          </GridItem>
+                          <GridItem
+                            top="0" right="0" bottom="0" left="0" xs="auto">
+                            {item.viewections
+                             |> Array.mapi((ci, collitem) =>
+                                  <div
+                                    style={ReactDOMRe.Style.make(
+                                      ~display=
+                                        {item.viewIndex == ci |> showDisplay},
+                                      (),
+                                    )}>
+                                    <Image
+                                      width="auto"
+                                      height="100%"
+                                      borderRadius="6"
+                                      src={
+                                        "data:image/jpg;base64," ++ collitem
+                                      }
+                                    />
+                                  </div>
+                                )
+                             |> array}
+                          </GridItem>
+                          <GridItem
+                            top="0" right="0" bottom="0" left="0" xs="no">
+                            <IconButton
+                              padding="6" disabled={state.showProgress}>
+                              <IconAction
+                                animation="leftRight"
+                                src=arrowForwardIosBlack
+                              />
+                            </IconButton>
+                          </GridItem>
+                        </GridContainer>
+                      </GridItem>
+                      <GridItem right="40" left="40" xs="auto">
+                        <Typography
+                          variant="tile"
+                          fontSize="1.25rem"
+                          fontWeight="bolder"
+                          noWrap=true>
+                          {item.attrTile |> string}
+                        </Typography>
+                      </GridItem>
+                      <GridItem
+                        top="6" right="40" left="40" bottom="6" xs="auto">
+                        <Typography
+                          variant="subheading" fontWeight="500" noWrap=true>
+                          {item.attribute |> string}
+                        </Typography>
+                      </GridItem>
+                      <GridItem right="40" left="40" xs="auto">
+                        <Divider />
+                      </GridItem>
+                      <GridItem right="40" left="40" xs="auto">
+                        <Typography
+                          variant="tile"
+                          fontSize="1.25rem"
+                          fontWeight="bolder"
+                          noWrap=true>
+                          {item.cateTile |> string}
+                        </Typography>
+                      </GridItem>
+                      <GridItem
+                        top="6" right="40" left="40" bottom="6" xs="auto">
+                        <Typography
+                          variant="subheading" fontWeight="500" noWrap=true>
+                          {item.category |> string}
+                        </Typography>
+                      </GridItem>
+                      <GridItem right="40" left="40" xs="auto">
+                        <Divider />
+                      </GridItem>
+                      <GridItem right="40" left="40" xs="auto">
+                        <Typography
+                          variant="tile"
+                          fontSize="1.25rem"
+                          fontWeight="bolder"
+                          noWrap=true>
+                          {item.custTile |> string}
+                        </Typography>
+                      </GridItem>
+                      <GridItem
+                        top="6" right="40" left="40" bottom="6" xs="auto">
+                        <Typography
+                          variant="subheading" fontWeight="500" noWrap=true>
+                          {item.customer |> string}
+                        </Typography>
+                      </GridItem>
+                      <GridItem right="40" left="40" xs="auto">
+                        <Divider />
+                      </GridItem>
+                      <GridItem right="40" left="40" xs="auto">
+                        <Typography
+                          variant="tile"
+                          fontSize="1.25rem"
+                          fontWeight="bolder"
+                          noWrap=true>
+                          {item.sotiTile |> string}
+                        </Typography>
+                      </GridItem>
+                      <GridItem
+                        top="6" right="40" left="40" bottom="6" xs="auto">
+                        <Typography
+                          variant="subheading" fontWeight="500" noWrap=true>
+                          {item.sotime |> string}
+                        </Typography>
+                      </GridItem>
+                      <GridItem right="40" left="40" xs="auto">
+                        <Divider />
+                      </GridItem>
+                      <GridItem right="40" left="40" xs="auto">
+                        <Typography
+                          variant="tile"
+                          fontSize="1.25rem"
+                          fontWeight="bolder"
+                          noWrap=true>
+                          {item.mbTile |> string}
+                        </Typography>
+                      </GridItem>
+                      <GridItem
+                        top="6" right="40" left="40" bottom="6" xs="auto">
+                        <Typography
+                          variant="subheading" fontWeight="500" noWrap=true>
+                          {item.mb |> string}
+                        </Typography>
+                      </GridItem>
+                      <GridItem right="40" left="40" xs="auto">
+                        <Divider />
+                      </GridItem>
+                      <GridItem right="40" left="40" xs="auto">
+                        <Typography
+                          variant="tile"
+                          fontSize="1.25rem"
+                          fontWeight="bolder"
+                          noWrap=true>
+                          {item.sampTile |> string}
+                        </Typography>
+                      </GridItem>
+                      <GridItem
+                        top="6" right="40" left="40" bottom="6" xs="auto">
+                        <Typography
+                          variant="subheading" fontWeight="500" noWrap=true>
+                          {item.sample |> string}
+                        </Typography>
+                      </GridItem>
+                      <GridItem right="40" left="40" xs="auto">
+                        <Divider />
+                      </GridItem>
+                      <GridItem right="40" left="40" xs="auto">
+                        <Typography
+                          variant="tile"
+                          fontSize="1.25rem"
+                          fontWeight="bolder"
+                          noWrap=true>
+                          {item.specTile |> string}
+                        </Typography>
+                      </GridItem>
+                      <GridItem
+                        top="6" right="40" left="40" bottom="6" xs="auto">
+                        <Typography
+                          variant="subheading" fontWeight="500" noWrap=true>
+                          {item.species |> string}
+                        </Typography>
+                      </GridItem>
+                      <GridItem right="40" left="40" xs="auto">
+                        <Divider />
+                      </GridItem>
+                      <GridItem right="40" left="40" xs="auto">
+                        <Typography
+                          variant="tile"
+                          fontSize="1.25rem"
+                          fontWeight="bolder"
+                          noWrap=true>
+                          {item.counTile |> string}
+                        </Typography>
+                      </GridItem>
+                      <GridItem
+                        top="6" right="40" left="40" bottom="6" xs="auto">
+                        <Typography
+                          variant="subheading" fontWeight="500" noWrap=true>
+                          {item.count |> string}
+                        </Typography>
+                      </GridItem>
+                      <GridItem right="40" left="40" xs="auto">
+                        <Divider />
+                      </GridItem>
+                      <GridItem right="40" left="40" xs="auto">
+                        <Typography
+                          variant="tile"
+                          fontSize="1.25rem"
+                          fontWeight="bolder"
+                          noWrap=true>
+                          {item.desiTile |> string}
+                        </Typography>
+                      </GridItem>
+                      <GridItem
+                        top="6" right="40" left="40" bottom="6" xs="auto">
+                        <Typography
+                          variant="subheading" fontWeight="500" noWrap=true>
+                          {item.designer |> string}
+                        </Typography>
+                      </GridItem>
+                    </>
+                  )
+               |> array}
+            </GridContainer>
+          </GridItem>
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <div
+          style={ReactDOMRe.Style.make(
+            ~position="fixed",
+            ~top="10px",
+            ~left="10px",
+            (),
+          )}>
+          <IconButton
+            padding="12"
+            disabled={state.showProgress}
+            onClick=closeAnimationViewFull>
+            <Tooltip location="bottom" backgroundColor="rgba(255,0,0,0.8)">
+              <FormattedMessage id="closed" defaultMessage="Closed" />
+            </Tooltip>
+            <IconAction animation="circle" src=clearBlack />
+          </IconButton>
+        </div>
+      </DialogActions>
+    </DialogFull>
     <DialogFull showAnimation={state.showFull}>
       <DialogTitle top="22" left="64">
         <Typography variant="tile" fontWeight="600">

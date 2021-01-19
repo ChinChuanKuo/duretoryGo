@@ -89,10 +89,14 @@ module Default = {
     postData("http://10.10.50.50:2250/Home/sFilterData", data);
   let delete = data =>
     postData("http://10.10.50.50:2250/Home/deleteData", data);
+  let sView = data =>
+    postData("http://10.10.50.50:2250/Home/sViewData", data);
   let sItem = data =>
     postData("http://10.10.50.50:2250/Home/sItemData", data);
   let insert = data =>
     postData("http://10.10.50.50:2250/Home/insertData", data);
+  let sRefresh = data =>
+    postData("http://10.10.50.50:2250/Home/sRefreshData", data);
 };
 
 module Formor = {

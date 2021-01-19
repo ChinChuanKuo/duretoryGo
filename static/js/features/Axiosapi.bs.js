@@ -156,6 +156,10 @@ function $$delete(data) {
   return Axios$1.post("http://10.10.50.50:2250/Home/deleteData", data);
 }
 
+function sView(data) {
+  return Axios$1.post("http://10.10.50.50:2250/Home/sViewData", data);
+}
+
 function sItem(data) {
   return Axios$1.post("http://10.10.50.50:2250/Home/sItemData", data);
 }
@@ -164,14 +168,20 @@ function insert$1(data) {
   return Axios$1.post("http://10.10.50.50:2250/Home/insertData", data);
 }
 
+function sRefresh(data) {
+  return Axios$1.post("http://10.10.50.50:2250/Home/sRefreshData", data);
+}
+
 var Default = {
   search: search$1,
   filter: filter,
   scroll: scroll,
   sFilter: sFilter,
   $$delete: $$delete,
+  sView: sView,
   sItem: sItem,
-  insert: insert$1
+  insert: insert$1,
+  sRefresh: sRefresh
 };
 
 function search$2(data) {
