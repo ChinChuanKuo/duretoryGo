@@ -1400,303 +1400,329 @@ function Home(Props) {
                                                                 xs: "auto",
                                                                 children: React.createElement(GridContainer$BtsCore.make, {
                                                                       direction: "row",
-                                                                      justify: "center",
-                                                                      alignItem: "center",
+                                                                      justify: "between",
+                                                                      alignItem: "start",
                                                                       children: null
                                                                     }, React.createElement(GridItem$BtsCore.make, {
                                                                           top: "0",
-                                                                          right: "0",
+                                                                          right: "56",
                                                                           bottom: "0",
                                                                           left: "0",
+                                                                          width: "100%",
                                                                           xs: "no",
-                                                                          children: React.createElement(IconButton$BtsCore.make, {
-                                                                                padding: "6",
-                                                                                disabled: state.showProgress,
-                                                                                children: React.createElement(IconAction$BtsCore.make, {
-                                                                                      animation: "leftRight",
-                                                                                      src: Icons$BtsCore.arrowBackIosBlack
-                                                                                    })
-                                                                              })
+                                                                          maxWidth: "auto",
+                                                                          children: React.createElement(GridContainer$BtsCore.make, {
+                                                                                direction: "row",
+                                                                                justify: "center",
+                                                                                alignItem: "center",
+                                                                                children: null
+                                                                              }, React.createElement(GridItem$BtsCore.make, {
+                                                                                    top: "0",
+                                                                                    right: "0",
+                                                                                    bottom: "0",
+                                                                                    left: "0",
+                                                                                    xs: "no",
+                                                                                    children: React.createElement(IconButton$BtsCore.make, {
+                                                                                          padding: "6",
+                                                                                          disabled: state.showProgress,
+                                                                                          children: React.createElement(IconAction$BtsCore.make, {
+                                                                                                animation: "leftRight",
+                                                                                                src: Icons$BtsCore.arrowBackIosBlack
+                                                                                              })
+                                                                                        })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    top: "0",
+                                                                                    right: "0",
+                                                                                    bottom: "0",
+                                                                                    left: "0",
+                                                                                    xs: "auto",
+                                                                                    children: $$Array.mapi((function (ci, collitem) {
+                                                                                            return React.createElement("div", {
+                                                                                                        style: {
+                                                                                                          display: item.viewIndex === ci ? "block" : "none"
+                                                                                                        }
+                                                                                                      }, React.createElement(Image$BtsCore.make, {
+                                                                                                            width: "auto",
+                                                                                                            height: "100%",
+                                                                                                            borderRadius: "6",
+                                                                                                            src: "data:image/jpg;base64," + collitem
+                                                                                                          }));
+                                                                                          }), item.viewections)
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    top: "0",
+                                                                                    right: "0",
+                                                                                    bottom: "0",
+                                                                                    left: "0",
+                                                                                    xs: "no",
+                                                                                    children: React.createElement(IconButton$BtsCore.make, {
+                                                                                          padding: "6",
+                                                                                          disabled: state.showProgress,
+                                                                                          children: React.createElement(IconAction$BtsCore.make, {
+                                                                                                animation: "leftRight",
+                                                                                                src: Icons$BtsCore.arrowForwardIosBlack
+                                                                                              })
+                                                                                        })
+                                                                                  }))
                                                                         }), React.createElement(GridItem$BtsCore.make, {
                                                                           top: "0",
                                                                           right: "0",
                                                                           bottom: "0",
                                                                           left: "0",
                                                                           xs: "auto",
-                                                                          children: $$Array.mapi((function (ci, collitem) {
-                                                                                  return React.createElement("div", {
-                                                                                              style: {
-                                                                                                display: item.viewIndex === ci ? "block" : "none"
-                                                                                              }
-                                                                                            }, React.createElement(Image$BtsCore.make, {
-                                                                                                  width: "auto",
-                                                                                                  height: "100%",
-                                                                                                  borderRadius: "6",
-                                                                                                  src: "data:image/jpg;base64," + collitem
-                                                                                                }));
-                                                                                }), item.viewections)
-                                                                        }), React.createElement(GridItem$BtsCore.make, {
-                                                                          top: "0",
-                                                                          right: "0",
-                                                                          bottom: "0",
-                                                                          left: "0",
-                                                                          xs: "no",
-                                                                          children: React.createElement(IconButton$BtsCore.make, {
-                                                                                padding: "6",
-                                                                                disabled: state.showProgress,
-                                                                                children: React.createElement(IconAction$BtsCore.make, {
-                                                                                      animation: "leftRight",
-                                                                                      src: Icons$BtsCore.arrowForwardIosBlack
-                                                                                    })
-                                                                              })
+                                                                          children: React.createElement(GridContainer$BtsCore.make, {
+                                                                                direction: "column",
+                                                                                justify: "center",
+                                                                                alignItem: "stretch",
+                                                                                children: null
+                                                                              }, React.createElement(GridItem$BtsCore.make, {
+                                                                                    right: "40",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Typography$BtsCore.make, {
+                                                                                          variant: "tile",
+                                                                                          fontSize: "1.25rem",
+                                                                                          fontWeight: "bolder",
+                                                                                          noWrap: true,
+                                                                                          children: item.attrTile
+                                                                                        })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    top: "6",
+                                                                                    right: "40",
+                                                                                    bottom: "6",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Typography$BtsCore.make, {
+                                                                                          variant: "subheading",
+                                                                                          fontWeight: "500",
+                                                                                          noWrap: true,
+                                                                                          children: item.attribute
+                                                                                        })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    right: "40",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Divider$BtsCore.make, { })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    right: "40",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Typography$BtsCore.make, {
+                                                                                          variant: "tile",
+                                                                                          fontSize: "1.25rem",
+                                                                                          fontWeight: "bolder",
+                                                                                          noWrap: true,
+                                                                                          children: item.cateTile
+                                                                                        })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    top: "6",
+                                                                                    right: "40",
+                                                                                    bottom: "6",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Typography$BtsCore.make, {
+                                                                                          variant: "subheading",
+                                                                                          fontWeight: "500",
+                                                                                          noWrap: true,
+                                                                                          children: item.category
+                                                                                        })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    right: "40",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Divider$BtsCore.make, { })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    right: "40",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Typography$BtsCore.make, {
+                                                                                          variant: "tile",
+                                                                                          fontSize: "1.25rem",
+                                                                                          fontWeight: "bolder",
+                                                                                          noWrap: true,
+                                                                                          children: item.custTile
+                                                                                        })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    top: "6",
+                                                                                    right: "40",
+                                                                                    bottom: "6",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Typography$BtsCore.make, {
+                                                                                          variant: "subheading",
+                                                                                          fontWeight: "500",
+                                                                                          noWrap: true,
+                                                                                          children: item.customer
+                                                                                        })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    right: "40",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Divider$BtsCore.make, { })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    right: "40",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Typography$BtsCore.make, {
+                                                                                          variant: "tile",
+                                                                                          fontSize: "1.25rem",
+                                                                                          fontWeight: "bolder",
+                                                                                          noWrap: true,
+                                                                                          children: item.sotiTile
+                                                                                        })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    top: "6",
+                                                                                    right: "40",
+                                                                                    bottom: "6",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Typography$BtsCore.make, {
+                                                                                          variant: "subheading",
+                                                                                          fontWeight: "500",
+                                                                                          noWrap: true,
+                                                                                          children: item.sotime
+                                                                                        })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    right: "40",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Divider$BtsCore.make, { })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    right: "40",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Typography$BtsCore.make, {
+                                                                                          variant: "tile",
+                                                                                          fontSize: "1.25rem",
+                                                                                          fontWeight: "bolder",
+                                                                                          noWrap: true,
+                                                                                          children: item.mbTile
+                                                                                        })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    top: "6",
+                                                                                    right: "40",
+                                                                                    bottom: "6",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Typography$BtsCore.make, {
+                                                                                          variant: "subheading",
+                                                                                          fontWeight: "500",
+                                                                                          noWrap: true,
+                                                                                          children: item.mb
+                                                                                        })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    right: "40",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Divider$BtsCore.make, { })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    right: "40",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Typography$BtsCore.make, {
+                                                                                          variant: "tile",
+                                                                                          fontSize: "1.25rem",
+                                                                                          fontWeight: "bolder",
+                                                                                          noWrap: true,
+                                                                                          children: item.sampTile
+                                                                                        })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    top: "6",
+                                                                                    right: "40",
+                                                                                    bottom: "6",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Typography$BtsCore.make, {
+                                                                                          variant: "subheading",
+                                                                                          fontWeight: "500",
+                                                                                          noWrap: true,
+                                                                                          children: item.sample
+                                                                                        })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    right: "40",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Divider$BtsCore.make, { })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    right: "40",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Typography$BtsCore.make, {
+                                                                                          variant: "tile",
+                                                                                          fontSize: "1.25rem",
+                                                                                          fontWeight: "bolder",
+                                                                                          noWrap: true,
+                                                                                          children: item.specTile
+                                                                                        })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    top: "6",
+                                                                                    right: "40",
+                                                                                    bottom: "6",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Typography$BtsCore.make, {
+                                                                                          variant: "subheading",
+                                                                                          fontWeight: "500",
+                                                                                          noWrap: true,
+                                                                                          children: item.species
+                                                                                        })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    right: "40",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Divider$BtsCore.make, { })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    right: "40",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Typography$BtsCore.make, {
+                                                                                          variant: "tile",
+                                                                                          fontSize: "1.25rem",
+                                                                                          fontWeight: "bolder",
+                                                                                          noWrap: true,
+                                                                                          children: item.counTile
+                                                                                        })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    top: "6",
+                                                                                    right: "40",
+                                                                                    bottom: "6",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Typography$BtsCore.make, {
+                                                                                          variant: "subheading",
+                                                                                          fontWeight: "500",
+                                                                                          noWrap: true,
+                                                                                          children: item.count
+                                                                                        })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    right: "40",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Divider$BtsCore.make, { })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    right: "40",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Typography$BtsCore.make, {
+                                                                                          variant: "tile",
+                                                                                          fontSize: "1.25rem",
+                                                                                          fontWeight: "bolder",
+                                                                                          noWrap: true,
+                                                                                          children: item.desiTile
+                                                                                        })
+                                                                                  }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    top: "6",
+                                                                                    right: "40",
+                                                                                    bottom: "6",
+                                                                                    left: "40",
+                                                                                    xs: "auto",
+                                                                                    children: React.createElement(Typography$BtsCore.make, {
+                                                                                          variant: "subheading",
+                                                                                          fontWeight: "500",
+                                                                                          noWrap: true,
+                                                                                          children: item.designer
+                                                                                        })
+                                                                                  }))
                                                                         }))
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                right: "40",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Typography$BtsCore.make, {
-                                                                      variant: "tile",
-                                                                      fontSize: "1.25rem",
-                                                                      fontWeight: "bolder",
-                                                                      noWrap: true,
-                                                                      children: item.attrTile
-                                                                    })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                top: "6",
-                                                                right: "40",
-                                                                bottom: "6",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Typography$BtsCore.make, {
-                                                                      variant: "subheading",
-                                                                      fontWeight: "500",
-                                                                      noWrap: true,
-                                                                      children: item.attribute
-                                                                    })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                right: "40",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Divider$BtsCore.make, { })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                right: "40",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Typography$BtsCore.make, {
-                                                                      variant: "tile",
-                                                                      fontSize: "1.25rem",
-                                                                      fontWeight: "bolder",
-                                                                      noWrap: true,
-                                                                      children: item.cateTile
-                                                                    })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                top: "6",
-                                                                right: "40",
-                                                                bottom: "6",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Typography$BtsCore.make, {
-                                                                      variant: "subheading",
-                                                                      fontWeight: "500",
-                                                                      noWrap: true,
-                                                                      children: item.category
-                                                                    })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                right: "40",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Divider$BtsCore.make, { })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                right: "40",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Typography$BtsCore.make, {
-                                                                      variant: "tile",
-                                                                      fontSize: "1.25rem",
-                                                                      fontWeight: "bolder",
-                                                                      noWrap: true,
-                                                                      children: item.custTile
-                                                                    })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                top: "6",
-                                                                right: "40",
-                                                                bottom: "6",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Typography$BtsCore.make, {
-                                                                      variant: "subheading",
-                                                                      fontWeight: "500",
-                                                                      noWrap: true,
-                                                                      children: item.customer
-                                                                    })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                right: "40",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Divider$BtsCore.make, { })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                right: "40",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Typography$BtsCore.make, {
-                                                                      variant: "tile",
-                                                                      fontSize: "1.25rem",
-                                                                      fontWeight: "bolder",
-                                                                      noWrap: true,
-                                                                      children: item.sotiTile
-                                                                    })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                top: "6",
-                                                                right: "40",
-                                                                bottom: "6",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Typography$BtsCore.make, {
-                                                                      variant: "subheading",
-                                                                      fontWeight: "500",
-                                                                      noWrap: true,
-                                                                      children: item.sotime
-                                                                    })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                right: "40",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Divider$BtsCore.make, { })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                right: "40",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Typography$BtsCore.make, {
-                                                                      variant: "tile",
-                                                                      fontSize: "1.25rem",
-                                                                      fontWeight: "bolder",
-                                                                      noWrap: true,
-                                                                      children: item.mbTile
-                                                                    })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                top: "6",
-                                                                right: "40",
-                                                                bottom: "6",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Typography$BtsCore.make, {
-                                                                      variant: "subheading",
-                                                                      fontWeight: "500",
-                                                                      noWrap: true,
-                                                                      children: item.mb
-                                                                    })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                right: "40",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Divider$BtsCore.make, { })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                right: "40",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Typography$BtsCore.make, {
-                                                                      variant: "tile",
-                                                                      fontSize: "1.25rem",
-                                                                      fontWeight: "bolder",
-                                                                      noWrap: true,
-                                                                      children: item.sampTile
-                                                                    })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                top: "6",
-                                                                right: "40",
-                                                                bottom: "6",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Typography$BtsCore.make, {
-                                                                      variant: "subheading",
-                                                                      fontWeight: "500",
-                                                                      noWrap: true,
-                                                                      children: item.sample
-                                                                    })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                right: "40",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Divider$BtsCore.make, { })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                right: "40",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Typography$BtsCore.make, {
-                                                                      variant: "tile",
-                                                                      fontSize: "1.25rem",
-                                                                      fontWeight: "bolder",
-                                                                      noWrap: true,
-                                                                      children: item.specTile
-                                                                    })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                top: "6",
-                                                                right: "40",
-                                                                bottom: "6",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Typography$BtsCore.make, {
-                                                                      variant: "subheading",
-                                                                      fontWeight: "500",
-                                                                      noWrap: true,
-                                                                      children: item.species
-                                                                    })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                right: "40",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Divider$BtsCore.make, { })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                right: "40",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Typography$BtsCore.make, {
-                                                                      variant: "tile",
-                                                                      fontSize: "1.25rem",
-                                                                      fontWeight: "bolder",
-                                                                      noWrap: true,
-                                                                      children: item.counTile
-                                                                    })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                top: "6",
-                                                                right: "40",
-                                                                bottom: "6",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Typography$BtsCore.make, {
-                                                                      variant: "subheading",
-                                                                      fontWeight: "500",
-                                                                      noWrap: true,
-                                                                      children: item.count
-                                                                    })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                right: "40",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Divider$BtsCore.make, { })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                right: "40",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Typography$BtsCore.make, {
-                                                                      variant: "tile",
-                                                                      fontSize: "1.25rem",
-                                                                      fontWeight: "bolder",
-                                                                      noWrap: true,
-                                                                      children: item.desiTile
-                                                                    })
-                                                              }), React.createElement(GridItem$BtsCore.make, {
-                                                                top: "6",
-                                                                right: "40",
-                                                                bottom: "6",
-                                                                left: "40",
-                                                                xs: "auto",
-                                                                children: React.createElement(Typography$BtsCore.make, {
-                                                                      variant: "subheading",
-                                                                      fontWeight: "500",
-                                                                      noWrap: true,
-                                                                      children: item.designer
-                                                                    })
                                                               }));
                                               }), state.viewitems)
                                       })

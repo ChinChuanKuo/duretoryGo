@@ -1358,218 +1358,300 @@ let make = _ => {
                     <>
                       <GridItem right="0" left="0" xs="auto">
                         <GridContainer
-                          direction="row" justify="center" alignItem="center">
+                          direction="row" justify="between" alignItem="start">
                           <GridItem
-                            top="0" right="0" bottom="0" left="0" xs="no">
-                            <IconButton
-                              padding="6" disabled={state.showProgress}>
-                              <IconAction
-                                animation="leftRight"
-                                src=arrowBackIosBlack
-                              />
-                            </IconButton>
+                            top="0"
+                            right="56"
+                            bottom="0"
+                            left="0"
+                            width="100%"
+                            maxWidth="auto"
+                            xs="no">
+                            <GridContainer
+                              direction="row"
+                              justify="center"
+                              alignItem="center">
+                              <GridItem
+                                top="0" right="0" bottom="0" left="0" xs="no">
+                                <IconButton
+                                  padding="6" disabled={state.showProgress}>
+                                  <IconAction
+                                    animation="leftRight"
+                                    src=arrowBackIosBlack
+                                  />
+                                </IconButton>
+                              </GridItem>
+                              <GridItem
+                                top="0"
+                                right="0"
+                                bottom="0"
+                                left="0"
+                                xs="auto">
+                                {item.viewections
+                                 |> Array.mapi((ci, collitem) =>
+                                      <div
+                                        style={ReactDOMRe.Style.make(
+                                          ~display=
+                                            {item.viewIndex == ci
+                                             |> showDisplay},
+                                          (),
+                                        )}>
+                                        <Image
+                                          width="auto"
+                                          height="100%"
+                                          borderRadius="6"
+                                          src={
+                                            "data:image/jpg;base64,"
+                                            ++ collitem
+                                          }
+                                        />
+                                      </div>
+                                    )
+                                 |> array}
+                              </GridItem>
+                              <GridItem
+                                top="0" right="0" bottom="0" left="0" xs="no">
+                                <IconButton
+                                  padding="6" disabled={state.showProgress}>
+                                  <IconAction
+                                    animation="leftRight"
+                                    src=arrowForwardIosBlack
+                                  />
+                                </IconButton>
+                              </GridItem>
+                            </GridContainer>
                           </GridItem>
                           <GridItem
                             top="0" right="0" bottom="0" left="0" xs="auto">
-                            {item.viewections
-                             |> Array.mapi((ci, collitem) =>
-                                  <div
-                                    style={ReactDOMRe.Style.make(
-                                      ~display=
-                                        {item.viewIndex == ci |> showDisplay},
-                                      (),
-                                    )}>
-                                    <Image
-                                      width="auto"
-                                      height="100%"
-                                      borderRadius="6"
-                                      src={
-                                        "data:image/jpg;base64," ++ collitem
-                                      }
-                                    />
-                                  </div>
-                                )
-                             |> array}
-                          </GridItem>
-                          <GridItem
-                            top="0" right="0" bottom="0" left="0" xs="no">
-                            <IconButton
-                              padding="6" disabled={state.showProgress}>
-                              <IconAction
-                                animation="leftRight"
-                                src=arrowForwardIosBlack
-                              />
-                            </IconButton>
+                            <GridContainer
+                              direction="column"
+                              justify="center"
+                              alignItem="stretch">
+                              <GridItem right="40" left="40" xs="auto">
+                                <Typography
+                                  variant="tile"
+                                  fontSize="1.25rem"
+                                  fontWeight="bolder"
+                                  noWrap=true>
+                                  {item.attrTile |> string}
+                                </Typography>
+                              </GridItem>
+                              <GridItem
+                                top="6"
+                                right="40"
+                                left="40"
+                                bottom="6"
+                                xs="auto">
+                                <Typography
+                                  variant="subheading"
+                                  fontWeight="500"
+                                  noWrap=true>
+                                  {item.attribute |> string}
+                                </Typography>
+                              </GridItem>
+                              <GridItem right="40" left="40" xs="auto">
+                                <Divider />
+                              </GridItem>
+                              <GridItem right="40" left="40" xs="auto">
+                                <Typography
+                                  variant="tile"
+                                  fontSize="1.25rem"
+                                  fontWeight="bolder"
+                                  noWrap=true>
+                                  {item.cateTile |> string}
+                                </Typography>
+                              </GridItem>
+                              <GridItem
+                                top="6"
+                                right="40"
+                                left="40"
+                                bottom="6"
+                                xs="auto">
+                                <Typography
+                                  variant="subheading"
+                                  fontWeight="500"
+                                  noWrap=true>
+                                  {item.category |> string}
+                                </Typography>
+                              </GridItem>
+                              <GridItem right="40" left="40" xs="auto">
+                                <Divider />
+                              </GridItem>
+                              <GridItem right="40" left="40" xs="auto">
+                                <Typography
+                                  variant="tile"
+                                  fontSize="1.25rem"
+                                  fontWeight="bolder"
+                                  noWrap=true>
+                                  {item.custTile |> string}
+                                </Typography>
+                              </GridItem>
+                              <GridItem
+                                top="6"
+                                right="40"
+                                left="40"
+                                bottom="6"
+                                xs="auto">
+                                <Typography
+                                  variant="subheading"
+                                  fontWeight="500"
+                                  noWrap=true>
+                                  {item.customer |> string}
+                                </Typography>
+                              </GridItem>
+                              <GridItem right="40" left="40" xs="auto">
+                                <Divider />
+                              </GridItem>
+                              <GridItem right="40" left="40" xs="auto">
+                                <Typography
+                                  variant="tile"
+                                  fontSize="1.25rem"
+                                  fontWeight="bolder"
+                                  noWrap=true>
+                                  {item.sotiTile |> string}
+                                </Typography>
+                              </GridItem>
+                              <GridItem
+                                top="6"
+                                right="40"
+                                left="40"
+                                bottom="6"
+                                xs="auto">
+                                <Typography
+                                  variant="subheading"
+                                  fontWeight="500"
+                                  noWrap=true>
+                                  {item.sotime |> string}
+                                </Typography>
+                              </GridItem>
+                              <GridItem right="40" left="40" xs="auto">
+                                <Divider />
+                              </GridItem>
+                              <GridItem right="40" left="40" xs="auto">
+                                <Typography
+                                  variant="tile"
+                                  fontSize="1.25rem"
+                                  fontWeight="bolder"
+                                  noWrap=true>
+                                  {item.mbTile |> string}
+                                </Typography>
+                              </GridItem>
+                              <GridItem
+                                top="6"
+                                right="40"
+                                left="40"
+                                bottom="6"
+                                xs="auto">
+                                <Typography
+                                  variant="subheading"
+                                  fontWeight="500"
+                                  noWrap=true>
+                                  {item.mb |> string}
+                                </Typography>
+                              </GridItem>
+                              <GridItem right="40" left="40" xs="auto">
+                                <Divider />
+                              </GridItem>
+                              <GridItem right="40" left="40" xs="auto">
+                                <Typography
+                                  variant="tile"
+                                  fontSize="1.25rem"
+                                  fontWeight="bolder"
+                                  noWrap=true>
+                                  {item.sampTile |> string}
+                                </Typography>
+                              </GridItem>
+                              <GridItem
+                                top="6"
+                                right="40"
+                                left="40"
+                                bottom="6"
+                                xs="auto">
+                                <Typography
+                                  variant="subheading"
+                                  fontWeight="500"
+                                  noWrap=true>
+                                  {item.sample |> string}
+                                </Typography>
+                              </GridItem>
+                              <GridItem right="40" left="40" xs="auto">
+                                <Divider />
+                              </GridItem>
+                              <GridItem right="40" left="40" xs="auto">
+                                <Typography
+                                  variant="tile"
+                                  fontSize="1.25rem"
+                                  fontWeight="bolder"
+                                  noWrap=true>
+                                  {item.specTile |> string}
+                                </Typography>
+                              </GridItem>
+                              <GridItem
+                                top="6"
+                                right="40"
+                                left="40"
+                                bottom="6"
+                                xs="auto">
+                                <Typography
+                                  variant="subheading"
+                                  fontWeight="500"
+                                  noWrap=true>
+                                  {item.species |> string}
+                                </Typography>
+                              </GridItem>
+                              <GridItem right="40" left="40" xs="auto">
+                                <Divider />
+                              </GridItem>
+                              <GridItem right="40" left="40" xs="auto">
+                                <Typography
+                                  variant="tile"
+                                  fontSize="1.25rem"
+                                  fontWeight="bolder"
+                                  noWrap=true>
+                                  {item.counTile |> string}
+                                </Typography>
+                              </GridItem>
+                              <GridItem
+                                top="6"
+                                right="40"
+                                left="40"
+                                bottom="6"
+                                xs="auto">
+                                <Typography
+                                  variant="subheading"
+                                  fontWeight="500"
+                                  noWrap=true>
+                                  {item.count |> string}
+                                </Typography>
+                              </GridItem>
+                              <GridItem right="40" left="40" xs="auto">
+                                <Divider />
+                              </GridItem>
+                              <GridItem right="40" left="40" xs="auto">
+                                <Typography
+                                  variant="tile"
+                                  fontSize="1.25rem"
+                                  fontWeight="bolder"
+                                  noWrap=true>
+                                  {item.desiTile |> string}
+                                </Typography>
+                              </GridItem>
+                              <GridItem
+                                top="6"
+                                right="40"
+                                left="40"
+                                bottom="6"
+                                xs="auto">
+                                <Typography
+                                  variant="subheading"
+                                  fontWeight="500"
+                                  noWrap=true>
+                                  {item.designer |> string}
+                                </Typography>
+                              </GridItem>
+                            </GridContainer>
                           </GridItem>
                         </GridContainer>
-                      </GridItem>
-                      <GridItem right="40" left="40" xs="auto">
-                        <Typography
-                          variant="tile"
-                          fontSize="1.25rem"
-                          fontWeight="bolder"
-                          noWrap=true>
-                          {item.attrTile |> string}
-                        </Typography>
-                      </GridItem>
-                      <GridItem
-                        top="6" right="40" left="40" bottom="6" xs="auto">
-                        <Typography
-                          variant="subheading" fontWeight="500" noWrap=true>
-                          {item.attribute |> string}
-                        </Typography>
-                      </GridItem>
-                      <GridItem right="40" left="40" xs="auto">
-                        <Divider />
-                      </GridItem>
-                      <GridItem right="40" left="40" xs="auto">
-                        <Typography
-                          variant="tile"
-                          fontSize="1.25rem"
-                          fontWeight="bolder"
-                          noWrap=true>
-                          {item.cateTile |> string}
-                        </Typography>
-                      </GridItem>
-                      <GridItem
-                        top="6" right="40" left="40" bottom="6" xs="auto">
-                        <Typography
-                          variant="subheading" fontWeight="500" noWrap=true>
-                          {item.category |> string}
-                        </Typography>
-                      </GridItem>
-                      <GridItem right="40" left="40" xs="auto">
-                        <Divider />
-                      </GridItem>
-                      <GridItem right="40" left="40" xs="auto">
-                        <Typography
-                          variant="tile"
-                          fontSize="1.25rem"
-                          fontWeight="bolder"
-                          noWrap=true>
-                          {item.custTile |> string}
-                        </Typography>
-                      </GridItem>
-                      <GridItem
-                        top="6" right="40" left="40" bottom="6" xs="auto">
-                        <Typography
-                          variant="subheading" fontWeight="500" noWrap=true>
-                          {item.customer |> string}
-                        </Typography>
-                      </GridItem>
-                      <GridItem right="40" left="40" xs="auto">
-                        <Divider />
-                      </GridItem>
-                      <GridItem right="40" left="40" xs="auto">
-                        <Typography
-                          variant="tile"
-                          fontSize="1.25rem"
-                          fontWeight="bolder"
-                          noWrap=true>
-                          {item.sotiTile |> string}
-                        </Typography>
-                      </GridItem>
-                      <GridItem
-                        top="6" right="40" left="40" bottom="6" xs="auto">
-                        <Typography
-                          variant="subheading" fontWeight="500" noWrap=true>
-                          {item.sotime |> string}
-                        </Typography>
-                      </GridItem>
-                      <GridItem right="40" left="40" xs="auto">
-                        <Divider />
-                      </GridItem>
-                      <GridItem right="40" left="40" xs="auto">
-                        <Typography
-                          variant="tile"
-                          fontSize="1.25rem"
-                          fontWeight="bolder"
-                          noWrap=true>
-                          {item.mbTile |> string}
-                        </Typography>
-                      </GridItem>
-                      <GridItem
-                        top="6" right="40" left="40" bottom="6" xs="auto">
-                        <Typography
-                          variant="subheading" fontWeight="500" noWrap=true>
-                          {item.mb |> string}
-                        </Typography>
-                      </GridItem>
-                      <GridItem right="40" left="40" xs="auto">
-                        <Divider />
-                      </GridItem>
-                      <GridItem right="40" left="40" xs="auto">
-                        <Typography
-                          variant="tile"
-                          fontSize="1.25rem"
-                          fontWeight="bolder"
-                          noWrap=true>
-                          {item.sampTile |> string}
-                        </Typography>
-                      </GridItem>
-                      <GridItem
-                        top="6" right="40" left="40" bottom="6" xs="auto">
-                        <Typography
-                          variant="subheading" fontWeight="500" noWrap=true>
-                          {item.sample |> string}
-                        </Typography>
-                      </GridItem>
-                      <GridItem right="40" left="40" xs="auto">
-                        <Divider />
-                      </GridItem>
-                      <GridItem right="40" left="40" xs="auto">
-                        <Typography
-                          variant="tile"
-                          fontSize="1.25rem"
-                          fontWeight="bolder"
-                          noWrap=true>
-                          {item.specTile |> string}
-                        </Typography>
-                      </GridItem>
-                      <GridItem
-                        top="6" right="40" left="40" bottom="6" xs="auto">
-                        <Typography
-                          variant="subheading" fontWeight="500" noWrap=true>
-                          {item.species |> string}
-                        </Typography>
-                      </GridItem>
-                      <GridItem right="40" left="40" xs="auto">
-                        <Divider />
-                      </GridItem>
-                      <GridItem right="40" left="40" xs="auto">
-                        <Typography
-                          variant="tile"
-                          fontSize="1.25rem"
-                          fontWeight="bolder"
-                          noWrap=true>
-                          {item.counTile |> string}
-                        </Typography>
-                      </GridItem>
-                      <GridItem
-                        top="6" right="40" left="40" bottom="6" xs="auto">
-                        <Typography
-                          variant="subheading" fontWeight="500" noWrap=true>
-                          {item.count |> string}
-                        </Typography>
-                      </GridItem>
-                      <GridItem right="40" left="40" xs="auto">
-                        <Divider />
-                      </GridItem>
-                      <GridItem right="40" left="40" xs="auto">
-                        <Typography
-                          variant="tile"
-                          fontSize="1.25rem"
-                          fontWeight="bolder"
-                          noWrap=true>
-                          {item.desiTile |> string}
-                        </Typography>
-                      </GridItem>
-                      <GridItem
-                        top="6" right="40" left="40" bottom="6" xs="auto">
-                        <Typography
-                          variant="subheading" fontWeight="500" noWrap=true>
-                          {item.designer |> string}
-                        </Typography>
                       </GridItem>
                     </>
                   )
