@@ -1404,13 +1404,15 @@ function Home(Props) {
                                                                       alignItem: "start",
                                                                       children: null
                                                                     }, React.createElement(GridItem$BtsCore.make, {
+                                                                          style: {
+                                                                            height: String(state.formHeight) + "px"
+                                                                          },
                                                                           top: "0",
                                                                           right: "56",
                                                                           bottom: "0",
                                                                           left: "0",
-                                                                          width: "100%",
+                                                                          width: "450px",
                                                                           xs: "no",
-                                                                          maxWidth: "auto",
                                                                           children: React.createElement(GridContainer$BtsCore.make, {
                                                                                 direction: "row",
                                                                                 justify: "center",
@@ -1465,7 +1467,7 @@ function Home(Props) {
                                                                                   }))
                                                                         }), React.createElement(GridItem$BtsCore.make, {
                                                                           top: "0",
-                                                                          right: "0",
+                                                                          right: "56",
                                                                           bottom: "0",
                                                                           left: "0",
                                                                           xs: "auto",

@@ -1360,12 +1360,16 @@ let make = _ => {
                         <GridContainer
                           direction="row" justify="between" alignItem="start">
                           <GridItem
+                            style={ReactDOMRe.Style.make(
+                              ~height=
+                                {string_of_int(state.formHeight) ++ "px"},
+                              (),
+                            )}
                             top="0"
                             right="56"
                             bottom="0"
                             left="0"
-                            width="100%"
-                            maxWidth="auto"
+                            width="450px"
                             xs="no">
                             <GridContainer
                               direction="row"
@@ -1422,7 +1426,7 @@ let make = _ => {
                             </GridContainer>
                           </GridItem>
                           <GridItem
-                            top="0" right="0" bottom="0" left="0" xs="auto">
+                            top="0" right="56" bottom="0" left="0" xs="auto">
                             <GridContainer
                               direction="column"
                               justify="center"
