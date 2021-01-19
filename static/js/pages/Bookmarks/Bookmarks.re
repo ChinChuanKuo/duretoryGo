@@ -1,5 +1,6 @@
 open React;
 open ReactIntl;
+open Path;
 open Icons;
 open Storage;
 open ObjectFormat;
@@ -56,7 +57,7 @@ let make = _ => {
         bottomLeft="20"
         right="0"
         left="0"
-        onClick={_ => Path.homePath |> ReasonReactRouter.push}>
+        onClick={_ => homePath |> ReasonReactRouter.push}>
         ...(
              <IconButton backgroundColor="rgba(0,0,0,0.08)">
                <IconGeneral src=homeBlack />
@@ -68,5 +69,27 @@ let make = _ => {
       </ListIcon>
     </List_>
     <Divider />
+    <List_ top="16">
+      <ListIcon
+        style={ReactDOMRe.Style.make(~height="52px", ())}
+        enterBackgroundColor="rgba(0,0,0,0.12)"
+        downBackgroundColor="rgba(0,0,0,0.06)"
+        topLeft="20"
+        topRight="20"
+        bottomRight="20"
+        bottomLeft="20"
+        right="0"
+        left="0"
+        onClick={_ => formorPath |> ReasonReactRouter.push}>
+        ...(
+             <IconButton backgroundColor="rgba(0,0,0,0.08)">
+               <IconGeneral src=formatListBulletedBlack />
+             </IconButton>,
+             <Typography variant="subheading">
+               <FormattedMessage id="Path.formor" defaultMessage="Formor" />
+             </Typography>,
+           )
+      </ListIcon>
+    </List_>
   </Drawer>;
 };

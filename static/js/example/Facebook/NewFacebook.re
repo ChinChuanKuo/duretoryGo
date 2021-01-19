@@ -137,6 +137,25 @@ let make =
         </ListIcon>
       </List_>
       <Divider />
+      <List_ top="16">
+        <ListIcon
+          style={ReactDOMRe.Style.make(~height="52px", ())}
+          enterBackgroundColor="rgba(0,0,0,0.12)"
+          downBackgroundColor="rgba(0,0,0,0.06)"
+          topLeft="20"
+          topRight="20"
+          bottomRight="20"
+          bottomLeft="20"
+          onClick={_ => formorPath |> ReasonReactRouter.push}>
+          ...(
+               <IconGeneral src=formatListBulletedBlack />,
+               <Typography variant="subheading">
+                 <FormattedMessage id="Path.formor" defaultMessage="Formor" />
+               </Typography>,
+             )
+        </ListIcon>
+      </List_>
+      <Divider />
     </Drawer>
     <main
       style={ReactDOMRe.Style.combine(

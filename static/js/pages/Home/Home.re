@@ -61,7 +61,7 @@ type item = {
   id: string,
   index: int,
   collections: array(string),
-  attribute: string,
+  tile: string,
   creator: string,
   datetime: string,
   itemDelete: bool,
@@ -1125,7 +1125,7 @@ let make = _ => {
                                       xs="auto">
                                       <Typography
                                         variant="subheading" noWrap=true>
-                                        {item.attribute |> string}
+                                        {item.tile |> string}
                                       </Typography>
                                     </GridItem>
                                     <GridItem

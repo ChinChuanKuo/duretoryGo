@@ -163,7 +163,35 @@ function NewFacebook(Props) {
                                       })
                                 })
                           ]
-                        })), React.createElement(Divider$BtsCore.make, { })), React.createElement("main", {
+                        })), React.createElement(Divider$BtsCore.make, { }), React.createElement(List_$BtsCore.make, {
+                      top: "16",
+                      children: React.createElement(ListIcon$BtsCore.make, {
+                            style: {
+                              height: "52px"
+                            },
+                            enterBackgroundColor: "rgba(0,0,0,0.12)",
+                            downBackgroundColor: "rgba(0,0,0,0.06)",
+                            topLeft: "20",
+                            topRight: "20",
+                            bottomRight: "20",
+                            bottomLeft: "20",
+                            onClick: (function (param) {
+                                return ReasonReactRouter.push(Path$BtsCore.formorPath);
+                              }),
+                            children: /* tuple */[
+                              React.createElement(IconGeneral$BtsCore.make, {
+                                    src: Icons$BtsCore.formatListBulletedBlack
+                                  }),
+                              React.createElement(Typography$BtsCore.make, {
+                                    variant: "subheading",
+                                    children: React.createElement(ReactIntl.FormattedMessage, {
+                                          id: "Path.formor",
+                                          defaultMessage: "Formor"
+                                        })
+                                  })
+                            ]
+                          })
+                    }), React.createElement(Divider$BtsCore.make, { })), React.createElement("main", {
                   className: "fbmainlayout",
                   style: Object.assign(({}), OutSide$BtsCore.mainTube, {
                         bottom: bottoms(bottom),

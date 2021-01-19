@@ -162,7 +162,7 @@ function reducer(state, action) {
                             id: item.id,
                             index: collectionIndex,
                             collections: item.collections,
-                            attribute: item.attribute,
+                            tile: item.tile,
                             creator: item.creator,
                             datetime: item.datetime,
                             itemDelete: item.itemDelete
@@ -1216,7 +1216,7 @@ function Home(Props) {
                                                                                                   children: React.createElement(Typography$BtsCore.make, {
                                                                                                         variant: "subheading",
                                                                                                         noWrap: true,
-                                                                                                        children: item.attribute
+                                                                                                        children: item.tile
                                                                                                       })
                                                                                                 }), React.createElement(GridItem$BtsCore.make, {
                                                                                                   top: "0",
