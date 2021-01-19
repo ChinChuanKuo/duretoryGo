@@ -1426,8 +1426,8 @@ let make = _ => {
                                           (),
                                         )}>
                                         <Image
-                                          width="auto"
-                                          height="100%"
+                                          width="100%"
+                                          height="auto"
                                           borderRadius="6"
                                           src={
                                             "data:image/jpg;base64,"
