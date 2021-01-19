@@ -1356,13 +1356,13 @@ let make = _ => {
               {state.viewitems
                |> Array.map(item =>
                     <>
-                      <GridItem right="0" left="0" xs="auto">
+                      <GridItem top="0" right="0" left="0" xs="auto">
                         <GridContainer
                           direction="row" justify="between" alignItem="start">
                           <GridItem
                             style={ReactDOMRe.Style.make(
                               ~position="sticky",
-                              ~top="14px",
+                              ~top="0px",
                               (),
                             )}
                             top="0"
@@ -1425,8 +1425,7 @@ let make = _ => {
                               </GridItem>
                             </GridContainer>
                           </GridItem>
-                          <GridItem
-                            top="0" right="56" bottom="0" left="0" xs="auto">
+                          <GridItem right="56" bottom="0" left="0" xs="auto">
                             <GridContainer
                               direction="column"
                               justify="center"

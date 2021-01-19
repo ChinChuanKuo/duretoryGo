@@ -1395,6 +1395,7 @@ function Home(Props) {
                                         alignItem: "stretch",
                                         children: $$Array.map((function (item) {
                                                 return React.createElement(React.Fragment, undefined, React.createElement(GridItem$BtsCore.make, {
+                                                                top: "0",
                                                                 right: "0",
                                                                 left: "0",
                                                                 xs: "auto",
@@ -1406,7 +1407,7 @@ function Home(Props) {
                                                                     }, React.createElement(GridItem$BtsCore.make, {
                                                                           style: {
                                                                             position: "sticky",
-                                                                            top: "14px"
+                                                                            top: "0px"
                                                                           },
                                                                           top: "0",
                                                                           right: "56",
@@ -1467,7 +1468,6 @@ function Home(Props) {
                                                                                         })
                                                                                   }))
                                                                         }), React.createElement(GridItem$BtsCore.make, {
-                                                                          top: "0",
                                                                           right: "56",
                                                                           bottom: "0",
                                                                           left: "0",
