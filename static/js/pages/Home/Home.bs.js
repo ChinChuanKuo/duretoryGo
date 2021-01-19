@@ -1388,7 +1388,7 @@ function Home(Props) {
                                   bottom: "0",
                                   left: "54",
                                   xs: "12",
-                                  maxWidth: "770px",
+                                  maxWidth: "1080px",
                                   children: React.createElement(GridContainer$BtsCore.make, {
                                         direction: "column",
                                         justify: "center",

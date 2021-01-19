@@ -1350,7 +1350,7 @@ let make = _ => {
             bottom="0"
             left="54"
             xs="12"
-            maxWidth="770px">
+            maxWidth="1080px">
             <GridContainer
               direction="column" justify="center" alignItem="stretch">
               {state.viewitems
