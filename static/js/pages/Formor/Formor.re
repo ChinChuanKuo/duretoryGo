@@ -271,12 +271,14 @@ let reducer = (state, action) =>
                   Array.append(
                     item.answeritems,
                     newansweritem(
-                      state.items[i].answeritems[Js_array.length(
-                                                   item.answeritems,
-                                                 )
-                                                 - 1].
-                        id
-                      + 1,
+                      Js_array.length(item.answeritems) == 0
+                        ? 1
+                        : state.items[i].answeritems[Js_array.length(
+                                                       item.answeritems,
+                                                     )
+                                                     - 1].
+                            id
+                          + 1,
                     ),
                   ),
                 itemModify: true,

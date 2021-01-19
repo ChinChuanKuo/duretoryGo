@@ -1139,7 +1139,7 @@ let make = _ => {
                                         {item.datetime |> string}
                                       </Typography>
                                     </GridItem>
-                                    {item.itemDelete
+                                    {state.delete
                                        ? <GridItem
                                            style=positionRelative
                                            top="0"

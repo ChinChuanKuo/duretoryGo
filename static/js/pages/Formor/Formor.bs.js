@@ -644,7 +644,7 @@ function reducer(state, action) {
                                     showFilter: item.showFilter,
                                     showMore: item.showMore,
                                     opticonitems: item.opticonitems,
-                                    answeritems: $$Array.append(item.answeritems, newansweritem(Caml_array.caml_array_get(Caml_array.caml_array_get(state.items, i).answeritems, item.answeritems.length - 1 | 0).id + 1 | 0)),
+                                    answeritems: $$Array.append(item.answeritems, newansweritem(item.answeritems.length === 0 ? 1 : Caml_array.caml_array_get(Caml_array.caml_array_get(state.items, i).answeritems, item.answeritems.length - 1 | 0).id + 1 | 0)),
                                     itemModify: true,
                                     itemDelete: item.itemDelete
                                   };

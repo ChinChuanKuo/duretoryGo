@@ -1229,7 +1229,7 @@ function Home(Props) {
                                                                                                         color: "#606060",
                                                                                                         children: item.datetime
                                                                                                       })
-                                                                                                }), item.itemDelete ? React.createElement(GridItem$BtsCore.make, {
+                                                                                                }), state.delete ? React.createElement(GridItem$BtsCore.make, {
                                                                                                     style: positionRelative,
                                                                                                     top: "0",
                                                                                                     right: "0",
