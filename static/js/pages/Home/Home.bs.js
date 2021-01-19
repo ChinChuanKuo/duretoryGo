@@ -148,11 +148,27 @@ function reducer(state, action) {
           newrecord$12.formIndex = action[0];
           newrecord$12.showFull = !state.showFull;
           return newrecord$12;
-      case /* ShowFiltMenu */8 :
-          var index$1 = action[0];
+      case /* ShowViewection */8 :
+          var index$1 = action[1];
+          var viewIndex = action[0];
           var newrecord$13 = Caml_obj.caml_obj_dup(state);
-          newrecord$13.filtitems = $$Array.mapi((function (i, filtitem) {
+          newrecord$13.viewitems = $$Array.mapi((function (i, item) {
                   if (index$1 === i) {
+                    return {
+                            viewIndex: viewIndex,
+                            viewections: item.viewections,
+                            dataitems: item.dataitems
+                          };
+                  } else {
+                    return item;
+                  }
+                }), state.viewitems);
+          return newrecord$13;
+      case /* ShowFiltMenu */9 :
+          var index$2 = action[0];
+          var newrecord$14 = Caml_obj.caml_obj_dup(state);
+          newrecord$14.filtitems = $$Array.mapi((function (i, filtitem) {
+                  if (index$2 === i) {
                     return {
                             filtIndex: filtitem.filtIndex,
                             filtTile: filtitem.filtTile,
@@ -164,13 +180,13 @@ function reducer(state, action) {
                     return filtitem;
                   }
                 }), state.filtitems);
-          return newrecord$13;
-      case /* ClickFiltMenu */9 :
-          var index$2 = action[1];
+          return newrecord$14;
+      case /* ClickFiltMenu */10 :
+          var index$3 = action[1];
           var value = action[0];
-          var newrecord$14 = Caml_obj.caml_obj_dup(state);
-          newrecord$14.filtitems = $$Array.mapi((function (i, filtitem) {
-                  if (index$2 === i) {
+          var newrecord$15 = Caml_obj.caml_obj_dup(state);
+          newrecord$15.filtitems = $$Array.mapi((function (i, filtitem) {
+                  if (index$3 === i) {
                     return {
                             filtIndex: filtitem.filtIndex,
                             filtTile: filtitem.filtTile,
@@ -182,13 +198,13 @@ function reducer(state, action) {
                     return filtitem;
                   }
                 }), state.filtitems);
-          return newrecord$14;
-      case /* SettingCollections */10 :
-          var index$3 = action[1];
+          return newrecord$15;
+      case /* ShowCollections */11 :
+          var index$4 = action[1];
           var collectionIndex = action[0];
-          var newrecord$15 = Caml_obj.caml_obj_dup(state);
-          newrecord$15.items = $$Array.mapi((function (i, item) {
-                  if (index$3 === i) {
+          var newrecord$16 = Caml_obj.caml_obj_dup(state);
+          newrecord$16.items = $$Array.mapi((function (i, item) {
+                  if (index$4 === i) {
                     return {
                             id: item.id,
                             index: collectionIndex,
@@ -202,22 +218,22 @@ function reducer(state, action) {
                     return item;
                   }
                 }), state.items);
-          return newrecord$15;
-      case /* ClearForm */11 :
+          return newrecord$16;
+      case /* ClearForm */12 :
           var id = action[0];
-          var newrecord$16 = Caml_obj.caml_obj_dup(state);
-          newrecord$16.items = state.items.filter((function (item) {
+          var newrecord$17 = Caml_obj.caml_obj_dup(state);
+          newrecord$17.items = state.items.filter((function (item) {
                   return item.id !== id;
                 }));
-          newrecord$16.itemCount = state.itemCount - 1 | 0;
-          newrecord$16.error = state.itemCount === 1;
-          return newrecord$16;
-      case /* ShowDrop */12 :
-          var index$4 = action[1];
+          newrecord$17.itemCount = state.itemCount - 1 | 0;
+          newrecord$17.error = state.itemCount === 1;
+          return newrecord$17;
+      case /* ShowDrop */13 :
+          var index$5 = action[1];
           var droped = action[0];
-          var newrecord$17 = Caml_obj.caml_obj_dup(state);
-          newrecord$17.formitems = $$Array.mapi((function (i, item) {
-                  if (index$4 === i) {
+          var newrecord$18 = Caml_obj.caml_obj_dup(state);
+          newrecord$18.formitems = $$Array.mapi((function (i, item) {
+                  if (index$5 === i) {
                     return {
                             iid: item.iid,
                             title: item.title,
@@ -242,16 +258,16 @@ function reducer(state, action) {
                     return item;
                   }
                 }), state.formitems);
-          return newrecord$17;
-      case /* ShowFile */13 :
-          var index$5 = action[4];
+          return newrecord$18;
+      case /* ShowFile */14 :
+          var index$6 = action[4];
           var values = action[3];
           var showAudio = action[2];
           var showVideo = action[1];
           var showImage = action[0];
-          var newrecord$18 = Caml_obj.caml_obj_dup(state);
-          newrecord$18.formitems = $$Array.mapi((function (i, item) {
-                  if (index$5 === i) {
+          var newrecord$19 = Caml_obj.caml_obj_dup(state);
+          newrecord$19.formitems = $$Array.mapi((function (i, item) {
+                  if (index$6 === i) {
                     return {
                             iid: item.iid,
                             title: item.title,
@@ -276,16 +292,16 @@ function reducer(state, action) {
                     return item;
                   }
                 }), state.formitems);
-          return newrecord$18;
-      case /* ShowFiles */14 :
-          var index$6 = action[4];
+          return newrecord$19;
+      case /* ShowFiles */15 :
+          var index$7 = action[4];
           var values$1 = action[3];
           var showAudio$1 = action[2];
           var showVideo$1 = action[1];
           var showImage$1 = action[0];
-          var newrecord$19 = Caml_obj.caml_obj_dup(state);
-          newrecord$19.formitems = $$Array.mapi((function (i, item) {
-                  if (index$6 === i) {
+          var newrecord$20 = Caml_obj.caml_obj_dup(state);
+          newrecord$20.formitems = $$Array.mapi((function (i, item) {
+                  if (index$7 === i) {
                     return {
                             iid: item.iid,
                             title: item.title,
@@ -310,13 +326,13 @@ function reducer(state, action) {
                     return item;
                   }
                 }), state.formitems);
-          return newrecord$19;
-      case /* ShowCollection */15 :
-          var index$7 = action[1];
+          return newrecord$20;
+      case /* ShowCollection */16 :
+          var index$8 = action[1];
           var collectionIndex$1 = action[0];
-          var newrecord$20 = Caml_obj.caml_obj_dup(state);
-          newrecord$20.formitems = $$Array.mapi((function (i, item) {
-                  if (index$7 === i) {
+          var newrecord$21 = Caml_obj.caml_obj_dup(state);
+          newrecord$21.formitems = $$Array.mapi((function (i, item) {
+                  if (index$8 === i) {
                     return {
                             iid: item.iid,
                             title: item.title,
@@ -341,13 +357,13 @@ function reducer(state, action) {
                     return item;
                   }
                 }), state.formitems);
-          return newrecord$20;
-      case /* ChangeItem */16 :
-          var index$8 = action[1];
+          return newrecord$21;
+      case /* ChangeItem */17 :
+          var index$9 = action[1];
           var value$1 = action[0];
-          var newrecord$21 = Caml_obj.caml_obj_dup(state);
-          newrecord$21.formitems = $$Array.mapi((function (i, item) {
-                  if (index$8 === i) {
+          var newrecord$22 = Caml_obj.caml_obj_dup(state);
+          newrecord$22.formitems = $$Array.mapi((function (i, item) {
+                  if (index$9 === i) {
                     return {
                             iid: item.iid,
                             title: item.title,
@@ -372,12 +388,12 @@ function reducer(state, action) {
                     return item;
                   }
                 }), state.formitems);
-          return newrecord$21;
-      case /* ShowMenuItem */17 :
-          var index$9 = action[0];
-          var newrecord$22 = Caml_obj.caml_obj_dup(state);
-          newrecord$22.formitems = $$Array.mapi((function (i, item) {
-                  if (index$9 === i) {
+          return newrecord$22;
+      case /* ShowMenuItem */18 :
+          var index$10 = action[0];
+          var newrecord$23 = Caml_obj.caml_obj_dup(state);
+          newrecord$23.formitems = $$Array.mapi((function (i, item) {
+                  if (index$10 === i) {
                     return {
                             iid: item.iid,
                             title: item.title,
@@ -402,13 +418,13 @@ function reducer(state, action) {
                     return item;
                   }
                 }), state.formitems);
-          return newrecord$22;
-      case /* ClickMenuItem */18 :
-          var index$10 = action[1];
+          return newrecord$23;
+      case /* ClickMenuItem */19 :
+          var index$11 = action[1];
           var value$2 = action[0];
-          var newrecord$23 = Caml_obj.caml_obj_dup(state);
-          newrecord$23.formitems = $$Array.mapi((function (i, item) {
-                  if (index$10 === i) {
+          var newrecord$24 = Caml_obj.caml_obj_dup(state);
+          newrecord$24.formitems = $$Array.mapi((function (i, item) {
+                  if (index$11 === i) {
                     return {
                             iid: item.iid,
                             title: item.title,
@@ -433,13 +449,13 @@ function reducer(state, action) {
                     return item;
                   }
                 }), state.formitems);
-          return newrecord$23;
-      case /* ClickRadioItem */19 :
-          var index$11 = action[1];
+          return newrecord$24;
+      case /* ClickRadioItem */20 :
+          var index$12 = action[1];
           var rindex = action[0];
-          var newrecord$24 = Caml_obj.caml_obj_dup(state);
-          newrecord$24.formitems = $$Array.mapi((function (i, item) {
-                  if (index$11 === i) {
+          var newrecord$25 = Caml_obj.caml_obj_dup(state);
+          newrecord$25.formitems = $$Array.mapi((function (i, item) {
+                  if (index$12 === i) {
                     return {
                             iid: item.iid,
                             title: item.title,
@@ -470,13 +486,13 @@ function reducer(state, action) {
                     return item;
                   }
                 }), state.formitems);
-          return newrecord$24;
-      case /* ClickCheckboxItem */20 :
-          var index$12 = action[1];
+          return newrecord$25;
+      case /* ClickCheckboxItem */21 :
+          var index$13 = action[1];
           var rindex$1 = action[0];
-          var newrecord$25 = Caml_obj.caml_obj_dup(state);
-          newrecord$25.formitems = $$Array.mapi((function (i, item) {
-                  if (index$12 === i) {
+          var newrecord$26 = Caml_obj.caml_obj_dup(state);
+          newrecord$26.formitems = $$Array.mapi((function (i, item) {
+                  if (index$13 === i) {
                     return {
                             iid: item.iid,
                             title: item.title,
@@ -511,12 +527,12 @@ function reducer(state, action) {
                     return item;
                   }
                 }), state.formitems);
-          return newrecord$25;
-      case /* ActionSnackBar */21 :
-          var newrecord$26 = Caml_obj.caml_obj_dup(state);
-          newrecord$26.youtubeText = action[0];
-          newrecord$26.showYoutube = action[1];
           return newrecord$26;
+      case /* ActionSnackBar */22 :
+          var newrecord$27 = Caml_obj.caml_obj_dup(state);
+          newrecord$27.youtubeText = action[0];
+          newrecord$27.showYoutube = action[1];
+          return newrecord$27;
       
     }
   }
@@ -589,12 +605,12 @@ function Home(Props) {
   var state = match[0];
   var fileRef = React.useRef(null);
   var barShowRestoreAction = function (youtubeText) {
-    Curry._1(dispatch, /* ActionSnackBar */Block.__(21, [
+    Curry._1(dispatch, /* ActionSnackBar */Block.__(22, [
             youtubeText,
             true
           ]));
     setTimeout((function (param) {
-            return Curry._1(dispatch, /* ActionSnackBar */Block.__(21, [
+            return Curry._1(dispatch, /* ActionSnackBar */Block.__(22, [
                           "",
                           false
                         ]));
@@ -708,11 +724,11 @@ function Home(Props) {
           
         }));
   var showFiltMenu = React.useCallback((function (index) {
-          return Curry._1(dispatch, /* ShowFiltMenu */Block.__(8, [index]));
+          return Curry._1(dispatch, /* ShowFiltMenu */Block.__(9, [index]));
         }));
   var clickFiltMenu = React.useCallback((function (value) {
           return (function (itemIndex, index) {
-              Curry._1(dispatch, /* ClickFiltMenu */Block.__(9, [
+              Curry._1(dispatch, /* ClickFiltMenu */Block.__(10, [
                       value,
                       index
                     ]));
@@ -736,7 +752,7 @@ function Home(Props) {
               $$event.stopPropagation();
               var length = Caml_array.caml_array_get(state.items, index).collections.length - 1 | 0;
               var collectionIndex = id === 0 ? length : id - 1 | 0;
-              return Curry._1(dispatch, /* SettingCollections */Block.__(10, [
+              return Curry._1(dispatch, /* ShowCollections */Block.__(11, [
                             collectionIndex,
                             index
                           ]));
@@ -748,7 +764,7 @@ function Home(Props) {
               $$event.stopPropagation();
               var length = Caml_array.caml_array_get(state.items, index).collections.length - 1 | 0;
               var collectionIndex = id === length ? 0 : id + 1 | 0;
-              return Curry._1(dispatch, /* SettingCollections */Block.__(10, [
+              return Curry._1(dispatch, /* ShowCollections */Block.__(11, [
                             collectionIndex,
                             index
                           ]));
@@ -812,7 +828,7 @@ function Home(Props) {
                         var match = response.data.status;
                         var tmp;
                         if (match === "istrue") {
-                          Curry._1(dispatch, /* ClearForm */Block.__(11, [id]));
+                          Curry._1(dispatch, /* ClearForm */Block.__(12, [id]));
                           barShowRestoreAction(Status$BtsCore.statusModule("deleteSuccess"));
                           tmp = Curry._1(dispatch, /* ActionShowProgress */2);
                         } else {
@@ -824,6 +840,30 @@ function Home(Props) {
                       return Promise.resolve((console.log(error), undefined));
                     }));
               
+            });
+        }));
+  var viewPreviousCollection = React.useCallback((function (id) {
+          return (function (index, $$event) {
+              $$event.preventDefault();
+              $$event.stopPropagation();
+              var length = Caml_array.caml_array_get(state.formitems, index).collectionitems.length - 1 | 0;
+              var collectionIndex = id === 0 ? length : id - 1 | 0;
+              return Curry._1(dispatch, /* ShowViewection */Block.__(8, [
+                            collectionIndex,
+                            index
+                          ]));
+            });
+        }));
+  var viewNextCollection = React.useCallback((function (id) {
+          return (function (index, $$event) {
+              $$event.preventDefault();
+              $$event.stopPropagation();
+              var length = Caml_array.caml_array_get(state.formitems, index).collectionitems.length - 1 | 0;
+              var collectionIndex = id === length ? 0 : id + 1 | 0;
+              return Curry._1(dispatch, /* ShowViewection */Block.__(8, [
+                            collectionIndex,
+                            index
+                          ]));
             });
         }));
   var sRefreshAJax = function (param) {
@@ -872,7 +912,7 @@ function Home(Props) {
           return (function (i) {
               $$event.preventDefault();
               $$event.stopPropagation();
-              return Curry._1(dispatch, /* ShowDrop */Block.__(12, [
+              return Curry._1(dispatch, /* ShowDrop */Block.__(13, [
                             true,
                             i
                           ]));
@@ -882,7 +922,7 @@ function Home(Props) {
           return (function (i) {
               $$event.preventDefault();
               $$event.stopPropagation();
-              return Curry._1(dispatch, /* ShowDrop */Block.__(12, [
+              return Curry._1(dispatch, /* ShowDrop */Block.__(13, [
                             false,
                             i
                           ]));
@@ -895,7 +935,7 @@ function Home(Props) {
               var match = response.data.status;
               var tmp;
               if (match === "istrue") {
-                Curry._1(dispatch, /* ShowFile */Block.__(13, [
+                Curry._1(dispatch, /* ShowFile */Block.__(14, [
                         response.data.images,
                         response.data.videos,
                         response.data.audios,
@@ -917,7 +957,7 @@ function Home(Props) {
               $$event.preventDefault();
               $$event.stopPropagation();
               Curry._1(dispatch, /* ActionShowProgress */2);
-              Curry._1(dispatch, /* ShowDrop */Block.__(12, [
+              Curry._1(dispatch, /* ShowDrop */Block.__(13, [
                       false,
                       i
                     ]));
@@ -937,7 +977,7 @@ function Home(Props) {
               var match = response.data.status;
               var tmp;
               if (match === "istrue") {
-                Curry._1(dispatch, /* ShowFiles */Block.__(14, [
+                Curry._1(dispatch, /* ShowFiles */Block.__(15, [
                         response.data.images,
                         response.data.videos,
                         response.data.audios,
@@ -959,7 +999,7 @@ function Home(Props) {
               $$event.preventDefault();
               $$event.stopPropagation();
               Curry._1(dispatch, /* ActionShowProgress */2);
-              Curry._1(dispatch, /* ShowDrop */Block.__(12, [
+              Curry._1(dispatch, /* ShowDrop */Block.__(13, [
                       false,
                       i
                     ]));
@@ -986,7 +1026,7 @@ function Home(Props) {
               $$event.stopPropagation();
               var length = Caml_array.caml_array_get(state.formitems, index).collectionitems.length - 1 | 0;
               var collectionIndex = id === 0 ? length : id - 1 | 0;
-              return Curry._1(dispatch, /* ShowCollection */Block.__(15, [
+              return Curry._1(dispatch, /* ShowCollection */Block.__(16, [
                             collectionIndex,
                             index
                           ]));
@@ -998,7 +1038,7 @@ function Home(Props) {
               $$event.stopPropagation();
               var length = Caml_array.caml_array_get(state.formitems, index).collectionitems.length - 1 | 0;
               var collectionIndex = id === length ? 0 : id + 1 | 0;
-              return Curry._1(dispatch, /* ShowCollection */Block.__(15, [
+              return Curry._1(dispatch, /* ShowCollection */Block.__(16, [
                             collectionIndex,
                             index
                           ]));
@@ -1006,18 +1046,18 @@ function Home(Props) {
         }));
   var changeItem = React.useCallback((function (value) {
           return (function (i) {
-              return Curry._1(dispatch, /* ChangeItem */Block.__(16, [
+              return Curry._1(dispatch, /* ChangeItem */Block.__(17, [
                             value,
                             i
                           ]));
             });
         }));
   var showMenuItem = React.useCallback((function (i) {
-          return Curry._1(dispatch, /* ShowMenuItem */Block.__(17, [i]));
+          return Curry._1(dispatch, /* ShowMenuItem */Block.__(18, [i]));
         }));
   var clickMenuItem = React.useCallback((function (value) {
           return (function (i) {
-              return Curry._1(dispatch, /* ClickMenuItem */Block.__(18, [
+              return Curry._1(dispatch, /* ClickMenuItem */Block.__(19, [
                             value,
                             i
                           ]));
@@ -1026,12 +1066,12 @@ function Home(Props) {
   var clickElementItem = React.useCallback((function (value) {
           return (function (ri, i) {
               if (value === "checkbox") {
-                return Curry._1(dispatch, /* ClickCheckboxItem */Block.__(20, [
+                return Curry._1(dispatch, /* ClickCheckboxItem */Block.__(21, [
                               ri,
                               i
                             ]));
               } else {
-                return Curry._1(dispatch, /* ClickRadioItem */Block.__(19, [
+                return Curry._1(dispatch, /* ClickRadioItem */Block.__(20, [
                               ri,
                               i
                             ]));
@@ -1393,7 +1433,7 @@ function Home(Props) {
                                         direction: "column",
                                         justify: "center",
                                         alignItem: "stretch",
-                                        children: $$Array.map((function (item) {
+                                        children: $$Array.mapi((function (i, item) {
                                                 return React.createElement(React.Fragment, undefined, React.createElement(GridItem$BtsCore.make, {
                                                                 top: "0",
                                                                 right: "0",
@@ -1429,6 +1469,9 @@ function Home(Props) {
                                                                                     children: React.createElement(IconButton$BtsCore.make, {
                                                                                           padding: "6",
                                                                                           disabled: state.showProgress,
+                                                                                          onClick: (function ($$event) {
+                                                                                              return Curry._3(viewPreviousCollection, item.viewIndex, i, $$event);
+                                                                                            }),
                                                                                           children: React.createElement(IconAction$BtsCore.make, {
                                                                                                 animation: "leftRight",
                                                                                                 src: Icons$BtsCore.arrowBackIosBlack
@@ -1440,16 +1483,16 @@ function Home(Props) {
                                                                                     bottom: "0",
                                                                                     left: "0",
                                                                                     xs: "auto",
-                                                                                    children: $$Array.mapi((function (ci, collitem) {
+                                                                                    children: $$Array.mapi((function (vi, viewitem) {
                                                                                             return React.createElement("div", {
                                                                                                         style: {
-                                                                                                          display: item.viewIndex === ci ? "block" : "none"
+                                                                                                          display: item.viewIndex === vi ? "block" : "none"
                                                                                                         }
                                                                                                       }, React.createElement(Image$BtsCore.make, {
                                                                                                             width: "auto",
                                                                                                             height: "100%",
                                                                                                             borderRadius: "6",
-                                                                                                            src: "data:image/jpg;base64," + collitem
+                                                                                                            src: "data:image/jpg;base64," + viewitem
                                                                                                           }));
                                                                                           }), item.viewections)
                                                                                   }), React.createElement(GridItem$BtsCore.make, {
@@ -1461,6 +1504,9 @@ function Home(Props) {
                                                                                     children: React.createElement(IconButton$BtsCore.make, {
                                                                                           padding: "6",
                                                                                           disabled: state.showProgress,
+                                                                                          onClick: (function ($$event) {
+                                                                                              return Curry._3(viewNextCollection, item.viewIndex, i, $$event);
+                                                                                            }),
                                                                                           children: React.createElement(IconAction$BtsCore.make, {
                                                                                                 animation: "leftRight",
                                                                                                 src: Icons$BtsCore.arrowForwardIosBlack

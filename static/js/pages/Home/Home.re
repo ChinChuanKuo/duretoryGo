@@ -130,9 +130,10 @@ type action =
   | SettingSingleItem(int, array(item))
   | ShowAnimationViewFull(string, string, array(viewitem))
   | ShowAnimationFull(int, string, string, array(formitem))
+  | ShowViewection(int, int)
   | ShowFiltMenu(int)
   | ClickFiltMenu(string, int)
-  | SettingCollections(int, int)
+  | ShowCollections(int, int)
   | ClearForm(string)
   | ShowDrop(bool, int)
   | ShowFile(bool, bool, bool, string, int)
@@ -208,6 +209,14 @@ let reducer = (state, action) =>
       formitems,
       showFull: !state.showFull,
     }
+  | ShowViewection(viewIndex, index) => {
+      ...state,
+      viewitems:
+        Array.mapi(
+          (i, item) => index == i ? {...item, viewIndex} : item,
+          state.viewitems,
+        ),
+    }
   | ShowFiltMenu(index) => {
       ...state,
       filtitems:
@@ -229,7 +238,7 @@ let reducer = (state, action) =>
           state.filtitems,
         ),
     }
-  | SettingCollections(collectionIndex, index) => {
+  | ShowCollections(collectionIndex, index) => {
       ...state,
       items:
         Array.mapi(
@@ -647,7 +656,7 @@ let make = _ => {
       ReactEvent.Mouse.stopPropagation(event);
       let length = Js_array.length(state.items[index].collections) - 1;
       let collectionIndex = id == 0 ? length : id - 1;
-      SettingCollections(collectionIndex, index) |> dispatch;
+      ShowCollections(collectionIndex, index) |> dispatch;
     });
 
   let showNextCollections =
@@ -656,7 +665,7 @@ let make = _ => {
       ReactEvent.Mouse.stopPropagation(event);
       let length = Js_array.length(state.items[index].collections) - 1;
       let collectionIndex = id == length ? 0 : id + 1;
-      SettingCollections(collectionIndex, index) |> dispatch;
+      ShowCollections(collectionIndex, index) |> dispatch;
     });
 
   let sViewAJax = id =>
@@ -760,6 +769,26 @@ let make = _ => {
       ReactEvent.Mouse.stopPropagation(event);
       ActionShowProgress |> dispatch;
       id |> deleteAJax;
+    });
+
+  let viewPreviousCollection =
+    useCallback((id, index, event) => {
+      ReactEvent.Mouse.preventDefault(event);
+      ReactEvent.Mouse.stopPropagation(event);
+      let length =
+        Js_array.length(state.formitems[index].collectionitems) - 1;
+      let collectionIndex = id == 0 ? length : id - 1;
+      ShowViewection(collectionIndex, index) |> dispatch;
+    });
+
+  let viewNextCollection =
+    useCallback((id, index, event) => {
+      ReactEvent.Mouse.preventDefault(event);
+      ReactEvent.Mouse.stopPropagation(event);
+      let length =
+        Js_array.length(state.formitems[index].collectionitems) - 1;
+      let collectionIndex = id == length ? 0 : id + 1;
+      ShowViewection(collectionIndex, index) |> dispatch;
     });
 
   let sRefreshAJax = () =>
@@ -1342,7 +1371,7 @@ let make = _ => {
             <GridContainer
               direction="column" justify="center" alignItem="stretch">
               {state.viewitems
-               |> Array.map(item =>
+               |> Array.mapi((i, item) =>
                     <>
                       <GridItem top="0" right="0" left="0" xs="auto">
                         <GridContainer
@@ -1366,7 +1395,15 @@ let make = _ => {
                               <GridItem
                                 top="0" right="0" bottom="0" left="0" xs="no">
                                 <IconButton
-                                  padding="6" disabled={state.showProgress}>
+                                  padding="6"
+                                  disabled={state.showProgress}
+                                  onClick={event =>
+                                    event
+                                    |> viewPreviousCollection(
+                                         item.viewIndex,
+                                         i,
+                                       )
+                                  }>
                                   <IconAction
                                     animation="leftRight"
                                     src=arrowBackIosBlack
@@ -1380,11 +1417,11 @@ let make = _ => {
                                 left="0"
                                 xs="auto">
                                 {item.viewections
-                                 |> Array.mapi((ci, collitem) =>
+                                 |> Array.mapi((vi, viewitem) =>
                                       <div
                                         style={ReactDOMRe.Style.make(
                                           ~display=
-                                            {item.viewIndex == ci
+                                            {item.viewIndex == vi
                                              |> showDisplay},
                                           (),
                                         )}>
@@ -1394,7 +1431,7 @@ let make = _ => {
                                           borderRadius="6"
                                           src={
                                             "data:image/jpg;base64,"
-                                            ++ collitem
+                                            ++ viewitem
                                           }
                                         />
                                       </div>
@@ -1404,7 +1441,12 @@ let make = _ => {
                               <GridItem
                                 top="0" right="0" bottom="0" left="0" xs="no">
                                 <IconButton
-                                  padding="6" disabled={state.showProgress}>
+                                  padding="6"
+                                  disabled={state.showProgress}
+                                  onClick={event =>
+                                    event
+                                    |> viewNextCollection(item.viewIndex, i)
+                                  }>
                                   <IconAction
                                     animation="leftRight"
                                     src=arrowForwardIosBlack
