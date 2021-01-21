@@ -38,6 +38,10 @@ var Form = {
   badge: badge
 };
 
+function search(data) {
+  return Axios$1.post("http://10.10.50.50:1250/Login/searchData", data);
+}
+
 function checkUser(data) {
   return Axios$1.post("http://10.10.50.50:1250/Login/checkUserData", data);
 }
@@ -47,6 +51,7 @@ function loginUser(data) {
 }
 
 var Login = {
+  search: search,
   checkUser: checkUser,
   loginUser: loginUser
 };
@@ -83,7 +88,7 @@ var Signup = {
   signupUser: signupUser
 };
 
-function search(data) {
+function search$1(data) {
   return Axios$1.post("http://10.10.50.50:1250/Icon/searchData", data);
 }
 
@@ -92,7 +97,7 @@ function insert(data) {
 }
 
 var Icon = {
-  search: search,
+  search: search$1,
   insert: insert
 };
 
@@ -136,7 +141,7 @@ var Files = {
   review: review
 };
 
-function search$1(data) {
+function search$2(data) {
   return Axios$1.post("http://10.10.50.50:2250/Home/searchData", data);
 }
 
@@ -173,7 +178,7 @@ function sRefresh(data) {
 }
 
 var Default = {
-  search: search$1,
+  search: search$2,
   filter: filter,
   scroll: scroll,
   sFilter: sFilter,
@@ -184,7 +189,7 @@ var Default = {
   sRefresh: sRefresh
 };
 
-function search$2(data) {
+function search$3(data) {
   return Axios$1.post("http://10.10.50.50:2250/Formor/searchData", data);
 }
 
@@ -193,11 +198,11 @@ function insert$2(data) {
 }
 
 var Formor = {
-  search: search$2,
+  search: search$3,
   insert: insert$2
 };
 
-function search$3(data) {
+function search$4(data) {
   return Axios$1.post("http://10.10.50.50:2250/Create/searchData", data);
 }
 
@@ -206,7 +211,7 @@ function insert$3(data) {
 }
 
 var Create = {
-  search: search$3,
+  search: search$4,
   insert: insert$3
 };
 

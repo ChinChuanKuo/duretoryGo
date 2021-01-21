@@ -1,19 +1,26 @@
 open ReactIntl;
+open Setting;
 
 [@react.component]
 let make =
     (
-      ~error: bool,
-      ~loading: bool,
-      ~showYoutube: bool,
-      ~youtubeText: string,
-      ~disabled: bool,
+      ~error: option(bool)=?,
+      ~loading: option(bool)=?,
+      ~showYoutube: option(bool)=?,
+      ~youtubeText: option(string)=?,
+      ~disabled: option(bool)=?,
       ~signGoogle: option(ReactEvent.Mouse.t => unit)=?,
       ~signFacebook: option(ReactEvent.Mouse.t => unit)=?,
       ~signLinkedln: option(ReactEvent.Mouse.t => unit)=?,
       ~signTwitter: option(ReactEvent.Mouse.t => unit)=?,
     ) =>
-  <AccountBoard error loading index=2 tile="OAUTH" showYoutube youtubeText>
+  <AccountBoard
+    error={error |> disabledObjects}
+    loading={loading |> disabledObjects}
+    index=2
+    tile="OAUTH"
+    showYoutube={showYoutube |> disabledObjects}
+    youtubeText={youtubeText |> stringObjects}>
     <GridContainer direction="column" justify="center" alignItem="stretch">
       <GridItem right="0" left="0" xs="auto">
         <Button
@@ -21,7 +28,7 @@ let make =
           width="100%"
           border="contained"
           size="medium"
-          disabled
+          disabled={disabled |> disabledObjects}
           onClick=?signGoogle>
           <FormattedMessage id="Oauth.google" defaultMessage="Google" />
         </Button>
@@ -35,7 +42,7 @@ let make =
           width="100%"
           border="contained"
           size="medium"
-          disabled
+          disabled={disabled |> disabledObjects}
           onClick=?signFacebook>
           <FormattedMessage id="Oauth.facebook" defaultMessage="Facebook" />
         </Button>
@@ -49,7 +56,7 @@ let make =
           width="100%"
           border="contained"
           size="medium"
-          disabled
+          disabled={disabled |> disabledObjects}
           onClick=?signLinkedln>
           <FormattedMessage id="Oauth.linkedln" defaultMessage="Linkedln" />
         </Button>
@@ -63,7 +70,7 @@ let make =
           width="100%"
           border="contained"
           size="medium"
-          disabled
+          disabled={disabled |> disabledObjects}
           onClick=?signTwitter>
           <FormattedMessage id="Oauth.twitter" defaultMessage="Twitter" />
         </Button>

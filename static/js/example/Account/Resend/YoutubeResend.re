@@ -1,32 +1,39 @@
 open React;
 open ReactIntl;
+open Setting;
 
 [@react.component]
 let make =
     (
-      ~error: bool,
-      ~loading: bool,
-      ~showYoutube: bool,
-      ~youtubeText: string,
-      ~disabled: bool,
-      ~fstPassword: string,
+      ~error: option(bool)=?,
+      ~loading: option(bool)=?,
+      ~showYoutube: option(bool)=?,
+      ~youtubeText: option(string)=?,
+      ~disabled: option(bool)=?,
+      ~fstPassword: option(string)=?,
       ~changeFstPassword: option(ReactEvent.Form.t => unit)=?,
       ~keydownFstPassword: option(ReactEvent.Keyboard.t => unit)=?,
-      ~sndPassword: string,
+      ~sndPassword: option(string)=?,
       ~changeSndPassword: option(ReactEvent.Form.t => unit)=?,
       ~keydownSndPassword: option(ReactEvent.Keyboard.t => unit)=?,
       ~backForm: option(ReactEvent.Mouse.t => unit)=?,
       ~nextForm: option(ReactEvent.Mouse.t => unit)=?,
     ) =>
-  <AccountBoard error loading index=3 tile="RESEND" showYoutube youtubeText>
+  <AccountBoard
+    error={error |> disabledObjects}
+    loading={loading |> disabledObjects}
+    index=3
+    tile="RESEND"
+    showYoutube={showYoutube |> disabledObjects}
+    youtubeText={youtubeText |> stringObjects}>
     <GridContainer direction="column" justify="center" alignItem="stretch">
       <GridItem right="0" left="0" xs="auto">
         <TextFieldOutline
           left="0"
           right="0"
           type_="password"
-          value=fstPassword
-          disabled
+          value={fstPassword |> stringObjects}
+          disabled={disabled |> disabledObjects}
           onChange=?changeFstPassword
           onKeyDown=?keydownFstPassword>
           <FormattedMessage id="Resend.first" defaultMessage="First" />
@@ -37,8 +44,8 @@ let make =
           left="0"
           right="0"
           type_="password"
-          value=sndPassword
-          disabled
+          value={sndPassword |> stringObjects}
+          disabled={disabled |> disabledObjects}
           onChange=?changeSndPassword
           onKeyDown=?keydownSndPassword>
           <FormattedMessage id="Resend.second" defaultMessage="Second" />
@@ -51,7 +58,7 @@ let make =
               variant="button"
               border="contained"
               size="medium"
-              disabled
+              disabled={disabled |> disabledObjects}
               onClick=?backForm>
               <FormattedMessage id="Account.back" defaultMessage="Back" />
             </Button>
@@ -61,7 +68,7 @@ let make =
               variant="button"
               border="contained"
               size="medium"
-              disabled
+              disabled={disabled |> disabledObjects}
               onClick=?nextForm>
               <FormattedMessage id="Account.send" defaultMessage="Send" />
             </Button>

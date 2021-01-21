@@ -1,32 +1,40 @@
 open React;
 open ReactIntl;
+open Setting;
 
 [@react.component]
 let make =
     (
-      ~error: bool,
-      ~loading: bool,
-      ~showYoutube: bool,
-      ~youtubeText: string,
-      ~disabled: bool,
-      ~userid: string,
+      ~error: option(bool)=?,
+      ~loading: option(bool)=?,
+      ~showYoutube: option(bool)=?,
+      ~youtubeText: option(string)=?,
+      ~disabled: option(bool)=?,
+      ~userid: option(string)=?,
       ~changeUserid: option(ReactEvent.Form.t => unit)=?,
       ~keydownUserid: option(ReactEvent.Keyboard.t => unit)=?,
-      ~password: string,
+      ~password: option(string)=?,
       ~changePassword: option(ReactEvent.Form.t => unit)=?,
       ~keydownPassword: option(ReactEvent.Keyboard.t => unit)=?,
       ~forgetForm: option(ReactEvent.Mouse.t => unit)=?,
       ~sendForm: option(ReactEvent.Mouse.t => unit)=?,
-    ) =>
-  <AccountBoard error loading tile="LOGIN" showYoutube youtubeText>
+      ~children,
+    ) => {
+  <AccountBoard
+    error={error |> disabledObjects}
+    loading={loading |> disabledObjects}
+    tile="LOGIN"
+    showYoutube={showYoutube |> disabledObjects}
+    youtubeText={youtubeText |> stringObjects}>
     <GridContainer direction="column" justify="center" alignItem="stretch">
+      <GridItem right="0" left="0" xs="auto"> children </GridItem>
       <GridItem right="0" left="0" xs="auto">
         <TextFieldOutline
           left="0"
           right="0"
           type_="email"
-          value=userid
-          disabled
+          value={userid |> stringObjects}
+          disabled={disabled |> disabledObjects}
           onChange=?changeUserid
           onKeyDown=?keydownUserid>
           <FormattedMessage id="Login.email" defaultMessage="Email" />
@@ -37,8 +45,8 @@ let make =
           left="0"
           right="0"
           type_="password"
-          value=password
-          disabled
+          value={password |> stringObjects}
+          disabled={disabled |> disabledObjects}
           onChange=?changePassword
           onKeyDown=?keydownPassword>
           <FormattedMessage id="Login.password" defaultMessage="Password" />
@@ -51,7 +59,7 @@ let make =
               variant="button"
               border="contained"
               size="medium"
-              disabled
+              disabled={disabled |> disabledObjects}
               onClick=?forgetForm>
               <FormattedMessage id="Account.forget" defaultMessage="Forget" />
             </Button>
@@ -61,7 +69,7 @@ let make =
               variant="button"
               border="contained"
               size="medium"
-              disabled
+              disabled={disabled |> disabledObjects}
               onClick=?sendForm>
               <FormattedMessage id="Account.send" defaultMessage="Send" />
             </Button>
@@ -70,3 +78,4 @@ let make =
       </GridItem>
     </GridContainer>
   </AccountBoard>;
+};

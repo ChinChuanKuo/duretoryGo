@@ -19,6 +19,8 @@ module Form = {
 };
 
 module Login = {
+  let search = data =>
+    postData("http://10.10.50.50:1250/Login/searchData", data);
   let checkUser = data =>
     postData("http://10.10.50.50:1250/Login/checkUserData", data);
   let loginUser = data =>

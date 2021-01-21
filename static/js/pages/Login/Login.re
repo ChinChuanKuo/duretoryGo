@@ -1,9 +1,12 @@
 open React;
+open Icons;
 open Data;
+open Items;
 open Basic;
 open Status;
 open Storage;
 open ObjectFormat;
+open IconAnimation;
 
 type state = {
   formLoad: bool,
@@ -12,12 +15,18 @@ type state = {
   showYoutube: bool,
   youtubeText: string,
   disabled: bool,
+  showMenu: bool,
+  system: string,
+  optionitems: array(optionitem),
   userid: string,
   password: string,
 };
 
 type action =
   | SettingUserId(string)
+  | SettingFormItems(array(optionitem))
+  | ShowMenuItem
+  | ClickMenuItem(string)
   | ChangeUserId(string)
   | ChangePassword(string)
   | ActionOtherLoad(bool)
@@ -30,6 +39,13 @@ let reducer = (state, action) =>
       ...state,
       userid: value,
       formLoad: !state.formLoad,
+    }
+  | SettingFormItems(items) => {...state, optionitems: items}
+  | ShowMenuItem => {...state, showMenu: !state.showMenu}
+  | ClickMenuItem(value) => {
+      ...state,
+      system: value,
+      showMenu: !state.showMenu,
     }
   | ChangeUserId(value) => {...state, userid: value}
   | ChangePassword(value) => {...state, password: value}
@@ -49,6 +65,9 @@ let initialState = {
   showYoutube: false,
   youtubeText: "",
   disabled: false,
+  showMenu: false,
+  system: "",
+  optionitems: [||],
   userid: "",
   password: "",
 };
@@ -63,6 +82,19 @@ let autoLoginPath = value =>
 let make = _ => {
   let (state, dispatch) = useReducer(reducer, initialState);
 
+  let searchAJax = () =>
+    Js.Promise.(
+      "newid"
+      |> Locals.select
+      |> userData
+      |> Axiosapi.Login.search
+      |> then_(response =>
+           SettingFormItems(response##data##items) |> dispatch |> resolve
+         )
+      |> catch(error => error |> Js.log |> resolve)
+      |> ignore
+    );
+
   useEffect(() =>
     if (state.formLoad) {
       Some(() => "action" |> Js.log);
@@ -76,21 +108,27 @@ let make = _ => {
           Location.items,
         )
         |> ignore;
+      let searchId = searchAJax();
       //let bwsId = JsModules.Browsers.make |> ignore;
       Some(
         () => {
           testId;
           pstId;
+          searchId;
         },
         //bwsId;
       );
     }
   );
 
+  let showMenuItem = useCallback(_ => ShowMenuItem |> dispatch);
+
+  let clickMenuItem = useCallback(value => ClickMenuItem(value) |> dispatch);
+
   let changeUserid =
     useCallback(value => {
       ChangeUserId(value) |> dispatch;
-      Sessions.create("userid", value);
+      value |> Sessions.create("userid");
     });
 
   let changePassword =
@@ -123,7 +161,7 @@ let make = _ => {
            (
              switch (response##data##status) {
              | "istrue" =>
-               Sessions.create("newid", response##data##newid);
+               response##data##newid |> Sessions.create("newid");
                Path.forgetPath |> ReasonReactRouter.push;
              | _ =>
                restoreAction();
@@ -217,6 +255,59 @@ let make = _ => {
       ReactEvent.Keyboard.keyCode(event) |> keydownPassword
     }
     forgetForm
-    sendForm
-  />;
+    sendForm>
+    <SelectOutline
+      top="16"
+      right="0"
+      bottom="8"
+      left="0"
+      tile="SYSTEM"
+      style={ReactDOMRe.Style.make(~padding="18.5px 38px 18.5px 14px", ())}
+      value={state.system}
+      disabled={state.disabled}
+      onClick=showMenuItem>
+      ...(
+           state.showMenu
+             ? <SelectMenu
+                 top="50%"
+                 transform="translate(0, -50%)"
+                 maxHeight="280"
+                 minHeight="0"
+                 topLeft="12"
+                 topRight="12"
+                 bottomRight="12"
+                 bottomLeft="12"
+                 paddingRight="8"
+                 paddingLeft="8">
+                 {state.optionitems
+                  |> Array.map(optionitem =>
+                       <MenuItem
+                         top="0"
+                         right="8"
+                         bottom="0"
+                         left="8"
+                         disablePadding={optionitem.optionPadding}
+                         topLeft="12"
+                         topRight="12"
+                         bottomRight="12"
+                         bottomLeft="12"
+                         onClick={_ => optionitem.value |> clickMenuItem}>
+                         {optionitem.value |> string}
+                       </MenuItem>
+                     )
+                  |> array}
+               </SelectMenu>
+             : null,
+           <IconGeneral
+             animation={state.showMenu |> topDownRorate}
+             src=arrowDownBlack
+           />,
+         )
+    </SelectOutline>
+    <BackgroundBoard
+      showBackground={state.showMenu}
+      backgroundColor="transparent"
+      onClick=showMenuItem
+    />
+  </YoutubeLogin>;
 };

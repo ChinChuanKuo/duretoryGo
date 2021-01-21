@@ -4,6 +4,7 @@ import * as React from "react";
 import * as ReactIntl from "react-intl";
 import * as Caml_option from "bs-platform/lib/es6/caml_option.js";
 import * as Button$BtsCore from "../../../material-ui/core/Button/Button.bs.js";
+import * as Setting$BtsCore from "../../../setting/Setting.bs.js";
 import * as GridItem$BtsCore from "../../../material-ui/core/Grid/GridItem.bs.js";
 import * as AccountBoard$BtsCore from "../AccountBoard.bs.js";
 import * as GridContainer$BtsCore from "../../../material-ui/core/Grid/GridContainer.bs.js";
@@ -23,7 +24,7 @@ function YoutubeOauth(Props) {
     width: "100%",
     border: "contained",
     size: "medium",
-    disabled: disabled,
+    disabled: Setting$BtsCore.disabledObjects(disabled),
     children: React.createElement(ReactIntl.FormattedMessage, {
           id: "Oauth.google",
           defaultMessage: "Google"
@@ -40,7 +41,7 @@ function YoutubeOauth(Props) {
     width: "100%",
     border: "contained",
     size: "medium",
-    disabled: disabled,
+    disabled: Setting$BtsCore.disabledObjects(disabled),
     children: React.createElement(ReactIntl.FormattedMessage, {
           id: "Oauth.facebook",
           defaultMessage: "Facebook"
@@ -57,7 +58,7 @@ function YoutubeOauth(Props) {
     width: "100%",
     border: "contained",
     size: "medium",
-    disabled: disabled,
+    disabled: Setting$BtsCore.disabledObjects(disabled),
     children: React.createElement(ReactIntl.FormattedMessage, {
           id: "Oauth.linkedln",
           defaultMessage: "Linkedln"
@@ -74,7 +75,7 @@ function YoutubeOauth(Props) {
     width: "100%",
     border: "contained",
     size: "medium",
-    disabled: disabled,
+    disabled: Setting$BtsCore.disabledObjects(disabled),
     children: React.createElement(ReactIntl.FormattedMessage, {
           id: "Oauth.twitter",
           defaultMessage: "Twitter"
@@ -84,12 +85,12 @@ function YoutubeOauth(Props) {
     tmp$3.onClick = Caml_option.valFromOption(signTwitter);
   }
   return React.createElement(AccountBoard$BtsCore.make, {
-              error: error,
-              loading: loading,
+              error: Setting$BtsCore.disabledObjects(error),
+              loading: Setting$BtsCore.disabledObjects(loading),
               index: 2,
               tile: "OAUTH",
-              showYoutube: showYoutube,
-              youtubeText: youtubeText,
+              showYoutube: Setting$BtsCore.disabledObjects(showYoutube),
+              youtubeText: Setting$BtsCore.stringObjects(youtubeText),
               children: React.createElement(GridContainer$BtsCore.make, {
                     direction: "column",
                     justify: "center",

@@ -1,28 +1,35 @@
 open React;
 open ReactIntl;
+open Setting;
 
 [@react.component]
 let make =
     (
-      ~error: bool,
-      ~loading: bool,
-      ~showYoutube: bool,
-      ~youtubeText: string,
-      ~disabled: bool,
-      ~birthday: string,
+      ~error: option(bool)=?,
+      ~loading: option(bool)=?,
+      ~showYoutube: option(bool)=?,
+      ~youtubeText: option(string)=?,
+      ~disabled: option(bool)=?,
+      ~birthday: option(string)=?,
       ~changeBirthday: option(ReactEvent.Form.t => unit)=?,
       ~keydownBirthday: option(ReactEvent.Keyboard.t => unit)=?,
       ~backForm: option(ReactEvent.Mouse.t => unit)=?,
       ~nextForm: option(ReactEvent.Mouse.t => unit)=?,
     ) =>
-  <AccountBoard error loading index=3 tile="FORGET" showYoutube youtubeText>
+  <AccountBoard
+    error={error |> disabledObjects}
+    loading={loading |> disabledObjects}
+    index=3
+    tile="FORGET"
+    showYoutube={showYoutube |> disabledObjects}
+    youtubeText={youtubeText |> stringObjects}>
     <GridContainer direction="column" justify="center" alignItem="stretch">
       <GridItem right="0" left="0" xs="auto">
         <TextFieldOutline
           left="0"
           right="0"
-          value=birthday
-          disabled
+          value={birthday |> stringObjects}
+          disabled={disabled |> disabledObjects}
           onChange=?changeBirthday
           onKeyDown=?keydownBirthday>
           <FormattedMessage id="Forget.birthday" defaultMessage="Birthday" />
@@ -35,7 +42,7 @@ let make =
               variant="button"
               border="contained"
               size="medium"
-              disabled
+              disabled={disabled |> disabledObjects}
               onClick=?backForm>
               <FormattedMessage id="Account.back" defaultMessage="Back" />
             </Button>
@@ -45,7 +52,7 @@ let make =
               variant="button"
               border="contained"
               size="medium"
-              disabled
+              disabled={disabled |> disabledObjects}
               onClick=?nextForm>
               <FormattedMessage id="Account.send" defaultMessage="Send" />
             </Button>

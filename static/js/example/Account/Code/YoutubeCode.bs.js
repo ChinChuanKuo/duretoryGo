@@ -4,6 +4,7 @@ import * as React from "react";
 import * as ReactIntl from "react-intl";
 import * as Caml_option from "bs-platform/lib/es6/caml_option.js";
 import * as Button$BtsCore from "../../../material-ui/core/Button/Button.bs.js";
+import * as Setting$BtsCore from "../../../setting/Setting.bs.js";
 import * as GridItem$BtsCore from "../../../material-ui/core/Grid/GridItem.bs.js";
 import * as AccountBoard$BtsCore from "../AccountBoard.bs.js";
 import * as GridContainer$BtsCore from "../../../material-ui/core/Grid/GridContainer.bs.js";
@@ -23,8 +24,8 @@ function YoutubeCode(Props) {
   var tmp = {
     right: "0",
     left: "0",
-    value: code,
-    disabled: disabled,
+    value: Setting$BtsCore.stringObjects(code),
+    disabled: Setting$BtsCore.disabledObjects(disabled),
     children: React.createElement(ReactIntl.FormattedMessage, {
           id: "Code.verification",
           defaultMessage: "Verification"
@@ -40,7 +41,7 @@ function YoutubeCode(Props) {
     variant: "button",
     border: "contained",
     size: "medium",
-    disabled: disabled,
+    disabled: Setting$BtsCore.disabledObjects(disabled),
     children: React.createElement(ReactIntl.FormattedMessage, {
           id: "Account.back",
           defaultMessage: "Back"
@@ -53,7 +54,7 @@ function YoutubeCode(Props) {
     variant: "button",
     border: "contained",
     size: "medium",
-    disabled: disabled,
+    disabled: Setting$BtsCore.disabledObjects(disabled),
     children: React.createElement(ReactIntl.FormattedMessage, {
           id: "Account.send",
           defaultMessage: "Send"
@@ -63,12 +64,12 @@ function YoutubeCode(Props) {
     tmp$2.onClick = Caml_option.valFromOption(nextForm);
   }
   return React.createElement(AccountBoard$BtsCore.make, {
-              error: error,
-              loading: loading,
+              error: Setting$BtsCore.disabledObjects(error),
+              loading: Setting$BtsCore.disabledObjects(loading),
               index: 3,
               tile: "CODE",
-              showYoutube: showYoutube,
-              youtubeText: youtubeText,
+              showYoutube: Setting$BtsCore.disabledObjects(showYoutube),
+              youtubeText: Setting$BtsCore.stringObjects(youtubeText),
               children: React.createElement(GridContainer$BtsCore.make, {
                     direction: "column",
                     justify: "center",

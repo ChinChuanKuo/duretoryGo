@@ -4,6 +4,7 @@ import * as React from "react";
 import * as ReactIntl from "react-intl";
 import * as Caml_option from "bs-platform/lib/es6/caml_option.js";
 import * as Button$BtsCore from "../../../material-ui/core/Button/Button.bs.js";
+import * as Setting$BtsCore from "../../../setting/Setting.bs.js";
 import * as GridItem$BtsCore from "../../../material-ui/core/Grid/GridItem.bs.js";
 import * as AccountBoard$BtsCore from "../AccountBoard.bs.js";
 import * as GridContainer$BtsCore from "../../../material-ui/core/Grid/GridContainer.bs.js";
@@ -23,12 +24,13 @@ function YoutubeLogin(Props) {
   var keydownPassword = Props.keydownPassword;
   var forgetForm = Props.forgetForm;
   var sendForm = Props.sendForm;
+  var children = Props.children;
   var tmp = {
     right: "0",
     left: "0",
     type_: "email",
-    value: userid,
-    disabled: disabled,
+    value: Setting$BtsCore.stringObjects(userid),
+    disabled: Setting$BtsCore.disabledObjects(disabled),
     children: React.createElement(ReactIntl.FormattedMessage, {
           id: "Login.email",
           defaultMessage: "Email"
@@ -44,8 +46,8 @@ function YoutubeLogin(Props) {
     right: "0",
     left: "0",
     type_: "password",
-    value: password,
-    disabled: disabled,
+    value: Setting$BtsCore.stringObjects(password),
+    disabled: Setting$BtsCore.disabledObjects(disabled),
     children: React.createElement(ReactIntl.FormattedMessage, {
           id: "Login.password",
           defaultMessage: "Password"
@@ -61,7 +63,7 @@ function YoutubeLogin(Props) {
     variant: "button",
     border: "contained",
     size: "medium",
-    disabled: disabled,
+    disabled: Setting$BtsCore.disabledObjects(disabled),
     children: React.createElement(ReactIntl.FormattedMessage, {
           id: "Account.forget",
           defaultMessage: "Forget"
@@ -74,7 +76,7 @@ function YoutubeLogin(Props) {
     variant: "button",
     border: "contained",
     size: "medium",
-    disabled: disabled,
+    disabled: Setting$BtsCore.disabledObjects(disabled),
     children: React.createElement(ReactIntl.FormattedMessage, {
           id: "Account.send",
           defaultMessage: "Send"
@@ -84,17 +86,22 @@ function YoutubeLogin(Props) {
     tmp$3.onClick = Caml_option.valFromOption(sendForm);
   }
   return React.createElement(AccountBoard$BtsCore.make, {
-              error: error,
-              loading: loading,
+              error: Setting$BtsCore.disabledObjects(error),
+              loading: Setting$BtsCore.disabledObjects(loading),
               tile: "LOGIN",
-              showYoutube: showYoutube,
-              youtubeText: youtubeText,
+              showYoutube: Setting$BtsCore.disabledObjects(showYoutube),
+              youtubeText: Setting$BtsCore.stringObjects(youtubeText),
               children: React.createElement(GridContainer$BtsCore.make, {
                     direction: "column",
                     justify: "center",
                     alignItem: "stretch",
                     children: null
                   }, React.createElement(GridItem$BtsCore.make, {
+                        right: "0",
+                        left: "0",
+                        xs: "auto",
+                        children: children
+                      }), React.createElement(GridItem$BtsCore.make, {
                         right: "0",
                         left: "0",
                         xs: "auto",
