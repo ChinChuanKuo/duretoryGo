@@ -775,8 +775,7 @@ let make = _ => {
     useCallback((id, index, event) => {
       ReactEvent.Mouse.preventDefault(event);
       ReactEvent.Mouse.stopPropagation(event);
-      let length =
-        Js_array.length(state.formitems[index].collectionitems) - 1;
+      let length = Js_array.length(state.viewitems[index].viewections) - 1;
       let collectionIndex = id == 0 ? length : id - 1;
       ShowViewection(collectionIndex, index) |> dispatch;
     });
@@ -785,8 +784,7 @@ let make = _ => {
     useCallback((id, index, event) => {
       ReactEvent.Mouse.preventDefault(event);
       ReactEvent.Mouse.stopPropagation(event);
-      let length =
-        Js_array.length(state.formitems[index].collectionitems) - 1;
+      let length = Js_array.length(state.viewitems[index].viewections) - 1;
       let collectionIndex = id == length ? 0 : id + 1;
       ShowViewection(collectionIndex, index) |> dispatch;
     });

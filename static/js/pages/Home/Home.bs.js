@@ -846,7 +846,7 @@ function Home(Props) {
           return (function (index, $$event) {
               $$event.preventDefault();
               $$event.stopPropagation();
-              var length = Caml_array.caml_array_get(state.formitems, index).collectionitems.length - 1 | 0;
+              var length = Caml_array.caml_array_get(state.viewitems, index).viewections.length - 1 | 0;
               var collectionIndex = id === 0 ? length : id - 1 | 0;
               return Curry._1(dispatch, /* ShowViewection */Block.__(8, [
                             collectionIndex,
@@ -858,7 +858,7 @@ function Home(Props) {
           return (function (index, $$event) {
               $$event.preventDefault();
               $$event.stopPropagation();
-              var length = Caml_array.caml_array_get(state.formitems, index).collectionitems.length - 1 | 0;
+              var length = Caml_array.caml_array_get(state.viewitems, index).viewections.length - 1 | 0;
               var collectionIndex = id === length ? 0 : id + 1 | 0;
               return Curry._1(dispatch, /* ShowViewection */Block.__(8, [
                             collectionIndex,
