@@ -455,10 +455,6 @@ let insideCollections =
     (),
   );
 
-let positionStyle = showPosition => showPosition ? "relative" : "absolute";
-
-let opacityStyle = showOpacity => showOpacity ? "1" : "0";
-
 [@react.component]
 let make = _ => {
   let (state, dispatch) = useReducer(reducer, initialState);
@@ -1179,27 +1175,29 @@ let make = _ => {
                                   xs="auto">
                                   {item.collections
                                    |> Array.mapi((ci, collitem) =>
-                                        <div
-                                          style={ReactDOMRe.Style.make(
-                                            ~position="absolute",
-                                            ~height="155px",
-                                            ~left="50%",
-                                            ~transform="translate(-50%, 0)",
-                                            ~transition="opacity 1s",
-                                            ~opacity=
-                                              {item.index == ci |> opacityStyle},
-                                            (),
-                                          )}>
-                                          <Image
-                                            width="auto"
-                                            height="100%"
-                                            borderRadius="6"
-                                            src={
-                                              "data:image/jpg;base64,"
-                                              ++ collitem
-                                            }
-                                          />
-                                        </div>
+                                        item.index == ci
+                                          ? <div
+                                              style={ReactDOMRe.Style.make(
+                                                ~position="absolute",
+                                                ~height="155px",
+                                                ~left="50%",
+                                                ~transform=
+                                                  "translate(-50%, 0)",
+                                                ~transition="opacity 1s",
+                                                ~opacity="1",
+                                                (),
+                                              )}>
+                                              <Image
+                                                width="auto"
+                                                height="100%"
+                                                borderRadius="6"
+                                                src={
+                                                  "data:image/jpg;base64,"
+                                                  ++ collitem
+                                                }
+                                              />
+                                            </div>
+                                          : null
                                       )
                                    |> array}
                                 </GridItem>
@@ -1433,28 +1431,25 @@ let make = _ => {
                                 xs="auto">
                                 {item.viewections
                                  |> Array.mapi((vi, viewitem) =>
-                                      <div
-                                        style={ReactDOMRe.Style.make(
-                                          ~position=
-                                            {item.viewIndex == vi
-                                             |> positionStyle},
-                                          ~top="0",
-                                          ~transition="opacity 1s",
-                                          ~opacity=
-                                            {item.viewIndex == vi
-                                             |> opacityStyle},
-                                          (),
-                                        )}>
-                                        <Image
-                                          width="100%"
-                                          height="auto"
-                                          borderRadius="6"
-                                          src={
-                                            "data:image/jpg;base64,"
-                                            ++ viewitem
-                                          }
-                                        />
-                                      </div>
+                                      item.viewIndex == vi
+                                        ? <div
+                                            style={ReactDOMRe.Style.make(
+                                              ~top="0",
+                                              ~transition="opacity 1s",
+                                              ~opacity="1",
+                                              (),
+                                            )}>
+                                            <Image
+                                              width="100%"
+                                              height="auto"
+                                              borderRadius="6"
+                                              src={
+                                                "data:image/jpg;base64,"
+                                                ++ viewitem
+                                              }
+                                            />
+                                          </div>
+                                        : null
                                     )
                                  |> array}
                               </GridItem>
@@ -1708,28 +1703,24 @@ let make = _ => {
                                      }>
                                      {item.collectionitems
                                       |> Array.mapi((ci, collectionitem) =>
-                                           <div
-                                             style={ReactDOMRe.Style.make(
-                                               ~position=
-                                                 {item.collectionIndex == ci
-                                                  |> positionStyle},
-                                               ~top="0",
-                                               ~transition="opacity 1s",
-                                               ~opacity=
-                                                 {item.collectionIndex == ci
-                                                  |> opacityStyle},
-                                               (),
-                                             )}>
-                                             <Image
-                                               width="auto"
-                                               height="200px"
-                                               borderRadius="6"
-                                               src={
-                                                 "data:image/jpg;base64,"
-                                                 ++ collectionitem.value
-                                               }
-                                             />
-                                           </div>
+                                           item.collectionIndex == ci
+                                             ? <div
+                                                 style={ReactDOMRe.Style.make(
+                                                   ~transition="opacity 1s",
+                                                   ~opacity="1",
+                                                   (),
+                                                 )}>
+                                                 <Image
+                                                   width="auto"
+                                                   height="200px"
+                                                   borderRadius="6"
+                                                   src={
+                                                     "data:image/jpg;base64,"
+                                                     ++ collectionitem.value
+                                                   }
+                                                 />
+                                               </div>
+                                             : null
                                          )
                                       |> array}
                                    </CollectionUpload>
