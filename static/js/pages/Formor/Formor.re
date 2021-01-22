@@ -910,7 +910,6 @@ let make = _ => {
                                           top="100%"
                                           right="0"
                                           transform="translate(0, -100%)"
-                                          maxWidth="256"
                                           width="256"
                                           maxHeight="280"
                                           minHeight="0"

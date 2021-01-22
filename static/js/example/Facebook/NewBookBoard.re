@@ -257,10 +257,26 @@ let make = (~autoPath: 'a, ~children) => {
       ShowRecord |> dispatch;
       recordAJax();
     });
+  let addCordAJax = () =>
+    Js.Promise.(
+      state.value
+      |> otherData("newid" |> Locals.select)
+      |> Form.addCord
+      |> then_(_ =>
+           searchPath
+           ++ "#"
+           ++ state.value
+           |> ReasonReactRouter.push
+           |> resolve
+         )
+      |> catch(error => error |> Js.log |> resolve)
+      |> ignore
+    );
   let keydownField =
     useCallback(keyCode =>
       if (keyCode == 13 && state.value != "") {
-        searchPath ++ "#" ++ state.value |> ReasonReactRouter.push;
+        //searchPath ++ "#" ++ state.value |> ReasonReactRouter.push;
+        addCordAJax();
       }
     );
   let showMenu =
@@ -419,7 +435,7 @@ let make = (~autoPath: 'a, ~children) => {
                          borderRadius="15"
                          id={"tab-" ++ string_of_int(i)}
                          animationName="none"
-                         onClick={_ => clickItemTab(i, tabtitem.tabPath)}>
+                         onClick={_ => tabtitem.tabPath |> clickItemTab(i)}>
                          <IconAction
                            width="28"
                            height="28"

@@ -591,11 +591,19 @@ var insideCollections = {
   transform: "translate(0px, -50%)"
 };
 
-function showDisplay(isShow) {
-  if (isShow) {
+function displayStyle(showDisplay) {
+  if (showDisplay) {
     return "block";
   } else {
     return "none";
+  }
+}
+
+function opacityStyle(showOpacity) {
+  if (showOpacity) {
+    return "1";
+  } else {
+    return "0";
   }
 }
 
@@ -1135,6 +1143,7 @@ function Home(Props) {
                                                                 filtitem.filtMenu ? React.createElement(SelectMenu$BtsCore.make, {
                                                                         top: "0%",
                                                                         transform: "translate(0, 0%)",
+                                                                        width: "max-content",
                                                                         maxHeight: "280",
                                                                         minHeight: "0",
                                                                         topLeft: "12",
@@ -1260,10 +1269,11 @@ function Home(Props) {
                                                                                         children: $$Array.mapi((function (ci, collitem) {
                                                                                                 return React.createElement("div", {
                                                                                                             style: {
-                                                                                                              display: item.index === ci ? "block" : "none",
                                                                                                               height: "155px",
                                                                                                               left: "50%",
                                                                                                               position: "absolute",
+                                                                                                              opacity: item.index === ci ? "1" : "0",
+                                                                                                              transition: "opacity 1s",
                                                                                                               transform: "translate(-50%, 0)"
                                                                                                             }
                                                                                                           }, React.createElement(Image$BtsCore.make, {
@@ -2030,7 +2040,8 @@ export {
   positionRelative ,
   outsideCollections ,
   insideCollections ,
-  showDisplay ,
+  displayStyle ,
+  opacityStyle ,
   make ,
   
 }

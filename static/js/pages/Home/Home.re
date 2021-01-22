@@ -78,6 +78,11 @@ type item = {
   itemDelete: bool,
 };
 
+type recorditem = {
+  cordIcon: string,
+  cordValue: string,
+};
+
 type state = {
   formLoad: bool,
   formWidth: int,
@@ -450,7 +455,9 @@ let insideCollections =
     (),
   );
 
-let showDisplay = isShow => isShow ? "block" : "none";
+let displayStyle = showDisplay => showDisplay ? "block" : "none";
+
+let opacityStyle = showOpacity => showOpacity ? "1" : "0";
 
 [@react.component]
 let make = _ => {
@@ -1036,6 +1043,7 @@ let make = _ => {
                                ? <SelectMenu
                                    top="0%"
                                    transform="translate(0, 0%)"
+                                   width="max-content"
                                    maxHeight="280"
                                    minHeight="0"
                                    topLeft="12"
@@ -1177,8 +1185,9 @@ let make = _ => {
                                             ~height="155px",
                                             ~left="50%",
                                             ~transform="translate(-50%, 0)",
-                                            ~display=
-                                              {item.index == ci |> showDisplay},
+                                            ~transition="opacity 1s",
+                                            ~opacity=
+                                              {item.index == ci |> opacityStyle},
                                             (),
                                           )}>
                                           <Image
@@ -1427,7 +1436,7 @@ let make = _ => {
                                         style={ReactDOMRe.Style.make(
                                           ~display=
                                             {item.viewIndex == vi
-                                             |> showDisplay},
+                                             |> displayStyle},
                                           (),
                                         )}>
                                         <Image
@@ -1697,7 +1706,7 @@ let make = _ => {
                                              style={ReactDOMRe.Style.make(
                                                ~display=
                                                  {item.collectionIndex == ci
-                                                  |> showDisplay},
+                                                  |> displayStyle},
                                                (),
                                              )}>
                                              <Image

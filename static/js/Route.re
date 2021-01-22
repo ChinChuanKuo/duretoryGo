@@ -17,6 +17,7 @@ let make = () => {
        | [] => <Home />
        | ["icon"] => <Icon />
        | ["bookmarks"] => <Bookmarks />
+       | ["search"] => <Search />
        | ["formor"] => <Formor />
        | ["create"] => <Create />
        | _ => <Home />

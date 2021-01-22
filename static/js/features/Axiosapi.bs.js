@@ -25,6 +25,10 @@ function record(data) {
   return Axios$1.post("http://10.10.50.50:1250/Form/recordData", data);
 }
 
+function addCord(data) {
+  return Axios$1.post("http://10.10.50.50:1250/Form/addCordData", data);
+}
+
 function badge(data) {
   return Axios$1.post("http://10.10.50.50:1250/Form/badgeData", data);
 }
@@ -35,6 +39,7 @@ var Form = {
   badgeForm: badgeForm,
   permiss: permiss,
   record: record,
+  addCord: addCord,
   badge: badge
 };
 
@@ -190,6 +195,14 @@ var Default = {
 };
 
 function search$3(data) {
+  return Axios$1.post("http://10.10.50.50:2250/Search/searchData", data);
+}
+
+var Search = {
+  search: search$3
+};
+
+function search$4(data) {
   return Axios$1.post("http://10.10.50.50:2250/Formor/searchData", data);
 }
 
@@ -198,11 +211,11 @@ function insert$2(data) {
 }
 
 var Formor = {
-  search: search$3,
+  search: search$4,
   insert: insert$2
 };
 
-function search$4(data) {
+function search$5(data) {
   return Axios$1.post("http://10.10.50.50:2250/Create/searchData", data);
 }
 
@@ -211,7 +224,7 @@ function insert$3(data) {
 }
 
 var Create = {
-  search: search$4,
+  search: search$5,
   insert: insert$3
 };
 
@@ -226,6 +239,7 @@ export {
   $$Option ,
   Files ,
   Default ,
+  Search ,
   Formor ,
   Create ,
   

@@ -11,6 +11,7 @@ import * as Create$BtsCore from "./pages/Create/Create.bs.js";
 import * as Forget$BtsCore from "./pages/Forget/Forget.bs.js";
 import * as Formor$BtsCore from "./pages/Formor/Formor.bs.js";
 import * as Resend$BtsCore from "./pages/Resend/Resend.bs.js";
+import * as Search$BtsCore from "./pages/Search/Search.bs.js";
 import * as Signup$BtsCore from "./pages/Signup/Signup.bs.js";
 import * as Setting$BtsCore from "./setting/Setting.bs.js";
 import * as Bookmarks$BtsCore from "./pages/Bookmarks/Bookmarks.bs.js";
@@ -97,6 +98,13 @@ function Route(Props) {
               exit$1 = 2;
             } else {
               tmp = React.createElement(Icon$BtsCore.make, { });
+            }
+            break;
+        case "search" :
+            if (match$1[1]) {
+              exit$1 = 2;
+            } else {
+              tmp = React.createElement(Search$BtsCore.make, { });
             }
             break;
         default:

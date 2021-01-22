@@ -500,7 +500,12 @@ function NewBookBoard(Props) {
         }));
   var keydownField = React.useCallback((function (keyCode) {
           if (keyCode === 13 && state.value !== "") {
-            return ReasonReactRouter.push(Path$BtsCore.searchPath + ("#" + state.value));
+            Axiosapi$BtsCore.Form.addCord(Data$BtsCore.otherData(localStorage.getItem("newid"), state.value)).then((function (param) {
+                      return Promise.resolve(ReasonReactRouter.push(Path$BtsCore.searchPath + ("#" + state.value)));
+                    })).catch((function (error) {
+                    return Promise.resolve((console.log(error), undefined));
+                  }));
+            return ;
           }
           
         }));

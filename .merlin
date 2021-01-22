@@ -32,6 +32,8 @@ S static/js/pages/Forget
 B lib/bs/static/js/pages/Forget
 S static/js/pages/Bookmarks
 B lib/bs/static/js/pages/Bookmarks
+S static/js/pages/Search
+B lib/bs/static/js/pages/Search
 S static/js/pages/Code
 B lib/bs/static/js/pages/Code
 S static/js/pages/Signup

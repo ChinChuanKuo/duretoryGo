@@ -18,6 +18,7 @@ func init() {
 	beego.Router("/icon", &controllers.MainController{})
 	beego.Router("/formor", &controllers.MainController{})
 
+	beego.Router("/search", &controllers.MainController{})
 	beego.Router("/formor", &controllers.MainController{})
 	beego.Router("/create", &controllers.MainController{})
 }

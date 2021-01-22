@@ -23,7 +23,7 @@ function otherSizes(otherSize) {
 
 function widths(width) {
   if (width !== undefined) {
-    return width + "px";
+    return width;
   } else {
     return "100%";
   }
@@ -84,9 +84,7 @@ function SelectMenu(Props) {
   var bottom = Props.bottom;
   var left = Props.left;
   var transform = Props.transform;
-  var maxWidth = Props.maxWidth;
   var width = Props.width;
-  var minWidth = Props.minWidth;
   var maxHeight = Props.maxHeight;
   var height = Props.height;
   var minHeight = Props.minHeight;
@@ -109,14 +107,12 @@ function SelectMenu(Props) {
                     height: otherSizes(height),
                     left: left !== undefined ? left : "auto",
                     maxHeight: otherSizes(maxHeight),
-                    maxWidth: otherSizes(maxWidth),
                     minHeight: otherSizes(minHeight),
-                    minWidth: otherSizes(minWidth),
                     overflow: overflow !== undefined ? overflow : "auto",
                     position: "absolute",
                     right: right !== undefined ? right : "auto",
                     top: top !== undefined ? top : "auto",
-                    width: widths(width),
+                    width: width !== undefined ? width : "100%",
                     zIndex: "1200",
                     borderTopLeftRadius: borderRadiuses(topLeft),
                     borderTopRightRadius: borderRadiuses(topRight),

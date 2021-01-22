@@ -584,8 +584,8 @@ var insideCollections = {
   transform: "translate(0px, -50%)"
 };
 
-function showDisplay(isShow) {
-  if (isShow) {
+function displayStyle(showDisplay) {
+  if (showDisplay) {
     return "block";
   } else {
     return "none";
@@ -1280,7 +1280,7 @@ export {
   initialState ,
   positionRelative ,
   insideCollections ,
-  showDisplay ,
+  displayStyle ,
   make ,
   
 }

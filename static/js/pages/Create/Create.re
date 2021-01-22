@@ -276,7 +276,7 @@ let insideCollections =
     (),
   );
 
-let showDisplay = isShow => isShow ? "block" : "none";
+let displayStyle = showDisplay => showDisplay ? "block" : "none";
 
 [@react.component]
 let make = _ => {
@@ -708,7 +708,7 @@ let make = _ => {
                                              style={ReactDOMRe.Style.make(
                                                ~display=
                                                  {item.collectionIndex == ci
-                                                  |> showDisplay},
+                                                  |> displayStyle},
                                                (),
                                              )}>
                                              <Image

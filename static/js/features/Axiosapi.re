@@ -14,6 +14,8 @@ module Form = {
     postData("http://10.10.50.50:1250/Form/permissData", data);
   let record = data =>
     postData("http://10.10.50.50:1250/Form/recordData", data);
+  let addCord = data =>
+    postData("http://10.10.50.50:1250/Form/addCordData", data);
   let badge = data =>
     postData("http://10.10.50.50:1250/Form/badgeData", data);
 };
@@ -99,6 +101,11 @@ module Default = {
     postData("http://10.10.50.50:2250/Home/insertData", data);
   let sRefresh = data =>
     postData("http://10.10.50.50:2250/Home/sRefreshData", data);
+};
+
+module Search = {
+  let search = data =>
+    postData("http://10.10.50.50:2250/Search/searchData", data);
 };
 
 module Formor = {
