@@ -591,11 +591,11 @@ var insideCollections = {
   transform: "translate(0px, -50%)"
 };
 
-function displayStyle(showDisplay) {
-  if (showDisplay) {
-    return "block";
+function positionStyle(showPosition) {
+  if (showPosition) {
+    return "relative";
   } else {
-    return "none";
+    return "absolute";
   }
 }
 
@@ -1489,6 +1489,7 @@ function Home(Props) {
                                                                                               })
                                                                                         })
                                                                                   }), React.createElement(GridItem$BtsCore.make, {
+                                                                                    style: positionRelative,
                                                                                     top: "0",
                                                                                     right: "0",
                                                                                     bottom: "0",
@@ -1497,7 +1498,10 @@ function Home(Props) {
                                                                                     children: $$Array.mapi((function (vi, viewitem) {
                                                                                             return React.createElement("div", {
                                                                                                         style: {
-                                                                                                          display: item.viewIndex === vi ? "block" : "none"
+                                                                                                          position: item.viewIndex === vi ? "relative" : "absolute",
+                                                                                                          top: "0",
+                                                                                                          opacity: item.viewIndex === vi ? "1" : "0",
+                                                                                                          transition: "opacity 1s"
                                                                                                         }
                                                                                                       }, React.createElement(Image$BtsCore.make, {
                                                                                                             width: "100%",
@@ -1721,7 +1725,10 @@ function Home(Props) {
                                                                     children: $$Array.mapi((function (ci, collectionitem) {
                                                                             return React.createElement("div", {
                                                                                         style: {
-                                                                                          display: item.collectionIndex === ci ? "block" : "none"
+                                                                                          position: item.collectionIndex === ci ? "relative" : "absolute",
+                                                                                          top: "0",
+                                                                                          opacity: item.collectionIndex === ci ? "1" : "0",
+                                                                                          transition: "opacity 1s"
                                                                                         }
                                                                                       }, React.createElement(Image$BtsCore.make, {
                                                                                             width: "auto",
@@ -2040,7 +2047,7 @@ export {
   positionRelative ,
   outsideCollections ,
   insideCollections ,
-  displayStyle ,
+  positionStyle ,
   opacityStyle ,
   make ,
   

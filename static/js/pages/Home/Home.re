@@ -455,7 +455,7 @@ let insideCollections =
     (),
   );
 
-let displayStyle = showDisplay => showDisplay ? "block" : "none";
+let positionStyle = showPosition => showPosition ? "relative" : "absolute";
 
 let opacityStyle = showOpacity => showOpacity ? "1" : "0";
 
@@ -1425,6 +1425,7 @@ let make = _ => {
                                 </IconButton>
                               </GridItem>
                               <GridItem
+                                style=positionRelative
                                 top="0"
                                 right="0"
                                 bottom="0"
@@ -1434,9 +1435,14 @@ let make = _ => {
                                  |> Array.mapi((vi, viewitem) =>
                                       <div
                                         style={ReactDOMRe.Style.make(
-                                          ~display=
+                                          ~position=
                                             {item.viewIndex == vi
-                                             |> displayStyle},
+                                             |> positionStyle},
+                                          ~top="0",
+                                          ~transition="opacity 1s",
+                                          ~opacity=
+                                            {item.viewIndex == vi
+                                             |> opacityStyle},
                                           (),
                                         )}>
                                         <Image
@@ -1704,9 +1710,14 @@ let make = _ => {
                                       |> Array.mapi((ci, collectionitem) =>
                                            <div
                                              style={ReactDOMRe.Style.make(
-                                               ~display=
+                                               ~position=
                                                  {item.collectionIndex == ci
-                                                  |> displayStyle},
+                                                  |> positionStyle},
+                                               ~top="0",
+                                               ~transition="opacity 1s",
+                                               ~opacity=
+                                                 {item.collectionIndex == ci
+                                                  |> opacityStyle},
                                                (),
                                              )}>
                                              <Image
