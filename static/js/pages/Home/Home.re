@@ -1183,8 +1183,6 @@ let make = _ => {
                                                 ~left="50%",
                                                 ~transform=
                                                   "translate(-50%, 0)",
-                                                ~transition="opacity 1s",
-                                                ~opacity="1",
                                                 (),
                                               )}>
                                               <Image
@@ -1432,23 +1430,15 @@ let make = _ => {
                                 {item.viewections
                                  |> Array.mapi((vi, viewitem) =>
                                       item.viewIndex == vi
-                                        ? <div
-                                            style={ReactDOMRe.Style.make(
-                                              ~top="0",
-                                              ~transition="opacity 1s",
-                                              ~opacity="1",
-                                              (),
-                                            )}>
-                                            <Image
-                                              width="100%"
-                                              height="auto"
-                                              borderRadius="6"
-                                              src={
-                                                "data:image/jpg;base64,"
-                                                ++ viewitem
-                                              }
-                                            />
-                                          </div>
+                                        ? <Image
+                                            width="100%"
+                                            height="auto"
+                                            borderRadius="6"
+                                            src={
+                                              "data:image/jpg;base64,"
+                                              ++ viewitem
+                                            }
+                                          />
                                         : null
                                     )
                                  |> array}
@@ -1704,22 +1694,15 @@ let make = _ => {
                                      {item.collectionitems
                                       |> Array.mapi((ci, collectionitem) =>
                                            item.collectionIndex == ci
-                                             ? <div
-                                                 style={ReactDOMRe.Style.make(
-                                                   ~transition="opacity 1s",
-                                                   ~opacity="1",
-                                                   (),
-                                                 )}>
-                                                 <Image
-                                                   width="auto"
-                                                   height="200px"
-                                                   borderRadius="6"
-                                                   src={
-                                                     "data:image/jpg;base64,"
-                                                     ++ collectionitem.value
-                                                   }
-                                                 />
-                                               </div>
+                                             ? <Image
+                                                 width="auto"
+                                                 height="200px"
+                                                 borderRadius="6"
+                                                 src={
+                                                   "data:image/jpg;base64,"
+                                                   ++ collectionitem.value
+                                                 }
+                                               />
                                              : null
                                          )
                                       |> array}

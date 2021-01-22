@@ -584,14 +584,6 @@ var insideCollections = {
   transform: "translate(0px, -50%)"
 };
 
-function displayStyle(showDisplay) {
-  if (showDisplay) {
-    return "block";
-  } else {
-    return "none";
-  }
-}
-
 function Create(Props) {
   var match = React.useReducer(reducer, initialState);
   var dispatch = match[1];
@@ -982,16 +974,16 @@ function Create(Props) {
                                                                           return Curry._2(uploadFiles, Caml_array.caml_array_get($$event.target.files, 0), i);
                                                                         }),
                                                                       children: $$Array.mapi((function (ci, collectionitem) {
-                                                                              return React.createElement("div", {
-                                                                                          style: {
-                                                                                            display: item.collectionIndex === ci ? "block" : "none"
-                                                                                          }
-                                                                                        }, React.createElement(Image$BtsCore.make, {
-                                                                                              width: "auto",
-                                                                                              height: "200px",
-                                                                                              borderRadius: "6",
-                                                                                              src: "data:image/jpg;base64," + collectionitem.value
-                                                                                            }));
+                                                                              if (item.collectionIndex === ci) {
+                                                                                return React.createElement(Image$BtsCore.make, {
+                                                                                            width: "auto",
+                                                                                            height: "200px",
+                                                                                            borderRadius: "6",
+                                                                                            src: "data:image/jpg;base64," + collectionitem.value
+                                                                                          });
+                                                                              } else {
+                                                                                return null;
+                                                                              }
                                                                             }), item.collectionitems)
                                                                     })
                                                               }), React.createElement(GridItem$BtsCore.make, {
@@ -1280,7 +1272,6 @@ export {
   initialState ,
   positionRelative ,
   insideCollections ,
-  displayStyle ,
   make ,
   
 }

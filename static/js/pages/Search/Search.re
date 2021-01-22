@@ -143,8 +143,6 @@ let insideCollections =
     (),
   );
 
-let displayStyle = showDisplay => showDisplay ? "block" : "none";
-
 [@react.component]
 let make = _ => {
   let (state, dispatch) = useReducer(reducer, initialState);
@@ -407,8 +405,6 @@ let make = _ => {
                                             ~height="155px",
                                             ~left="50%",
                                             ~transform="translate(-50%, 0)",
-                                            ~display=
-                                              {item.index == ci |> displayStyle},
                                             (),
                                           )}>
                                           <Image

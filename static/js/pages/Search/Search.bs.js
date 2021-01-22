@@ -270,14 +270,6 @@ var insideCollections = {
   transform: "translate(0px, -50%)"
 };
 
-function displayStyle(showDisplay) {
-  if (showDisplay) {
-    return "block";
-  } else {
-    return "none";
-  }
-}
-
 function Search(Props) {
   var match = React.useReducer(reducer, initialState);
   var dispatch = match[1];
@@ -525,7 +517,6 @@ function Search(Props) {
                                                                                           children: $$Array.mapi((function (ci, collitem) {
                                                                                                   return React.createElement("div", {
                                                                                                               style: {
-                                                                                                                display: item.index === ci ? "block" : "none",
                                                                                                                 height: "155px",
                                                                                                                 left: "50%",
                                                                                                                 position: "absolute",
@@ -685,7 +676,6 @@ export {
   positionRelative ,
   outsideCollections ,
   insideCollections ,
-  displayStyle ,
   make ,
   
 }

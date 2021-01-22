@@ -1257,8 +1257,6 @@ function Home(Props) {
                                                                                                                 height: "155px",
                                                                                                                 left: "50%",
                                                                                                                 position: "absolute",
-                                                                                                                opacity: "1",
-                                                                                                                transition: "opacity 1s",
                                                                                                                 transform: "translate(-50%, 0)"
                                                                                                               }
                                                                                                             }, React.createElement(Image$BtsCore.make, {
@@ -1485,18 +1483,12 @@ function Home(Props) {
                                                                                     xs: "auto",
                                                                                     children: $$Array.mapi((function (vi, viewitem) {
                                                                                             if (item.viewIndex === vi) {
-                                                                                              return React.createElement("div", {
-                                                                                                          style: {
-                                                                                                            top: "0",
-                                                                                                            opacity: "1",
-                                                                                                            transition: "opacity 1s"
-                                                                                                          }
-                                                                                                        }, React.createElement(Image$BtsCore.make, {
-                                                                                                              width: "100%",
-                                                                                                              height: "auto",
-                                                                                                              borderRadius: "6",
-                                                                                                              src: "data:image/jpg;base64," + viewitem
-                                                                                                            }));
+                                                                                              return React.createElement(Image$BtsCore.make, {
+                                                                                                          width: "100%",
+                                                                                                          height: "auto",
+                                                                                                          borderRadius: "6",
+                                                                                                          src: "data:image/jpg;base64," + viewitem
+                                                                                                        });
                                                                                             } else {
                                                                                               return null;
                                                                                             }
@@ -1715,17 +1707,12 @@ function Home(Props) {
                                                                       }),
                                                                     children: $$Array.mapi((function (ci, collectionitem) {
                                                                             if (item.collectionIndex === ci) {
-                                                                              return React.createElement("div", {
-                                                                                          style: {
-                                                                                            opacity: "1",
-                                                                                            transition: "opacity 1s"
-                                                                                          }
-                                                                                        }, React.createElement(Image$BtsCore.make, {
-                                                                                              width: "auto",
-                                                                                              height: "200px",
-                                                                                              borderRadius: "6",
-                                                                                              src: "data:image/jpg;base64," + collectionitem.value
-                                                                                            }));
+                                                                              return React.createElement(Image$BtsCore.make, {
+                                                                                          width: "auto",
+                                                                                          height: "200px",
+                                                                                          borderRadius: "6",
+                                                                                          src: "data:image/jpg;base64," + collectionitem.value
+                                                                                        });
                                                                             } else {
                                                                               return null;
                                                                             }

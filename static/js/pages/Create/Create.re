@@ -276,8 +276,6 @@ let insideCollections =
     (),
   );
 
-let displayStyle = showDisplay => showDisplay ? "block" : "none";
-
 [@react.component]
 let make = _ => {
   let (state, dispatch) = useReducer(reducer, initialState);
@@ -704,23 +702,17 @@ let make = _ => {
                                      }>
                                      {item.collectionitems
                                       |> Array.mapi((ci, collectionitem) =>
-                                           <div
-                                             style={ReactDOMRe.Style.make(
-                                               ~display=
-                                                 {item.collectionIndex == ci
-                                                  |> displayStyle},
-                                               (),
-                                             )}>
-                                             <Image
-                                               width="auto"
-                                               height="200px"
-                                               borderRadius="6"
-                                               src={
-                                                 "data:image/jpg;base64,"
-                                                 ++ collectionitem.value
-                                               }
-                                             />
-                                           </div>
+                                           item.collectionIndex == ci
+                                             ? <Image
+                                                 width="auto"
+                                                 height="200px"
+                                                 borderRadius="6"
+                                                 src={
+                                                   "data:image/jpg;base64,"
+                                                   ++ collectionitem.value
+                                                 }
+                                               />
+                                             : null
                                          )
                                       |> array}
                                    </CollectionUpload>
