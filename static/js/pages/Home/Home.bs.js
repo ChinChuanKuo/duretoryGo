@@ -1445,16 +1445,17 @@ function Home(Props) {
                                                                       alignItem: "start",
                                                                       children: null
                                                                     }, React.createElement(GridItem$BtsCore.make, {
-                                                                          style: {
-                                                                            position: "sticky",
-                                                                            top: "0px"
-                                                                          },
+                                                                          style: Object.assign(({}), Together$BtsCore.marginAuto, {
+                                                                                position: state.formWidth < 907 ? "relative" : "sticky",
+                                                                                top: "0px"
+                                                                              }),
                                                                           top: "36",
                                                                           right: "56",
                                                                           bottom: "0",
                                                                           left: "0",
-                                                                          width: "450px",
+                                                                          width: "100%",
                                                                           xs: "no",
+                                                                          maxWidth: "450px",
                                                                           children: React.createElement(GridContainer$BtsCore.make, {
                                                                                 direction: "row",
                                                                                 justify: "center",

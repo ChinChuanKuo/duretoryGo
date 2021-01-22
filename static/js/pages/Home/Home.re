@@ -1375,16 +1375,23 @@ let make = _ => {
                         <GridContainer
                           direction="row" justify="between" alignItem="start">
                           <GridItem
-                            style={ReactDOMRe.Style.make(
-                              ~position="sticky",
-                              ~top="0px",
-                              (),
+                            style={ReactDOMRe.Style.combine(
+                              marginAuto,
+                              ReactDOMRe.Style.make(
+                                ~position={
+                                  state.formWidth < 907
+                                    ? "relative" : "sticky";
+                                },
+                                ~top="0px",
+                                (),
+                              ),
                             )}
                             top="36"
                             right="56"
                             bottom="0"
                             left="0"
-                            width="450px"
+                            width="100%"
+                            maxWidth="450px"
                             xs="no">
                             <GridContainer
                               direction="row"
