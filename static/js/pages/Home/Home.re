@@ -10,7 +10,7 @@ open Storage;
 open AnswerColor;
 open ObjectFormat;
 open IconAnimation;
-[%bs.raw {|require('../../../scss/pages/Together/together.scss')|}];
+[%bs.raw {|require('../../../scss/pages/Home/home.scss')|}];
 
 type answeritem = {
   id: int,
@@ -135,11 +135,11 @@ type action =
   | SettingSingleItem(int, array(item))
   | ShowAnimationViewFull(string, string, array(viewitem))
   | ShowAnimationFull(int, string, string, array(formitem))
-  | ShowViewection(int, int)
   | ShowFiltMenu(int)
   | ClickFiltMenu(string, int)
   | ShowCollections(int, int)
   | ClearForm(string)
+  | ShowViewection(int, int)
   | ShowDrop(bool, int)
   | ShowFile(bool, bool, bool, string, int)
   | ShowFiles(bool, bool, bool, string, int)
@@ -214,14 +214,6 @@ let reducer = (state, action) =>
       formitems,
       showFull: !state.showFull,
     }
-  | ShowViewection(viewIndex, index) => {
-      ...state,
-      viewitems:
-        Array.mapi(
-          (i, item) => index == i ? {...item, viewIndex} : item,
-          state.viewitems,
-        ),
-    }
   | ShowFiltMenu(index) => {
       ...state,
       filtitems:
@@ -256,6 +248,14 @@ let reducer = (state, action) =>
       itemCount: state.itemCount - 1,
       error: state.itemCount == 1,
       items: Js_array.filter((item: item) => item.id !== id, state.items),
+    }
+  | ShowViewection(viewIndex, index) => {
+      ...state,
+      viewitems:
+        Array.mapi(
+          (i, item) => index == i ? {...item, viewIndex} : item,
+          state.viewitems,
+        ),
     }
   | ShowDrop(droped, index) => {
       ...state,
@@ -1184,7 +1184,8 @@ let make = _ => {
                                                 ~transform=
                                                   "translate(-50%, 0)",
                                                 (),
-                                              )}>
+                                              )}
+                                              className="collectionBoard">
                                               <Image
                                                 width="auto"
                                                 height="100%"
@@ -1430,15 +1431,17 @@ let make = _ => {
                                 {item.viewections
                                  |> Array.mapi((vi, viewitem) =>
                                       item.viewIndex == vi
-                                        ? <Image
-                                            width="100%"
-                                            height="auto"
-                                            borderRadius="6"
-                                            src={
-                                              "data:image/jpg;base64,"
-                                              ++ viewitem
-                                            }
-                                          />
+                                        ? <div className="collectionBoard">
+                                            <Image
+                                              width="100%"
+                                              height="auto"
+                                              borderRadius="6"
+                                              src={
+                                                "data:image/jpg;base64,"
+                                                ++ viewitem
+                                              }
+                                            />
+                                          </div>
                                         : null
                                     )
                                  |> array}
@@ -1694,15 +1697,18 @@ let make = _ => {
                                      {item.collectionitems
                                       |> Array.mapi((ci, collectionitem) =>
                                            item.collectionIndex == ci
-                                             ? <Image
-                                                 width="auto"
-                                                 height="200px"
-                                                 borderRadius="6"
-                                                 src={
-                                                   "data:image/jpg;base64,"
-                                                   ++ collectionitem.value
-                                                 }
-                                               />
+                                             ? <div
+                                                 className="collectionBoard">
+                                                 <Image
+                                                   width="auto"
+                                                   height="200px"
+                                                   borderRadius="6"
+                                                   src={
+                                                     "data:image/jpg;base64,"
+                                                     ++ collectionitem.value
+                                                   }
+                                                 />
+                                               </div>
                                              : null
                                          )
                                       |> array}

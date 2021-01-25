@@ -1,0 +1,38 @@
+@import "../Together/together";
+
+.collectionBoard {
+    opacity: 0;
+    -webkit-animation: fadeIn 0.8s ease-in forwards;
+    -moz-animation: fadeIn 0.8s ease-in forwards;
+    animation: fadeIn 0.8s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

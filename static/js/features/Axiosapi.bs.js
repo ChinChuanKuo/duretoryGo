@@ -198,8 +198,13 @@ function search$3(data) {
   return Axios$1.post("http://10.10.50.50:2250/Search/searchData", data);
 }
 
+function filter$1(data) {
+  return Axios$1.post("http://10.10.50.50:2250/Search/filterData", data);
+}
+
 var Search = {
-  search: search$3
+  search: search$3,
+  filter: filter$1
 };
 
 function search$4(data) {

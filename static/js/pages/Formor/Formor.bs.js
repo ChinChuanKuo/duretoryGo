@@ -1497,6 +1497,7 @@ function Formor(Props) {
                                                                                       item.showOut && !item.itemDelete ? React.createElement(SelectMenu$BtsCore.make, {
                                                                                               top: "50%",
                                                                                               transform: "translate(0, -50%)",
+                                                                                              width: "max-content",
                                                                                               maxHeight: "280",
                                                                                               minHeight: "0",
                                                                                               topLeft: "12",

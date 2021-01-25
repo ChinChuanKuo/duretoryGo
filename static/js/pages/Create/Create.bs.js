@@ -975,12 +975,14 @@ function Create(Props) {
                                                                         }),
                                                                       children: $$Array.mapi((function (ci, collectionitem) {
                                                                               if (item.collectionIndex === ci) {
-                                                                                return React.createElement(Image$BtsCore.make, {
-                                                                                            width: "auto",
-                                                                                            height: "200px",
-                                                                                            borderRadius: "6",
-                                                                                            src: "data:image/jpg;base64," + collectionitem.value
-                                                                                          });
+                                                                                return React.createElement("div", {
+                                                                                            className: "collectionBoard"
+                                                                                          }, React.createElement(Image$BtsCore.make, {
+                                                                                                width: "auto",
+                                                                                                height: "200px",
+                                                                                                borderRadius: "6",
+                                                                                                src: "data:image/jpg;base64," + collectionitem.value
+                                                                                              }));
                                                                               } else {
                                                                                 return null;
                                                                               }
@@ -1026,6 +1028,7 @@ function Create(Props) {
                                                                   item.showMenu ? React.createElement(SelectMenu$BtsCore.make, {
                                                                           top: "50%",
                                                                           transform: "translate(0, -50%)",
+                                                                          width: "max-content",
                                                                           maxHeight: "280",
                                                                           minHeight: "0",
                                                                           topLeft: "12",

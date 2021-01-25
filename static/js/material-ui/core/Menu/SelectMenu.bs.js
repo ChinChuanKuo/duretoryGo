@@ -85,6 +85,7 @@ function SelectMenu(Props) {
   var left = Props.left;
   var transform = Props.transform;
   var width = Props.width;
+  var minWidth = Props.minWidth;
   var maxHeight = Props.maxHeight;
   var height = Props.height;
   var minHeight = Props.minHeight;
@@ -108,6 +109,7 @@ function SelectMenu(Props) {
                     left: left !== undefined ? left : "auto",
                     maxHeight: otherSizes(maxHeight),
                     minHeight: otherSizes(minHeight),
+                    minWidth: minWidth !== undefined ? minWidth : "100%",
                     overflow: overflow !== undefined ? overflow : "auto",
                     position: "absolute",
                     right: right !== undefined ? right : "auto",

@@ -65,6 +65,7 @@ let make =
       ~left: option(string)=?,
       ~transform: option(string)=?,
       ~width: option(string)=?,
+      ~minWidth: option(string)=?,
       ~maxHeight: option(string)=?,
       ~height: option(string)=?,
       ~minHeight: option(string)=?,
@@ -106,6 +107,9 @@ let make =
               },
               ~width={
                 width |> widths;
+              },
+              ~minWidth={
+                minWidth |> widths;
               },
               ~maxHeight={
                 maxHeight |> otherSizes;

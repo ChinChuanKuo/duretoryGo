@@ -45,7 +45,7 @@ import * as DialogContentText$BtsCore from "../../material-ui/core/Dialog/Dialog
 import * as TextFieldStandard$BtsCore from "../../material-ui/core/TextField/TextFieldStandard.bs.js";
 import * as TextFieldMultiline$BtsCore from "../../material-ui/core/TextField/TextFieldMultiline.bs.js";
 
-((require('../../../scss/pages/Together/together.scss')));
+((require('../../../scss/pages/Home/home.scss')));
 
 function newcollectitem(id, collectionImage, collectionVideo, collectionAudio, value) {
   return [{
@@ -148,27 +148,11 @@ function reducer(state, action) {
           newrecord$12.formIndex = action[0];
           newrecord$12.showFull = !state.showFull;
           return newrecord$12;
-      case /* ShowViewection */8 :
-          var index$1 = action[1];
-          var viewIndex = action[0];
+      case /* ShowFiltMenu */8 :
+          var index$1 = action[0];
           var newrecord$13 = Caml_obj.caml_obj_dup(state);
-          newrecord$13.viewitems = $$Array.mapi((function (i, item) {
+          newrecord$13.filtitems = $$Array.mapi((function (i, filtitem) {
                   if (index$1 === i) {
-                    return {
-                            viewIndex: viewIndex,
-                            viewections: item.viewections,
-                            dataitems: item.dataitems
-                          };
-                  } else {
-                    return item;
-                  }
-                }), state.viewitems);
-          return newrecord$13;
-      case /* ShowFiltMenu */9 :
-          var index$2 = action[0];
-          var newrecord$14 = Caml_obj.caml_obj_dup(state);
-          newrecord$14.filtitems = $$Array.mapi((function (i, filtitem) {
-                  if (index$2 === i) {
                     return {
                             filtIndex: filtitem.filtIndex,
                             filtTile: filtitem.filtTile,
@@ -180,13 +164,13 @@ function reducer(state, action) {
                     return filtitem;
                   }
                 }), state.filtitems);
-          return newrecord$14;
-      case /* ClickFiltMenu */10 :
-          var index$3 = action[1];
+          return newrecord$13;
+      case /* ClickFiltMenu */9 :
+          var index$2 = action[1];
           var value = action[0];
-          var newrecord$15 = Caml_obj.caml_obj_dup(state);
-          newrecord$15.filtitems = $$Array.mapi((function (i, filtitem) {
-                  if (index$3 === i) {
+          var newrecord$14 = Caml_obj.caml_obj_dup(state);
+          newrecord$14.filtitems = $$Array.mapi((function (i, filtitem) {
+                  if (index$2 === i) {
                     return {
                             filtIndex: filtitem.filtIndex,
                             filtTile: filtitem.filtTile,
@@ -198,13 +182,13 @@ function reducer(state, action) {
                     return filtitem;
                   }
                 }), state.filtitems);
-          return newrecord$15;
-      case /* ShowCollections */11 :
-          var index$4 = action[1];
+          return newrecord$14;
+      case /* ShowCollections */10 :
+          var index$3 = action[1];
           var collectionIndex = action[0];
-          var newrecord$16 = Caml_obj.caml_obj_dup(state);
-          newrecord$16.items = $$Array.mapi((function (i, item) {
-                  if (index$4 === i) {
+          var newrecord$15 = Caml_obj.caml_obj_dup(state);
+          newrecord$15.items = $$Array.mapi((function (i, item) {
+                  if (index$3 === i) {
                     return {
                             id: item.id,
                             index: collectionIndex,
@@ -218,15 +202,31 @@ function reducer(state, action) {
                     return item;
                   }
                 }), state.items);
-          return newrecord$16;
-      case /* ClearForm */12 :
+          return newrecord$15;
+      case /* ClearForm */11 :
           var id = action[0];
-          var newrecord$17 = Caml_obj.caml_obj_dup(state);
-          newrecord$17.items = state.items.filter((function (item) {
+          var newrecord$16 = Caml_obj.caml_obj_dup(state);
+          newrecord$16.items = state.items.filter((function (item) {
                   return item.id !== id;
                 }));
-          newrecord$17.itemCount = state.itemCount - 1 | 0;
-          newrecord$17.error = state.itemCount === 1;
+          newrecord$16.itemCount = state.itemCount - 1 | 0;
+          newrecord$16.error = state.itemCount === 1;
+          return newrecord$16;
+      case /* ShowViewection */12 :
+          var index$4 = action[1];
+          var viewIndex = action[0];
+          var newrecord$17 = Caml_obj.caml_obj_dup(state);
+          newrecord$17.viewitems = $$Array.mapi((function (i, item) {
+                  if (index$4 === i) {
+                    return {
+                            viewIndex: viewIndex,
+                            viewections: item.viewections,
+                            dataitems: item.dataitems
+                          };
+                  } else {
+                    return item;
+                  }
+                }), state.viewitems);
           return newrecord$17;
       case /* ShowDrop */13 :
           var index$5 = action[1];
@@ -716,11 +716,11 @@ function Home(Props) {
           
         }));
   var showFiltMenu = React.useCallback((function (index) {
-          return Curry._1(dispatch, /* ShowFiltMenu */Block.__(9, [index]));
+          return Curry._1(dispatch, /* ShowFiltMenu */Block.__(8, [index]));
         }));
   var clickFiltMenu = React.useCallback((function (value) {
           return (function (itemIndex, index) {
-              Curry._1(dispatch, /* ClickFiltMenu */Block.__(10, [
+              Curry._1(dispatch, /* ClickFiltMenu */Block.__(9, [
                       value,
                       index
                     ]));
@@ -744,7 +744,7 @@ function Home(Props) {
               $$event.stopPropagation();
               var length = Caml_array.caml_array_get(state.items, index).collections.length - 1 | 0;
               var collectionIndex = id === 0 ? length : id - 1 | 0;
-              return Curry._1(dispatch, /* ShowCollections */Block.__(11, [
+              return Curry._1(dispatch, /* ShowCollections */Block.__(10, [
                             collectionIndex,
                             index
                           ]));
@@ -756,7 +756,7 @@ function Home(Props) {
               $$event.stopPropagation();
               var length = Caml_array.caml_array_get(state.items, index).collections.length - 1 | 0;
               var collectionIndex = id === length ? 0 : id + 1 | 0;
-              return Curry._1(dispatch, /* ShowCollections */Block.__(11, [
+              return Curry._1(dispatch, /* ShowCollections */Block.__(10, [
                             collectionIndex,
                             index
                           ]));
@@ -820,7 +820,7 @@ function Home(Props) {
                         var match = response.data.status;
                         var tmp;
                         if (match === "istrue") {
-                          Curry._1(dispatch, /* ClearForm */Block.__(12, [id]));
+                          Curry._1(dispatch, /* ClearForm */Block.__(11, [id]));
                           barShowRestoreAction(Status$BtsCore.statusModule("deleteSuccess"));
                           tmp = Curry._1(dispatch, /* ActionShowProgress */2);
                         } else {
@@ -840,7 +840,7 @@ function Home(Props) {
               $$event.stopPropagation();
               var length = Caml_array.caml_array_get(state.viewitems, index).viewections.length - 1 | 0;
               var collectionIndex = id === 0 ? length : id - 1 | 0;
-              return Curry._1(dispatch, /* ShowViewection */Block.__(8, [
+              return Curry._1(dispatch, /* ShowViewection */Block.__(12, [
                             collectionIndex,
                             index
                           ]));
@@ -852,7 +852,7 @@ function Home(Props) {
               $$event.stopPropagation();
               var length = Caml_array.caml_array_get(state.viewitems, index).viewections.length - 1 | 0;
               var collectionIndex = id === length ? 0 : id + 1 | 0;
-              return Curry._1(dispatch, /* ShowViewection */Block.__(8, [
+              return Curry._1(dispatch, /* ShowViewection */Block.__(12, [
                             collectionIndex,
                             index
                           ]));
@@ -1253,6 +1253,7 @@ function Home(Props) {
                                                                                         children: $$Array.mapi((function (ci, collitem) {
                                                                                                 if (item.index === ci) {
                                                                                                   return React.createElement("div", {
+                                                                                                              className: "collectionBoard",
                                                                                                               style: {
                                                                                                                 height: "155px",
                                                                                                                 left: "50%",
@@ -1483,12 +1484,14 @@ function Home(Props) {
                                                                                     xs: "auto",
                                                                                     children: $$Array.mapi((function (vi, viewitem) {
                                                                                             if (item.viewIndex === vi) {
-                                                                                              return React.createElement(Image$BtsCore.make, {
-                                                                                                          width: "100%",
-                                                                                                          height: "auto",
-                                                                                                          borderRadius: "6",
-                                                                                                          src: "data:image/jpg;base64," + viewitem
-                                                                                                        });
+                                                                                              return React.createElement("div", {
+                                                                                                          className: "collectionBoard"
+                                                                                                        }, React.createElement(Image$BtsCore.make, {
+                                                                                                              width: "100%",
+                                                                                                              height: "auto",
+                                                                                                              borderRadius: "6",
+                                                                                                              src: "data:image/jpg;base64," + viewitem
+                                                                                                            }));
                                                                                             } else {
                                                                                               return null;
                                                                                             }
@@ -1707,12 +1710,14 @@ function Home(Props) {
                                                                       }),
                                                                     children: $$Array.mapi((function (ci, collectionitem) {
                                                                             if (item.collectionIndex === ci) {
-                                                                              return React.createElement(Image$BtsCore.make, {
-                                                                                          width: "auto",
-                                                                                          height: "200px",
-                                                                                          borderRadius: "6",
-                                                                                          src: "data:image/jpg;base64," + collectionitem.value
-                                                                                        });
+                                                                              return React.createElement("div", {
+                                                                                          className: "collectionBoard"
+                                                                                        }, React.createElement(Image$BtsCore.make, {
+                                                                                              width: "auto",
+                                                                                              height: "200px",
+                                                                                              borderRadius: "6",
+                                                                                              src: "data:image/jpg;base64," + collectionitem.value
+                                                                                            }));
                                                                             } else {
                                                                               return null;
                                                                             }

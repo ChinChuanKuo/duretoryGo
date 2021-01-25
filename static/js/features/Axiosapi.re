@@ -106,6 +106,8 @@ module Default = {
 module Search = {
   let search = data =>
     postData("http://10.10.50.50:2250/Search/searchData", data);
+  let filter = data =>
+    postData("http://10.10.50.50:2250/Search/filterData", data);
 };
 
 module Formor = {

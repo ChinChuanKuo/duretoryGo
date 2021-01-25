@@ -703,15 +703,18 @@ let make = _ => {
                                      {item.collectionitems
                                       |> Array.mapi((ci, collectionitem) =>
                                            item.collectionIndex == ci
-                                             ? <Image
-                                                 width="auto"
-                                                 height="200px"
-                                                 borderRadius="6"
-                                                 src={
-                                                   "data:image/jpg;base64,"
-                                                   ++ collectionitem.value
-                                                 }
-                                               />
+                                             ? <div
+                                                 className="collectionBoard">
+                                                 <Image
+                                                   width="auto"
+                                                   height="200px"
+                                                   borderRadius="6"
+                                                   src={
+                                                     "data:image/jpg;base64,"
+                                                     ++ collectionitem.value
+                                                   }
+                                                 />
+                                               </div>
                                              : null
                                          )
                                       |> array}
@@ -827,6 +830,7 @@ let make = _ => {
                                           ? <SelectMenu
                                               top="50%"
                                               transform="translate(0, -50%)"
+                                              width="max-content"
                                               maxHeight="280"
                                               minHeight="0"
                                               topLeft="12"

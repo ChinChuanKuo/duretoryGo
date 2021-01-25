@@ -275,7 +275,7 @@ let make = (~autoPath: 'a, ~children) => {
   let keydownField =
     useCallback(keyCode =>
       if (keyCode == 13 && state.value != "") {
-        //searchPath ++ "#" ++ state.value |> ReasonReactRouter.push;
+        ShowRecord |> dispatch;
         addCordAJax();
       }
     );
