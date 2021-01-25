@@ -1,6 +1,7 @@
 open React;
 open Setting;
 open OutSide;
+open Together;
 open ReactIntl;
 open Icons;
 
@@ -144,80 +145,100 @@ let make =
                </GridContainer>
              </GridItem>
            | (false, true) =>
-             items
-             |> arrayObjects
-             |> Array.map(item =>
-                  <GridItem
-                    top="0"
-                    right="0"
-                    bottom="0"
-                    left="0"
-                    enterBackgroundColor="transparent"
-                    backgroundColor="transparent"
-                    xs="auto">
-                    <MenuItem
-                      top="8"
-                      right="15"
-                      bottom="8"
-                      left="6"
-                      enterBackgroundColor="rgba(0,0,0,0.06)"
-                      downBackgroundColor="rgba(0,0,0,0.08)"
-                      topLeft="12"
-                      topRight="12"
-                      bottomRight="12"
-                      bottomLeft="12"
-                      onClick={_ => item.link |> ReasonReactRouter.push}>
-                      <GridContainer
-                        backgroundColor="transparent"
-                        direction="row"
-                        justify="between"
-                        alignItem="center">
-                        <GridItem
-                          top="0"
-                          right="0"
-                          bottom="0"
-                          left="0"
-                          enterBackgroundColor="transparent"
-                          backgroundColor="transparent"
-                          xs="no">
-                          <IconButton padding="6">
-                            <IconAction
-                              width="32"
-                              height="32"
-                              animation="circle"
-                              src={item.icon}
-                            />
-                          </IconButton>
-                        </GridItem>
-                        <GridItem
-                          top="0"
-                          right="6"
-                          bottom="0"
-                          left="6"
-                          enterBackgroundColor="transparent"
-                          backgroundColor="transparent"
-                          xs="auto">
-                          <Typography variant="subheading">
-                            {item.value |> string}
-                          </Typography>
-                        </GridItem>
-                        <GridItem
-                          top="0"
-                          right="0"
-                          bottom="0"
-                          left="0"
-                          enterBackgroundColor="transparent"
-                          backgroundColor="transparent"
-                          xs="no">
-                          <IconButton padding="4">
-                            <IconAction animation="leftRight" src=clearBlack />
-                          </IconButton>
-                        </GridItem>
-                      </GridContainer>
-                    </MenuItem>
-                  </GridItem>
-                )
-             |> array
+             <GridItem
+               style={ReactDOMRe.Style.combine(
+                 divScrollbar,
+                 ReactDOMRe.Style.make(
+                   ~maxHeight="calc(" ++ maxHeight ++ " - 120px)",
+                   (),
+                 ),
+               )}
+               top="0"
+               right="0"
+               bottom="0"
+               left="0"
+               xs="no">
+               <GridContainer
+                 direction="column" justify="center" alignItem="stretch">
+                 {items
+                  |> arrayObjects
+                  |> Array.map(item =>
+                       <GridItem
+                         top="0"
+                         right="0"
+                         bottom="0"
+                         left="0"
+                         enterBackgroundColor="transparent"
+                         backgroundColor="transparent"
+                         xs="auto">
+                         <MenuItem
+                           top="8"
+                           right="15"
+                           bottom="8"
+                           left="6"
+                           enterBackgroundColor="rgba(0,0,0,0.06)"
+                           downBackgroundColor="rgba(0,0,0,0.08)"
+                           topLeft="12"
+                           topRight="12"
+                           bottomRight="12"
+                           bottomLeft="12"
+                           onClick={_ => item.link |> ReasonReactRouter.push}>
+                           <GridContainer
+                             backgroundColor="transparent"
+                             direction="row"
+                             justify="between"
+                             alignItem="center">
+                             <GridItem
+                               top="0"
+                               right="0"
+                               bottom="0"
+                               left="0"
+                               enterBackgroundColor="transparent"
+                               backgroundColor="transparent"
+                               xs="no">
+                               <IconButton padding="6">
+                                 <IconAction
+                                   width="32"
+                                   height="32"
+                                   animation="circle"
+                                   src={item.icon}
+                                 />
+                               </IconButton>
+                             </GridItem>
+                             <GridItem
+                               top="0"
+                               right="6"
+                               bottom="0"
+                               left="6"
+                               enterBackgroundColor="transparent"
+                               backgroundColor="transparent"
+                               xs="auto">
+                               <Typography variant="subheading">
+                                 {item.value |> string}
+                               </Typography>
+                             </GridItem>
+                             <GridItem
+                               top="0"
+                               right="0"
+                               bottom="0"
+                               left="0"
+                               enterBackgroundColor="transparent"
+                               backgroundColor="transparent"
+                               xs="no">
+                               <IconButton padding="4">
+                                 <IconAction
+                                   animation="leftRight"
+                                   src=clearBlack
+                                 />
+                               </IconButton>
+                             </GridItem>
+                           </GridContainer>
+                         </MenuItem>
+                       </GridItem>
+                     )
+                  |> array}
+               </GridContainer>
+             </GridItem>
            | (false, false) =>
              <GridItem top="18" right="18" bottom="18" left="32" xs="auto">
                <Typography variant="tile" noWrap=true>

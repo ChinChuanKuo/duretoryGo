@@ -11,6 +11,7 @@ import * as OutSide$BtsCore from "../../styles/OutSide/OutSide.bs.js";
 import * as Setting$BtsCore from "../../setting/Setting.bs.js";
 import * as GridItem$BtsCore from "../../material-ui/core/Grid/GridItem.bs.js";
 import * as MenuItem$BtsCore from "../../material-ui/core/MenuItem/MenuItem.bs.js";
+import * as Together$BtsCore from "../../styles/Together/Together.bs.js";
 import * as ReasonReactRouter from "reason-react/src/ReasonReactRouter.js";
 import * as IconAction$BtsCore from "../../material-ui/core/IconStyle/IconAction.bs.js";
 import * as IconButton$BtsCore from "../../material-ui/core/IconButton/IconButton.bs.js";
@@ -188,83 +189,98 @@ function NewBookRecord(Props) {
                                             })
                                       })
                                 }) : (
-                              match$1 ? $$Array.map((function (item) {
-                                        return React.createElement(GridItem$BtsCore.make, {
-                                                    top: "0",
-                                                    right: "0",
-                                                    bottom: "0",
-                                                    left: "0",
-                                                    enterBackgroundColor: "transparent",
-                                                    backgroundColor: "transparent",
-                                                    xs: "auto",
-                                                    children: React.createElement(MenuItem$BtsCore.make, {
-                                                          top: "8",
-                                                          right: "15",
-                                                          bottom: "8",
-                                                          left: "6",
-                                                          enterBackgroundColor: "rgba(0,0,0,0.06)",
-                                                          downBackgroundColor: "rgba(0,0,0,0.08)",
-                                                          topLeft: "12",
-                                                          topRight: "12",
-                                                          bottomRight: "12",
-                                                          bottomLeft: "12",
-                                                          onClick: (function (param) {
-                                                              return ReasonReactRouter.push(item.link);
-                                                            }),
-                                                          children: React.createElement(GridContainer$BtsCore.make, {
+                              match$1 ? React.createElement(GridItem$BtsCore.make, {
+                                      style: Object.assign(({}), Together$BtsCore.divScrollbar, {
+                                            maxHeight: "calc(" + (maxHeight + " - 120px)")
+                                          }),
+                                      top: "0",
+                                      right: "0",
+                                      bottom: "0",
+                                      left: "0",
+                                      xs: "no",
+                                      children: React.createElement(GridContainer$BtsCore.make, {
+                                            direction: "column",
+                                            justify: "center",
+                                            alignItem: "stretch",
+                                            children: $$Array.map((function (item) {
+                                                    return React.createElement(GridItem$BtsCore.make, {
+                                                                top: "0",
+                                                                right: "0",
+                                                                bottom: "0",
+                                                                left: "0",
+                                                                enterBackgroundColor: "transparent",
                                                                 backgroundColor: "transparent",
-                                                                direction: "row",
-                                                                justify: "between",
-                                                                alignItem: "center",
-                                                                children: null
-                                                              }, React.createElement(GridItem$BtsCore.make, {
-                                                                    top: "0",
-                                                                    right: "0",
-                                                                    bottom: "0",
-                                                                    left: "0",
-                                                                    enterBackgroundColor: "transparent",
-                                                                    backgroundColor: "transparent",
-                                                                    xs: "no",
-                                                                    children: React.createElement(IconButton$BtsCore.make, {
-                                                                          padding: "6",
-                                                                          children: React.createElement(IconAction$BtsCore.make, {
-                                                                                width: "32",
-                                                                                height: "32",
-                                                                                animation: "circle",
-                                                                                src: item.icon
-                                                                              })
-                                                                        })
-                                                                  }), React.createElement(GridItem$BtsCore.make, {
-                                                                    top: "0",
-                                                                    right: "6",
-                                                                    bottom: "0",
-                                                                    left: "6",
-                                                                    enterBackgroundColor: "transparent",
-                                                                    backgroundColor: "transparent",
-                                                                    xs: "auto",
-                                                                    children: React.createElement(Typography$BtsCore.make, {
-                                                                          variant: "subheading",
-                                                                          children: item.value
-                                                                        })
-                                                                  }), React.createElement(GridItem$BtsCore.make, {
-                                                                    top: "0",
-                                                                    right: "0",
-                                                                    bottom: "0",
-                                                                    left: "0",
-                                                                    enterBackgroundColor: "transparent",
-                                                                    backgroundColor: "transparent",
-                                                                    xs: "no",
-                                                                    children: React.createElement(IconButton$BtsCore.make, {
-                                                                          padding: "4",
-                                                                          children: React.createElement(IconAction$BtsCore.make, {
-                                                                                animation: "leftRight",
-                                                                                src: Icons$BtsCore.clearBlack
-                                                                              })
-                                                                        })
-                                                                  }))
-                                                        })
-                                                  });
-                                      }), Setting$BtsCore.arrayObjects(items)) : React.createElement(GridItem$BtsCore.make, {
+                                                                xs: "auto",
+                                                                children: React.createElement(MenuItem$BtsCore.make, {
+                                                                      top: "8",
+                                                                      right: "15",
+                                                                      bottom: "8",
+                                                                      left: "6",
+                                                                      enterBackgroundColor: "rgba(0,0,0,0.06)",
+                                                                      downBackgroundColor: "rgba(0,0,0,0.08)",
+                                                                      topLeft: "12",
+                                                                      topRight: "12",
+                                                                      bottomRight: "12",
+                                                                      bottomLeft: "12",
+                                                                      onClick: (function (param) {
+                                                                          return ReasonReactRouter.push(item.link);
+                                                                        }),
+                                                                      children: React.createElement(GridContainer$BtsCore.make, {
+                                                                            backgroundColor: "transparent",
+                                                                            direction: "row",
+                                                                            justify: "between",
+                                                                            alignItem: "center",
+                                                                            children: null
+                                                                          }, React.createElement(GridItem$BtsCore.make, {
+                                                                                top: "0",
+                                                                                right: "0",
+                                                                                bottom: "0",
+                                                                                left: "0",
+                                                                                enterBackgroundColor: "transparent",
+                                                                                backgroundColor: "transparent",
+                                                                                xs: "no",
+                                                                                children: React.createElement(IconButton$BtsCore.make, {
+                                                                                      padding: "6",
+                                                                                      children: React.createElement(IconAction$BtsCore.make, {
+                                                                                            width: "32",
+                                                                                            height: "32",
+                                                                                            animation: "circle",
+                                                                                            src: item.icon
+                                                                                          })
+                                                                                    })
+                                                                              }), React.createElement(GridItem$BtsCore.make, {
+                                                                                top: "0",
+                                                                                right: "6",
+                                                                                bottom: "0",
+                                                                                left: "6",
+                                                                                enterBackgroundColor: "transparent",
+                                                                                backgroundColor: "transparent",
+                                                                                xs: "auto",
+                                                                                children: React.createElement(Typography$BtsCore.make, {
+                                                                                      variant: "subheading",
+                                                                                      children: item.value
+                                                                                    })
+                                                                              }), React.createElement(GridItem$BtsCore.make, {
+                                                                                top: "0",
+                                                                                right: "0",
+                                                                                bottom: "0",
+                                                                                left: "0",
+                                                                                enterBackgroundColor: "transparent",
+                                                                                backgroundColor: "transparent",
+                                                                                xs: "no",
+                                                                                children: React.createElement(IconButton$BtsCore.make, {
+                                                                                      padding: "4",
+                                                                                      children: React.createElement(IconAction$BtsCore.make, {
+                                                                                            animation: "leftRight",
+                                                                                            src: Icons$BtsCore.clearBlack
+                                                                                          })
+                                                                                    })
+                                                                              }))
+                                                                    })
+                                                              });
+                                                  }), Setting$BtsCore.arrayObjects(items))
+                                          })
+                                    }) : React.createElement(GridItem$BtsCore.make, {
                                       top: "18",
                                       right: "18",
                                       bottom: "18",
