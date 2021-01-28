@@ -556,8 +556,10 @@ function letterSpacings(variant, letterSpacing) {
   }
 }
 
-function whiteSpaces(noWrap) {
-  if (noWrap) {
+function whiteSpaces(whiteSpace, noWrap) {
+  if (whiteSpace !== undefined) {
+    return whiteSpace;
+  } else if (noWrap) {
     return "nowrap";
   } else {
     return "pre-wrap";
@@ -573,9 +575,9 @@ function Typography(Props) {
   var fontWeight = Props.fontWeight;
   var lineHeight = Props.lineHeight;
   var letterSpacing = Props.letterSpacing;
+  var whiteSpace = Props.whiteSpace;
   var noWrap = Props.noWrap;
   var children = Props.children;
-  var noWrap$1 = Setting$BtsCore.disabledObjects(noWrap);
   return React.createElement(components(Setting$BtsCore.stringObjects(variant)), {
               className: "jss164",
               style: Object.assign(({}), {
@@ -586,7 +588,7 @@ function Typography(Props) {
                     letterSpacing: letterSpacings(Setting$BtsCore.stringObjects(variant), letterSpacing),
                     lineHeight: lineHeights(Setting$BtsCore.stringObjects(variant), lineHeight),
                     overflow: "hidden",
-                    whiteSpace: noWrap$1 ? "nowrap" : "pre-wrap",
+                    whiteSpace: whiteSpaces(whiteSpace, Setting$BtsCore.disabledObjects(noWrap)),
                     textOverflow: "ellipsis"
                   }, Setting$BtsCore.styleObjects(style))
             }, children);

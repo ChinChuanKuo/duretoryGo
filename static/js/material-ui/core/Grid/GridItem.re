@@ -137,9 +137,21 @@ let make =
       ~maxWidth: option(string)=?,
       ~flexBasis: option(string)=?,
       ~className: option(string)=?,
+      ~onMouseEnter: option(ReactEvent.Mouse.t => unit)=?,
+      ~onMouseLeave: option(ReactEvent.Mouse.t => unit)=?,
       ~children,
     ) => {
   let (state, dispatch) = useReducer(reducer, initialState);
+  let mouseEnter =
+    useCallback(_ => {
+      onMouseEnter |> ignore;
+      MouseEnterLeave(true) |> dispatch;
+    });
+  let mouseLeave =
+    useCallback(_ => {
+      onMouseLeave |> ignore;
+      MouseEnterLeave(false) |> dispatch;
+    });
   ReactDOMRe.createDOMElementVariadic(
     "div",
     ~props=
@@ -207,8 +219,8 @@ let make =
         ~className={
           className |> stringObjects;
         },
-        ~onMouseEnter=_ => MouseEnterLeave(true) |> dispatch,
-        ~onMouseLeave=_ => MouseEnterLeave(false) |> dispatch,
+        ~onMouseEnter=event => event |> mouseEnter,
+        ~onMouseLeave=event => event |> mouseLeave,
         (),
       ),
     [|children|],

@@ -123,7 +123,7 @@ let make = (~disabled: option(bool)=?, ~width: option(int)=?) => {
                <SelectMenu
                  top="50%"
                  transform="translate(0, -50%)"
-                 width="auto"
+                 minWidth="auto"
                  maxHeight="280"
                  minHeight="0"
                  topLeft="12"
@@ -359,7 +359,7 @@ let make = (~disabled: option(bool)=?, ~width: option(int)=?) => {
                <SelectMenu
                  top="50%"
                  transform="translate(0, -50%)"
-                 width="auto"
+                 minWidth="auto"
                  maxHeight="280"
                  minHeight="0"
                  topLeft="12"
@@ -508,7 +508,7 @@ let make = (~disabled: option(bool)=?, ~width: option(int)=?) => {
                <SelectMenu
                  top="50%"
                  transform="translate(0, -50%)"
-                 width="105"
+                 minWidth="auto"
                  maxHeight="280"
                  minHeight="0"
                  topLeft="12"

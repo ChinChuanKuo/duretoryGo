@@ -2,6 +2,7 @@ open React;
 open Setting;
 open OutSide;
 open ReactIntl;
+open Path;
 open Icons;
 
 type item = {
@@ -59,7 +60,7 @@ let make =
               topRight="12"
               bottomRight="12"
               bottomLeft="12"
-              onClick={_ => Path.homePath |> ReasonReactRouter.push}>
+              onClick={_ => homePath |> ReasonReactRouter.push}>
               <GridContainer
                 backgroundColor="transparent"
                 direction="row"

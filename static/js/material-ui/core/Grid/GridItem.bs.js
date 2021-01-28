@@ -412,10 +412,18 @@ function GridItem(Props) {
   var maxWidth = Props.maxWidth;
   var flexBasis = Props.flexBasis;
   var className = Props.className;
+  Props.onMouseEnter;
+  Props.onMouseLeave;
   var children = Props.children;
   var match = React.useReducer(reducer, initialState);
   var dispatch = match[1];
   var state = match[0];
+  var mouseEnter = React.useCallback((function (param) {
+          return Curry._1(dispatch, /* MouseEnterLeave */[true]);
+        }));
+  var mouseLeave = React.useCallback((function (param) {
+          return Curry._1(dispatch, /* MouseEnterLeave */[false]);
+        }));
   return React.createElement("div", {
               className: Setting$BtsCore.stringObjects(className),
               style: Object.assign(({}), {
@@ -446,12 +454,8 @@ function GridItem(Props) {
                     flexBasis: flexBasises(Setting$BtsCore.stringObjects(xs), flexBasis),
                     flexGrow: flexGrows(Setting$BtsCore.stringObjects(xs), flexGrow)
                   }, Setting$BtsCore.styleObjects(style)),
-              onMouseEnter: (function (param) {
-                  return Curry._1(dispatch, /* MouseEnterLeave */[true]);
-                }),
-              onMouseLeave: (function (param) {
-                  return Curry._1(dispatch, /* MouseEnterLeave */[false]);
-                })
+              onMouseEnter: Curry.__1(mouseEnter),
+              onMouseLeave: Curry.__1(mouseLeave)
             }, children);
 }
 

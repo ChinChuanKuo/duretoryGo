@@ -1,6 +1,7 @@
 open React;
 open OutSide;
 open ReactIntl;
+open Path;
 open Icons;
 open Storage;
 open ObjectFormat;
@@ -46,7 +47,7 @@ let make =
               downBackgroundColor="transparent"
               topLeft="12"
               topRight="12"
-              onClick={_ => Path.securityPath |> ReasonReactRouter.push}>
+              onClick={_ => securityPath |> ReasonReactRouter.push}>
               <GridContainer
                 backgroundColor="transparent"
                 direction="row"
@@ -72,12 +73,8 @@ let make =
                     left="0"
                     enterBorderColor="transparent"
                     downBorderColor="transparent"
-                    onClick={_ => Path.securityPath |> ReasonReactRouter.push}>
-                    <IconGeneral
-                      width="40"
-                      height="40"
-                      src=personWhite
-                    />
+                    onClick={_ => securityPath |> ReasonReactRouter.push}>
+                    <IconGeneral width="40" height="40" src=personWhite />
                   </Avatar>
                 </GridItem>
                 <GridItem
@@ -175,10 +172,7 @@ let make =
                     enterBackgroundColor="transparent"
                     downBackgroundColor="transparent"
                     padding="6">
-                    <IconAction
-                      animation="leftRight"
-                      src=assignmentIndBlack
-                    />
+                    <IconAction animation="leftRight" src=assignmentIndBlack />
                   </IconButton>
                 </GridItem>
                 <GridItem
@@ -307,10 +301,7 @@ let make =
                         enterBackgroundColor="transparent"
                         downBackgroundColor="transparent"
                         padding="6">
-                        <IconAction
-                          animation="leftRight"
-                          src=inputBlack
-                        />
+                        <IconAction animation="leftRight" src=inputBlack />
                       </IconButton>
                     </GridItem>
                     <GridItem
@@ -516,10 +507,7 @@ let make =
                         enterBackgroundColor="transparent"
                         downBackgroundColor="transparent"
                         padding="6">
-                        <IconAction
-                          animation="leftRight"
-                          src=translateBlack
-                        />
+                        <IconAction animation="leftRight" src=translateBlack />
                       </IconButton>
                     </GridItem>
                     <GridItem
@@ -589,10 +577,7 @@ let make =
                         enterBackgroundColor="transparent"
                         downBackgroundColor="transparent"
                         padding="6">
-                        <IconAction
-                          animation="leftRight"
-                          src=languageBlack
-                        />
+                        <IconAction animation="leftRight" src=languageBlack />
                       </IconButton>
                     </GridItem>
                     <GridItem
@@ -650,10 +635,7 @@ let make =
                     enterBackgroundColor="transparent"
                     downBackgroundColor="transparent"
                     padding="6">
-                    <IconAction
-                      animation="leftRight"
-                      src=settingsBlack
-                    />
+                    <IconAction animation="leftRight" src=settingsBlack />
                   </IconButton>
                 </GridItem>
                 <GridItem
@@ -723,10 +705,7 @@ let make =
                     enterBackgroundColor="transparent"
                     downBackgroundColor="transparent"
                     padding="6">
-                    <IconAction
-                      animation="leftRight"
-                      src=helpOutlineBlack
-                    />
+                    <IconAction animation="leftRight" src=helpOutlineBlack />
                   </IconButton>
                 </GridItem>
                 <GridItem
@@ -799,10 +778,7 @@ let make =
                     enterBackgroundColor="transparent"
                     downBackgroundColor="transparent"
                     padding="6">
-                    <IconAction
-                      animation="leftRight"
-                      src=keyboardBlack
-                    />
+                    <IconAction animation="leftRight" src=keyboardBlack />
                   </IconButton>
                 </GridItem>
                 <GridItem

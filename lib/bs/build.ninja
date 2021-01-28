@@ -14,7 +14,7 @@ rule build_ast_from_re
   description = [34mBuilding[39m [2m${out}[22m
 build  static/js/App.reast : build_ast_from_re $src_root_dir/static/js/App.re
 rule build_deps
-  command = $bsdep -hash 2db114f53cfe0a1cd7503d663b0cfc8d $g_ns -g $bsb_dir_group $in
+  command = $bsdep -hash 2612c6596690e2abe7b9545fcf8c8653 $g_ns -g $bsb_dir_group $in
   restat = 1
   description = [34mBuilding[39m [2m${out}[22m
 build  static/js/App.d : build_deps static/js/App.reast
@@ -368,6 +368,10 @@ build  static/js/example/Medias/Media-BtsCore.cmj |  static/js/example/Medias/Me
 build  static/js/example/Medias/MediaBoard.reast : build_ast_from_re $src_root_dir/static/js/example/Medias/MediaBoard.re
 build  static/js/example/Medias/MediaBoard.d : build_deps static/js/example/Medias/MediaBoard.reast
 build  static/js/example/Medias/MediaBoard-BtsCore.cmj |  static/js/example/Medias/MediaBoard-BtsCore.cmi $src_root_dir/static/js/example/Medias/MediaBoard.bs.js : ml_cmj_cmi static/js/example/Medias/MediaBoard.reast ||  static/js/example/Medias/MediaBoard.d
+  g_pkg_flg = $g_pkg_flg  -bs-package-output es6:static/js/example/Medias
+build  static/js/example/Medias/MediaImage.reast : build_ast_from_re $src_root_dir/static/js/example/Medias/MediaImage.re
+build  static/js/example/Medias/MediaImage.d : build_deps static/js/example/Medias/MediaImage.reast
+build  static/js/example/Medias/MediaImage-BtsCore.cmj |  static/js/example/Medias/MediaImage-BtsCore.cmi $src_root_dir/static/js/example/Medias/MediaImage.bs.js : ml_cmj_cmi static/js/example/Medias/MediaImage.reast ||  static/js/example/Medias/MediaImage.d
   g_pkg_flg = $g_pkg_flg  -bs-package-output es6:static/js/example/Medias
 build  static/js/example/ListSecondary/Text.reast : build_ast_from_re $src_root_dir/static/js/example/ListSecondary/Text.re
 build  static/js/example/ListSecondary/Text.d : build_deps static/js/example/ListSecondary/Text.reast

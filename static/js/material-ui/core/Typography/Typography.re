@@ -142,7 +142,12 @@ let letterSpacings = (variant, letterSpacing) =>
   | (_, Some(letterSpacing)) => letterSpacing
   };
 
-let whiteSpaces = noWrap => noWrap ? "nowrap" : "pre-wrap";
+let whiteSpaces = (whiteSpace, noWrap) =>
+  switch (whiteSpace, noWrap) {
+  | (None, true) => "nowrap"
+  | (None, false) => "pre-wrap"
+  | (Some(whiteSpace), _) => whiteSpace
+  };
 
 [@react.component]
 let make =
@@ -155,6 +160,7 @@ let make =
       ~fontWeight: option(string)=?,
       ~lineHeight: option(string)=?,
       ~letterSpacing: option(string)=?,
+      ~whiteSpace: option(string)=?,
       ~noWrap: option(bool)=?,
       ~children,
     ) =>
@@ -186,7 +192,7 @@ let make =
                 letterSpacings(variant |> stringObjects, letterSpacing);
               },
               ~whiteSpace={
-                noWrap |> disabledObjects |> whiteSpaces;
+                noWrap |> disabledObjects |> whiteSpaces(whiteSpace);
               },
               (),
             ),

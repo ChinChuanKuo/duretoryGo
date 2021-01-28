@@ -10,7 +10,7 @@ open Storage;
 open AnswerColor;
 open ObjectFormat;
 open IconAnimation;
-[%bs.raw {|require('../../../scss/pages/Home/home.scss')|}];
+[%bs.raw {|require('../../../scss/pages/Together/together.scss')|}];
 
 type answeritem = {
   id: int,
@@ -18,14 +18,14 @@ type answeritem = {
   showAnswer: bool,
 };
 
-type collectionitem = {
+type collitem = {
   id: int,
-  collectionImage: bool,
-  collectionVideo: bool,
-  collectionAudio: bool,
+  showImage: bool,
+  showVideo: bool,
+  showAudio: bool,
   value: string,
-  collectionInsert: bool,
-  collectionDelete: bool,
+  collInsert: bool,
+  collDelete: bool,
 };
 
 type formitem = {
@@ -42,8 +42,8 @@ type formitem = {
   showShow: bool,
   showCheck: bool,
   showFilter: bool,
-  collectionIndex: int,
-  collectionitems: array(collectionitem),
+  collIndex: int,
+  collitems: array(collitem),
   optionitems: array(optionitem),
   answeritems: array(answeritem),
   formModify: bool,
@@ -110,16 +110,15 @@ type state = {
   youtubeText: string,
 };
 
-let newcollectitem =
-    (id, collectionImage, collectionVideo, collectionAudio, value) => [|
+let newcollitem = (id, showImage, showVideo, showAudio, value) => [|
   {
     id,
-    collectionImage,
-    collectionVideo,
-    collectionAudio,
-    collectionInsert: true,
-    collectionDelete: false,
+    showImage,
+    showVideo,
+    showAudio,
     value,
+    collInsert: true,
+    collDelete: false,
   },
 |];
 
@@ -139,11 +138,11 @@ type action =
   | ClickFiltMenu(string, int)
   | ShowCollections(int, int)
   | ClearForm(string)
-  | ShowViewection(int, int)
+  | SettingViewCollection(int, int)
   | ShowDrop(bool, int)
   | ShowFile(bool, bool, bool, string, int)
   | ShowFiles(bool, bool, bool, string, int)
-  | ShowCollection(int, int)
+  | SettingCollection(int, int)
   | ChangeItem(string, int)
   | ShowMenuItem(int)
   | ClickMenuItem(string, int)
@@ -235,11 +234,11 @@ let reducer = (state, action) =>
           state.filtitems,
         ),
     }
-  | ShowCollections(collectionIndex, index) => {
+  | ShowCollections(collIndex, index) => {
       ...state,
       items:
         Array.mapi(
-          (i, item) => index == i ? {...item, index: collectionIndex} : item,
+          (i, item) => index == i ? {...item, index: collIndex} : item,
           state.items,
         ),
     }
@@ -249,7 +248,7 @@ let reducer = (state, action) =>
       error: state.itemCount == 1,
       items: Js_array.filter((item: item) => item.id !== id, state.items),
     }
-  | ShowViewection(viewIndex, index) => {
+  | SettingViewCollection(viewIndex, index) => {
       ...state,
       viewitems:
         Array.mapi(
@@ -292,11 +291,11 @@ let reducer = (state, action) =>
             index == i
               ? {
                 ...item,
-                collectionitems:
+                collitems:
                   Array.append(
-                    item.collectionitems,
-                    newcollectitem(
-                      Js_array.length(item.collectionitems) + 1,
+                    item.collitems,
+                    newcollitem(
+                      Js_array.length(item.collitems) + 1,
                       showImage,
                       showVideo,
                       showAudio,
@@ -311,11 +310,11 @@ let reducer = (state, action) =>
           state.formitems,
         ),
     }
-  | ShowCollection(collectionIndex, index) => {
+  | SettingCollection(collIndex, index) => {
       ...state,
       formitems:
         Array.mapi(
-          (i, item) => index == i ? {...item, collectionIndex} : item,
+          (i, item) => index == i ? {...item, collIndex} : item,
           state.formitems,
         ),
     }
@@ -658,8 +657,8 @@ let make = _ => {
       ReactEvent.Mouse.preventDefault(event);
       ReactEvent.Mouse.stopPropagation(event);
       let length = Js_array.length(state.items[index].collections) - 1;
-      let collectionIndex = id == 0 ? length : id - 1;
-      ShowCollections(collectionIndex, index) |> dispatch;
+      let collIndex = id == 0 ? length : id - 1;
+      ShowCollections(collIndex, index) |> dispatch;
     });
 
   let showNextCollections =
@@ -667,8 +666,8 @@ let make = _ => {
       ReactEvent.Mouse.preventDefault(event);
       ReactEvent.Mouse.stopPropagation(event);
       let length = Js_array.length(state.items[index].collections) - 1;
-      let collectionIndex = id == length ? 0 : id + 1;
-      ShowCollections(collectionIndex, index) |> dispatch;
+      let collIndex = id == length ? 0 : id + 1;
+      ShowCollections(collIndex, index) |> dispatch;
     });
 
   let sViewAJax = id =>
@@ -774,22 +773,22 @@ let make = _ => {
       id |> deleteAJax;
     });
 
-  let viewPreviousCollection =
+  let viewPrevious =
     useCallback((id, index, event) => {
       ReactEvent.Mouse.preventDefault(event);
       ReactEvent.Mouse.stopPropagation(event);
       let length = Js_array.length(state.viewitems[index].viewections) - 1;
-      let collectionIndex = id == 0 ? length : id - 1;
-      ShowViewection(collectionIndex, index) |> dispatch;
+      let collIndex = id == 0 ? length : id - 1;
+      SettingViewCollection(collIndex, index) |> dispatch;
     });
 
-  let viewNextCollection =
+  let viewNext =
     useCallback((id, index, event) => {
       ReactEvent.Mouse.preventDefault(event);
       ReactEvent.Mouse.stopPropagation(event);
       let length = Js_array.length(state.viewitems[index].viewections) - 1;
-      let collectionIndex = id == length ? 0 : id + 1;
-      ShowViewection(collectionIndex, index) |> dispatch;
+      let collIndex = id == length ? 0 : id + 1;
+      SettingViewCollection(collIndex, index) |> dispatch;
     });
 
   let sRefreshAJax = () =>
@@ -966,24 +965,22 @@ let make = _ => {
         }
       );
 
-  let showPreviousCollection =
+  let showPrevious =
     useCallback((id, index, event) => {
       ReactEvent.Mouse.preventDefault(event);
       ReactEvent.Mouse.stopPropagation(event);
-      let length =
-        Js_array.length(state.formitems[index].collectionitems) - 1;
-      let collectionIndex = id == 0 ? length : id - 1;
-      ShowCollection(collectionIndex, index) |> dispatch;
+      let length = Js_array.length(state.formitems[index].collitems) - 1;
+      let collIndex = id == 0 ? length : id - 1;
+      SettingCollection(collIndex, index) |> dispatch;
     });
 
-  let showNextCollection =
+  let showNext =
     useCallback((id, index, event) => {
       ReactEvent.Mouse.preventDefault(event);
       ReactEvent.Mouse.stopPropagation(event);
-      let length =
-        Js_array.length(state.formitems[index].collectionitems) - 1;
-      let collectionIndex = id == length ? 0 : id + 1;
-      ShowCollection(collectionIndex, index) |> dispatch;
+      let length = Js_array.length(state.formitems[index].collitems) - 1;
+      let collIndex = id == length ? 0 : id + 1;
+      SettingCollection(collIndex, index) |> dispatch;
     });
 
   let changeItem =
@@ -1039,7 +1036,6 @@ let make = _ => {
                                ? <SelectMenu
                                    top="0%"
                                    transform="translate(0, 0%)"
-                                   width="max-content"
                                    maxHeight="280"
                                    minHeight="0"
                                    topLeft="12"
@@ -1409,11 +1405,7 @@ let make = _ => {
                                   padding="6"
                                   disabled={state.showProgress}
                                   onClick={event =>
-                                    event
-                                    |> viewPreviousCollection(
-                                         item.viewIndex,
-                                         i,
-                                       )
+                                    event |> viewPrevious(item.viewIndex, i)
                                   }>
                                   <IconAction
                                     animation="leftRight"
@@ -1452,8 +1444,7 @@ let make = _ => {
                                   padding="6"
                                   disabled={state.showProgress}
                                   onClick={event =>
-                                    event
-                                    |> viewNextCollection(item.viewIndex, i)
+                                    event |> viewNext(item.viewIndex, i)
                                   }>
                                   <IconAction
                                     animation="leftRight"
@@ -1624,129 +1615,44 @@ let make = _ => {
                                  }
                                />
                              | "collections" =>
-                               <GridContainer
-                                 direction="row"
-                                 justify="center"
-                                 alignItem="center">
-                                 <GridItem
-                                   style=positionRelative
-                                   top="0"
-                                   right="0"
-                                   bottom="0"
-                                   left="0"
-                                   xs="no">
-                                   <div
-                                     style={ReactDOMRe.Style.combine(
-                                       insideCollections,
-                                       {ReactDOMRe.Style.make(
-                                          ~left="10px",
-                                          (),
-                                        )},
-                                     )}>
-                                     <IconButton
-                                       padding="6"
-                                       disabled={state.showProgress}
-                                       onClick={event =>
-                                         event
-                                         |> showPreviousCollection(
-                                              item.collectionIndex,
-                                              i,
-                                            )
-                                       }>
-                                       <IconAction
-                                         animation="leftRight"
-                                         src=arrowBackIosBlack
-                                       />
-                                     </IconButton>
-                                   </div>
-                                 </GridItem>
-                                 <GridItem
-                                   top="0"
-                                   right="0"
-                                   bottom="0"
-                                   left="0"
-                                   xs="auto">
-                                   <CollectionUpload
-                                     webLoad={state.showProgress}
-                                     showDrop={item.showDrop}
-                                     showFile={item.showFile}
-                                     fileRef
-                                     onDragOver={event =>
-                                       i |> dragOver(event)
-                                     }
-                                     onDragLeave={event =>
-                                       i |> dragLeave(event)
-                                     }
-                                     onDrop={event =>
-                                       i
-                                       |> dropFiles(
-                                            event,
-                                            ReactEvent.Synthetic.nativeEvent(
-                                              event,
-                                            )##dataTransfer##files[0],
-                                          )
-                                     }
-                                     disabled={state.showProgress}
-                                     onClick=chooseFile
-                                     onChange={event =>
-                                       i
-                                       |> uploadFiles(
-                                            ReactEvent.Form.target(event)##files[0],
-                                          )
-                                     }>
-                                     {item.collectionitems
-                                      |> Array.mapi((ci, collectionitem) =>
-                                           item.collectionIndex == ci
-                                             ? <div
-                                                 className="collectionBoard">
-                                                 <Image
-                                                   width="auto"
-                                                   height="200px"
-                                                   borderRadius="6"
-                                                   src={
-                                                     "data:image/jpg;base64,"
-                                                     ++ collectionitem.value
-                                                   }
-                                                 />
-                                               </div>
-                                             : null
-                                         )
-                                      |> array}
-                                   </CollectionUpload>
-                                 </GridItem>
-                                 <GridItem
-                                   style=positionRelative
-                                   top="0"
-                                   right="0"
-                                   bottom="0"
-                                   left="0"
-                                   xs="no">
-                                   <div
-                                     style={ReactDOMRe.Style.combine(
-                                       insideCollections,
-                                       {ReactDOMRe.Style.make(
-                                          ~right="10px",
-                                          (),
-                                        )},
-                                     )}>
-                                     <IconButton
-                                       padding="6"
-                                       disabled={state.showProgress}
-                                       onClick={event =>
-                                         event
-                                         |> showNextCollection(
-                                              item.collectionIndex,
-                                              i,
-                                            )
-                                       }>
-                                       <IconAction
-                                         animation="leftRight"
-                                         src=arrowForwardIosBlack
-                                       />
-                                     </IconButton>
-                                   </div>
-                                 </GridItem>
-                               </GridContainer>
+                               <CollectionUpload
+                                 webLoad={state.showProgress}
+                                 showDrop={item.showDrop}
+                                 showFile={item.showFile}
+                                 fileRef
+                                 onDragOver={event => i |> dragOver(event)}
+                                 onDragLeave={event => i |> dragLeave(event)}
+                                 onDrop={event =>
+                                   i
+                                   |> dropFiles(
+                                        event,
+                                        ReactEvent.Synthetic.nativeEvent(
+                                          event,
+                                        )##dataTransfer##files[0],
+                                      )
+                                 }
+                                 disabled={state.showProgress}
+                                 onClick=chooseFile
+                                 onChange={event =>
+                                   i
+                                   |> uploadFiles(
+                                        ReactEvent.Form.target(event)##files[0],
+                                      )
+                                 }
+                                 showPrevious={event =>
+                                   event |> showPrevious(item.collIndex, i)
+                                 }
+                                 showNext={event =>
+                                   event |> showNext(item.collIndex, i)
+                                 }>
+                                 {item.collitems
+                                  |> Array.mapi((ci, collitem) =>
+                                       item.collIndex == ci
+                                         ? <MediaImage src={collitem.value} />
+                                         : null
+                                     )
+                                  |> array}
+                               </CollectionUpload>
                              | "text" =>
                                <TextFieldStandard
                                  width="50"

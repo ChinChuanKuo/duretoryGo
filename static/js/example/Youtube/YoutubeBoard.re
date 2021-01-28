@@ -4,6 +4,7 @@ open OutSide;
 open Together;
 open ReactIntl;
 open Data;
+open Path;
 open Icons;
 open Axiosapi;
 open Storage;
@@ -171,7 +172,7 @@ let make = (~autoPath: 'a, ~children) => {
   let keydownField =
     useCallback(keyCode =>
       if (keyCode == 13 && state.value != "") {
-        Path.searchPath ++ "#" ++ state.value |> ReasonReactRouter.push;
+        searchPath ++ "#" ++ state.value |> ReasonReactRouter.push;
       }
     );
   let badgeAJax = () =>
@@ -199,7 +200,7 @@ let make = (~autoPath: 'a, ~children) => {
     useCallback(_ => {
       "" |> Locals.create("newid");
       autoPath |> Sessions.create("autoPath");
-      Path.loginPath |> ReasonReactRouter.push;
+      loginPath |> ReasonReactRouter.push;
     });
   <>
     <AppBar>
@@ -280,7 +281,7 @@ let make = (~autoPath: 'a, ~children) => {
                 style=butnRight
                 padding="8"
                 className="butnToolAction"
-                onClick={_ => Path.colorPath |> ReasonReactRouter.push}>
+                onClick={_ => colorPath |> ReasonReactRouter.push}>
                 <Tooltip location="bottom" backgroundColor="rgba(255,0,0,0.8)">
                   <FormattedMessage id="Action.color" defaultMessage="Color" />
                 </Tooltip>
@@ -338,7 +339,7 @@ let make = (~autoPath: 'a, ~children) => {
                    <Button
                      onClick={_ => {
                        autoPath |> Sessions.create("autoPath");
-                       Path.loginPath |> ReasonReactRouter.push;
+                       loginPath |> ReasonReactRouter.push;
                      }}>
                      <FormattedMessage
                        id="Action.login"

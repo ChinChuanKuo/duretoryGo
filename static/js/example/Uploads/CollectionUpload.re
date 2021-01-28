@@ -1,6 +1,26 @@
 open React;
 open Setting;
 open ReactIntl;
+open Icons;
+
+let widths = width =>
+  switch (width) {
+  | None => "auto"
+  | Some(width) => width
+  };
+
+let heights = height =>
+  switch (height) {
+  | None => "200px"
+  | Some(height) => height
+  };
+
+let borderRadiuses = borderRadius =>
+  switch (borderRadius) {
+  | None => "0px"
+  | Some("circle") => "50%"
+  | Some(borderRadius) => borderRadius ++ "px"
+  };
 
 [@react.component]
 let make =
@@ -15,36 +35,75 @@ let make =
       ~disabled: option(bool)=?,
       ~onClick: option(ReactEvent.Mouse.t => unit)=?,
       ~onChange: option(ReactEvent.Form.t => unit)=?,
+      ~showPrevious: option(ReactEvent.Mouse.t => unit)=?,
+      ~showNext: option(ReactEvent.Mouse.t => unit)=?,
       ~children,
     ) =>
-  webLoad |> disabledObjects
-    ? <PasteBoard>
-        <PasteInformation tile="Reviewing File..." />
-        <ProgressCircular size="80" color="rgba(255,0,0,0.8)" />
-      </PasteBoard>
-    : <PasteBoard ?onDragOver ?onDragLeave ?onDrop>
-        {switch (showFile |> disabledObjects, showDrop |> disabledObjects) {
-         | (true, _) => children
-         | (false, true) => <PasteInformation tile="Please Let Go" />
-         | (false, false) =>
-           <PasteInformation
-             tile="Please Drop Photo In Here"
-             instruction="or you can ..."
-           />
-         }}
-        <Button
-          variant="button"
-          color="rgba(255,255,255,1)"
-          border="contained"
-          size="medium"
-          disabled={disabled |> disabledObjects}
-          ?onClick>
-          <FormattedMessage id="choose" defaultMessage="Choose" />
-        </Button>
-        <input
-          type_="file"
-          style={ReactDOMRe.Style.make(~display="none", ())}
-          ref={fileRef |> refObjects |> ReactDOMRe.Ref.domRef}
-          ?onChange
-        />
-      </PasteBoard>;
+  <div style={ReactDOMRe.Style.make(~position="relative", ())}>
+    <div
+      style={ReactDOMRe.Style.make(
+        ~position="absolute",
+        ~top="50%",
+        ~transform="translate(0px, -50%)",
+        ~zIndex="1",
+        ~left="10px",
+        (),
+      )}>
+      <IconButton
+        padding="6"
+        disabled={webLoad |> disabledObjects}
+        onClick=?showPrevious>
+        <IconAction animation="leftRight" src=arrowBackIosBlack />
+      </IconButton>
+    </div>
+    <GridItem right="0" left="0" xs="12">
+      {webLoad |> disabledObjects
+         ? <PasteBoard>
+             <PasteInformation tile="Reviewing File..." />
+             <ProgressCircular size="80" color="rgba(255,0,0,0.8)" />
+           </PasteBoard>
+         : <PasteBoard ?onDragOver ?onDragLeave ?onDrop>
+             {switch (
+                showFile |> disabledObjects,
+                showDrop |> disabledObjects,
+              ) {
+              | (true, _) => children
+              | (false, true) => <PasteInformation tile="Please Let Go" />
+              | (false, false) =>
+                <PasteInformation
+                  tile="Please Drop Photo In Here"
+                  instruction="or you can ..."
+                />
+              }}
+             <Button
+               variant="button"
+               color="rgba(255,255,255,1)"
+               border="contained"
+               size="medium"
+               disabled={disabled |> disabledObjects}
+               ?onClick>
+               <FormattedMessage id="choose" defaultMessage="Choose" />
+             </Button>
+             <input
+               type_="file"
+               style={ReactDOMRe.Style.make(~display="none", ())}
+               ref={fileRef |> refObjects |> ReactDOMRe.Ref.domRef}
+               ?onChange
+             />
+           </PasteBoard>}
+    </GridItem>
+    <div
+      style={ReactDOMRe.Style.make(
+        ~position="absolute",
+        ~top="50%",
+        ~transform="translate(0px, -50%)",
+        ~zIndex="1",
+        ~right="10px",
+        (),
+      )}>
+      <IconButton
+        padding="6" disabled={webLoad |> disabledObjects} onClick=?showNext>
+        <IconAction animation="leftRight" src=arrowForwardIosBlack />
+      </IconButton>
+    </div>
+  </div>;

@@ -24,6 +24,7 @@ import * as ReasonReactRouter from "reason-react/src/ReasonReactRouter.js";
 import * as DialogFull$BtsCore from "../../material-ui/core/Dialog/DialogFull.bs.js";
 import * as IconAction$BtsCore from "../../material-ui/core/IconStyle/IconAction.bs.js";
 import * as IconButton$BtsCore from "../../material-ui/core/IconButton/IconButton.bs.js";
+import * as MediaImage$BtsCore from "../../example/Medias/MediaImage.bs.js";
 import * as SelectMenu$BtsCore from "../../material-ui/core/Menu/SelectMenu.bs.js";
 import * as Typography$BtsCore from "../../material-ui/core/Typography/Typography.bs.js";
 import * as AnswerColor$BtsCore from "../../controls/AnswerColor.bs.js";
@@ -45,17 +46,17 @@ import * as DialogContentText$BtsCore from "../../material-ui/core/Dialog/Dialog
 import * as TextFieldStandard$BtsCore from "../../material-ui/core/TextField/TextFieldStandard.bs.js";
 import * as TextFieldMultiline$BtsCore from "../../material-ui/core/TextField/TextFieldMultiline.bs.js";
 
-((require('../../../scss/pages/Home/home.scss')));
+((require('../../../scss/pages/Together/together.scss')));
 
-function newcollectitem(id, collectionImage, collectionVideo, collectionAudio, value) {
+function newcollitem(id, showImage, showVideo, showAudio, value) {
   return [{
             id: id,
-            collectionImage: collectionImage,
-            collectionVideo: collectionVideo,
-            collectionAudio: collectionAudio,
+            showImage: showImage,
+            showVideo: showVideo,
+            showAudio: showAudio,
             value: value,
-            collectionInsert: true,
-            collectionDelete: false
+            collInsert: true,
+            collDelete: false
           }];
 }
 
@@ -186,13 +187,13 @@ function reducer(state, action) {
           return newrecord$14;
       case /* ShowCollections */11 :
           var index$3 = action[1];
-          var collectionIndex = action[0];
+          var collIndex = action[0];
           var newrecord$15 = Caml_obj.caml_obj_dup(state);
           newrecord$15.items = $$Array.mapi((function (i, item) {
                   if (index$3 === i) {
                     return {
                             id: item.id,
-                            index: collectionIndex,
+                            index: collIndex,
                             collections: item.collections,
                             tile: item.tile,
                             creator: item.creator,
@@ -213,7 +214,7 @@ function reducer(state, action) {
           newrecord$16.itemCount = state.itemCount - 1 | 0;
           newrecord$16.error = state.itemCount === 1;
           return newrecord$16;
-      case /* ShowViewection */13 :
+      case /* SettingViewCollection */13 :
           var index$4 = action[1];
           var viewIndex = action[0];
           var newrecord$17 = Caml_obj.caml_obj_dup(state);
@@ -249,8 +250,8 @@ function reducer(state, action) {
                             showShow: item.showShow,
                             showCheck: item.showCheck,
                             showFilter: item.showFilter,
-                            collectionIndex: item.collectionIndex,
-                            collectionitems: item.collectionitems,
+                            collIndex: item.collIndex,
+                            collitems: item.collitems,
                             optionitems: item.optionitems,
                             answeritems: item.answeritems,
                             formModify: item.formModify
@@ -283,8 +284,8 @@ function reducer(state, action) {
                             showShow: item.showShow,
                             showCheck: item.showCheck,
                             showFilter: item.showFilter,
-                            collectionIndex: item.collectionIndex,
-                            collectionitems: item.collectionitems,
+                            collIndex: item.collIndex,
+                            collitems: item.collitems,
                             optionitems: item.optionitems,
                             answeritems: item.answeritems,
                             formModify: true
@@ -317,8 +318,8 @@ function reducer(state, action) {
                             showShow: item.showShow,
                             showCheck: item.showCheck,
                             showFilter: item.showFilter,
-                            collectionIndex: item.collectionIndex,
-                            collectionitems: $$Array.append(item.collectionitems, newcollectitem(item.collectionitems.length + 1 | 0, showImage$1, showVideo$1, showAudio$1, values$1)),
+                            collIndex: item.collIndex,
+                            collitems: $$Array.append(item.collitems, newcollitem(item.collitems.length + 1 | 0, showImage$1, showVideo$1, showAudio$1, values$1)),
                             optionitems: item.optionitems,
                             answeritems: item.answeritems,
                             formModify: true
@@ -328,9 +329,9 @@ function reducer(state, action) {
                   }
                 }), state.formitems);
           return newrecord$20;
-      case /* ShowCollection */17 :
+      case /* SettingCollection */17 :
           var index$8 = action[1];
-          var collectionIndex$1 = action[0];
+          var collIndex$1 = action[0];
           var newrecord$21 = Caml_obj.caml_obj_dup(state);
           newrecord$21.formitems = $$Array.mapi((function (i, item) {
                   if (index$8 === i) {
@@ -348,8 +349,8 @@ function reducer(state, action) {
                             showShow: item.showShow,
                             showCheck: item.showCheck,
                             showFilter: item.showFilter,
-                            collectionIndex: collectionIndex$1,
-                            collectionitems: item.collectionitems,
+                            collIndex: collIndex$1,
+                            collitems: item.collitems,
                             optionitems: item.optionitems,
                             answeritems: item.answeritems,
                             formModify: item.formModify
@@ -379,8 +380,8 @@ function reducer(state, action) {
                             showShow: item.showShow,
                             showCheck: item.showCheck,
                             showFilter: item.showFilter,
-                            collectionIndex: item.collectionIndex,
-                            collectionitems: item.collectionitems,
+                            collIndex: item.collIndex,
+                            collitems: item.collitems,
                             optionitems: item.optionitems,
                             answeritems: item.answeritems,
                             formModify: true
@@ -409,8 +410,8 @@ function reducer(state, action) {
                             showShow: item.showShow,
                             showCheck: item.showCheck,
                             showFilter: item.showFilter,
-                            collectionIndex: item.collectionIndex,
-                            collectionitems: item.collectionitems,
+                            collIndex: item.collIndex,
+                            collitems: item.collitems,
                             optionitems: item.optionitems,
                             answeritems: item.answeritems,
                             formModify: item.formModify
@@ -440,8 +441,8 @@ function reducer(state, action) {
                             showShow: item.showShow,
                             showCheck: item.showCheck,
                             showFilter: item.showFilter,
-                            collectionIndex: item.collectionIndex,
-                            collectionitems: item.collectionitems,
+                            collIndex: item.collIndex,
+                            collitems: item.collitems,
                             optionitems: item.optionitems,
                             answeritems: item.answeritems,
                             formModify: true
@@ -471,8 +472,8 @@ function reducer(state, action) {
                             showShow: item.showShow,
                             showCheck: item.showCheck,
                             showFilter: item.showFilter,
-                            collectionIndex: item.collectionIndex,
-                            collectionitems: item.collectionitems,
+                            collIndex: item.collIndex,
+                            collitems: item.collitems,
                             optionitems: item.optionitems,
                             answeritems: $$Array.mapi((function (ri, answeritem) {
                                     return {
@@ -508,8 +509,8 @@ function reducer(state, action) {
                             showShow: item.showShow,
                             showCheck: item.showCheck,
                             showFilter: item.showFilter,
-                            collectionIndex: item.collectionIndex,
-                            collectionitems: item.collectionitems,
+                            collIndex: item.collIndex,
+                            collitems: item.collitems,
                             optionitems: item.optionitems,
                             answeritems: $$Array.mapi((function (ri, answeritem) {
                                     if (rindex$1 === ri) {
@@ -720,9 +721,9 @@ function Search(Props) {
               $$event.preventDefault();
               $$event.stopPropagation();
               var length = Caml_array.caml_array_get(state.items, index).collections.length - 1 | 0;
-              var collectionIndex = id === 0 ? length : id - 1 | 0;
+              var collIndex = id === 0 ? length : id - 1 | 0;
               return Curry._1(dispatch, /* ShowCollections */Block.__(11, [
-                            collectionIndex,
+                            collIndex,
                             index
                           ]));
             });
@@ -732,9 +733,9 @@ function Search(Props) {
               $$event.preventDefault();
               $$event.stopPropagation();
               var length = Caml_array.caml_array_get(state.items, index).collections.length - 1 | 0;
-              var collectionIndex = id === length ? 0 : id + 1 | 0;
+              var collIndex = id === length ? 0 : id + 1 | 0;
               return Curry._1(dispatch, /* ShowCollections */Block.__(11, [
-                            collectionIndex,
+                            collIndex,
                             index
                           ]));
             });
@@ -811,26 +812,26 @@ function Search(Props) {
               
             });
         }));
-  var viewPreviousCollection = React.useCallback((function (id) {
+  var viewPrevious = React.useCallback((function (id) {
           return (function (index, $$event) {
               $$event.preventDefault();
               $$event.stopPropagation();
               var length = Caml_array.caml_array_get(state.viewitems, index).viewections.length - 1 | 0;
-              var collectionIndex = id === 0 ? length : id - 1 | 0;
-              return Curry._1(dispatch, /* ShowViewection */Block.__(13, [
-                            collectionIndex,
+              var collIndex = id === 0 ? length : id - 1 | 0;
+              return Curry._1(dispatch, /* SettingViewCollection */Block.__(13, [
+                            collIndex,
                             index
                           ]));
             });
         }));
-  var viewNextCollection = React.useCallback((function (id) {
+  var viewNext = React.useCallback((function (id) {
           return (function (index, $$event) {
               $$event.preventDefault();
               $$event.stopPropagation();
               var length = Caml_array.caml_array_get(state.viewitems, index).viewections.length - 1 | 0;
-              var collectionIndex = id === length ? 0 : id + 1 | 0;
-              return Curry._1(dispatch, /* ShowViewection */Block.__(13, [
-                            collectionIndex,
+              var collIndex = id === length ? 0 : id + 1 | 0;
+              return Curry._1(dispatch, /* SettingViewCollection */Block.__(13, [
+                            collIndex,
                             index
                           ]));
             });
@@ -989,26 +990,26 @@ function Search(Props) {
           }
           
         }));
-  var showPreviousCollection = React.useCallback((function (id) {
+  var showPrevious = React.useCallback((function (id) {
           return (function (index, $$event) {
               $$event.preventDefault();
               $$event.stopPropagation();
-              var length = Caml_array.caml_array_get(state.formitems, index).collectionitems.length - 1 | 0;
-              var collectionIndex = id === 0 ? length : id - 1 | 0;
-              return Curry._1(dispatch, /* ShowCollection */Block.__(17, [
-                            collectionIndex,
+              var length = Caml_array.caml_array_get(state.formitems, index).collitems.length - 1 | 0;
+              var collIndex = id === 0 ? length : id - 1 | 0;
+              return Curry._1(dispatch, /* SettingCollection */Block.__(17, [
+                            collIndex,
                             index
                           ]));
             });
         }));
-  var showNextCollection = React.useCallback((function (id) {
+  var showNext = React.useCallback((function (id) {
           return (function (index, $$event) {
               $$event.preventDefault();
               $$event.stopPropagation();
-              var length = Caml_array.caml_array_get(state.formitems, index).collectionitems.length - 1 | 0;
-              var collectionIndex = id === length ? 0 : id + 1 | 0;
-              return Curry._1(dispatch, /* ShowCollection */Block.__(17, [
-                            collectionIndex,
+              var length = Caml_array.caml_array_get(state.formitems, index).collitems.length - 1 | 0;
+              var collIndex = id === length ? 0 : id + 1 | 0;
+              return Curry._1(dispatch, /* SettingCollection */Block.__(17, [
+                            collIndex,
                             index
                           ]));
             });
@@ -1104,7 +1105,6 @@ function Search(Props) {
                                                                 filtitem.filtMenu ? React.createElement(SelectMenu$BtsCore.make, {
                                                                         top: "0%",
                                                                         transform: "translate(0, 0%)",
-                                                                        width: "max-content",
                                                                         maxHeight: "280",
                                                                         minHeight: "0",
                                                                         topLeft: "12",
@@ -1445,7 +1445,7 @@ function Search(Props) {
                                                                                           padding: "6",
                                                                                           disabled: state.showProgress,
                                                                                           onClick: (function ($$event) {
-                                                                                              return Curry._3(viewPreviousCollection, item.viewIndex, i, $$event);
+                                                                                              return Curry._3(viewPrevious, item.viewIndex, i, $$event);
                                                                                             }),
                                                                                           children: React.createElement(IconAction$BtsCore.make, {
                                                                                                 animation: "leftRight",
@@ -1483,7 +1483,7 @@ function Search(Props) {
                                                                                           padding: "6",
                                                                                           disabled: state.showProgress,
                                                                                           onClick: (function ($$event) {
-                                                                                              return Curry._3(viewNextCollection, item.viewIndex, i, $$event);
+                                                                                              return Curry._3(viewNext, item.viewIndex, i, $$event);
                                                                                             }),
                                                                                           children: React.createElement(IconAction$BtsCore.make, {
                                                                                                 animation: "leftRight",
@@ -1633,96 +1633,41 @@ function Search(Props) {
                                               var tmp;
                                               switch (match) {
                                                 case "collections" :
-                                                    tmp = React.createElement(GridContainer$BtsCore.make, {
-                                                          direction: "row",
-                                                          justify: "center",
-                                                          alignItem: "center",
-                                                          children: null
-                                                        }, React.createElement(GridItem$BtsCore.make, {
-                                                              style: positionRelative,
-                                                              top: "0",
-                                                              right: "0",
-                                                              bottom: "0",
-                                                              left: "0",
-                                                              xs: "no",
-                                                              children: React.createElement("div", {
-                                                                    style: Object.assign(({}), insideCollections, {
-                                                                          left: "10px"
-                                                                        })
-                                                                  }, React.createElement(IconButton$BtsCore.make, {
-                                                                        padding: "6",
-                                                                        disabled: state.showProgress,
-                                                                        onClick: (function ($$event) {
-                                                                            return Curry._3(showPreviousCollection, item.collectionIndex, i, $$event);
-                                                                          }),
-                                                                        children: React.createElement(IconAction$BtsCore.make, {
-                                                                              animation: "leftRight",
-                                                                              src: Icons$BtsCore.arrowBackIosBlack
-                                                                            })
-                                                                      }))
-                                                            }), React.createElement(GridItem$BtsCore.make, {
-                                                              top: "0",
-                                                              right: "0",
-                                                              bottom: "0",
-                                                              left: "0",
-                                                              xs: "auto",
-                                                              children: React.createElement(CollectionUpload$BtsCore.make, {
-                                                                    webLoad: state.showProgress,
-                                                                    showDrop: item.showDrop,
-                                                                    showFile: item.showFile,
-                                                                    fileRef: fileRef,
-                                                                    onDragOver: (function ($$event) {
-                                                                        return Curry._2(dragOver, $$event, i);
-                                                                      }),
-                                                                    onDragLeave: (function ($$event) {
-                                                                        return Curry._2(dragLeave, $$event, i);
-                                                                      }),
-                                                                    onDrop: (function ($$event) {
-                                                                        return Curry._3(dropFiles, $$event, Caml_array.caml_array_get($$event.nativeEvent.dataTransfer.files, 0), i);
-                                                                      }),
-                                                                    disabled: state.showProgress,
-                                                                    onClick: chooseFile,
-                                                                    onChange: (function ($$event) {
-                                                                        return Curry._2(uploadFiles, Caml_array.caml_array_get($$event.target.files, 0), i);
-                                                                      }),
-                                                                    children: $$Array.mapi((function (ci, collectionitem) {
-                                                                            if (item.collectionIndex === ci) {
-                                                                              return React.createElement("div", {
-                                                                                          className: "collectionBoard"
-                                                                                        }, React.createElement(Image$BtsCore.make, {
-                                                                                              width: "auto",
-                                                                                              height: "200px",
-                                                                                              borderRadius: "6",
-                                                                                              src: "data:image/jpg;base64," + collectionitem.value
-                                                                                            }));
-                                                                            } else {
-                                                                              return null;
-                                                                            }
-                                                                          }), item.collectionitems)
-                                                                  })
-                                                            }), React.createElement(GridItem$BtsCore.make, {
-                                                              style: positionRelative,
-                                                              top: "0",
-                                                              right: "0",
-                                                              bottom: "0",
-                                                              left: "0",
-                                                              xs: "no",
-                                                              children: React.createElement("div", {
-                                                                    style: Object.assign(({}), insideCollections, {
-                                                                          right: "10px"
-                                                                        })
-                                                                  }, React.createElement(IconButton$BtsCore.make, {
-                                                                        padding: "6",
-                                                                        disabled: state.showProgress,
-                                                                        onClick: (function ($$event) {
-                                                                            return Curry._3(showNextCollection, item.collectionIndex, i, $$event);
-                                                                          }),
-                                                                        children: React.createElement(IconAction$BtsCore.make, {
-                                                                              animation: "leftRight",
-                                                                              src: Icons$BtsCore.arrowForwardIosBlack
-                                                                            })
-                                                                      }))
-                                                            }));
+                                                    tmp = React.createElement(CollectionUpload$BtsCore.make, {
+                                                          webLoad: state.showProgress,
+                                                          showDrop: item.showDrop,
+                                                          showFile: item.showFile,
+                                                          fileRef: fileRef,
+                                                          onDragOver: (function ($$event) {
+                                                              return Curry._2(dragOver, $$event, i);
+                                                            }),
+                                                          onDragLeave: (function ($$event) {
+                                                              return Curry._2(dragLeave, $$event, i);
+                                                            }),
+                                                          onDrop: (function ($$event) {
+                                                              return Curry._3(dropFiles, $$event, Caml_array.caml_array_get($$event.nativeEvent.dataTransfer.files, 0), i);
+                                                            }),
+                                                          disabled: state.showProgress,
+                                                          onClick: chooseFile,
+                                                          onChange: (function ($$event) {
+                                                              return Curry._2(uploadFiles, Caml_array.caml_array_get($$event.target.files, 0), i);
+                                                            }),
+                                                          showPrevious: (function ($$event) {
+                                                              return Curry._3(showPrevious, item.collIndex, i, $$event);
+                                                            }),
+                                                          showNext: (function ($$event) {
+                                                              return Curry._3(showNext, item.collIndex, i, $$event);
+                                                            }),
+                                                          children: $$Array.mapi((function (ci, collitem) {
+                                                                  if (item.collIndex === ci) {
+                                                                    return React.createElement(MediaImage$BtsCore.make, {
+                                                                                src: collitem.value
+                                                                              });
+                                                                  } else {
+                                                                    return null;
+                                                                  }
+                                                                }), item.collitems)
+                                                        });
                                                     break;
                                                 case "droplist" :
                                                     tmp = React.createElement(React.Fragment, undefined, React.createElement(SelectStandard$BtsCore.make, {
@@ -2003,7 +1948,7 @@ function Search(Props) {
 var make = Search;
 
 export {
-  newcollectitem ,
+  newcollitem ,
   reducer ,
   initialState ,
   positionRelative ,

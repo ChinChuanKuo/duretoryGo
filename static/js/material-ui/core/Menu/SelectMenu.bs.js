@@ -25,6 +25,14 @@ function widths(width) {
   if (width !== undefined) {
     return width;
   } else {
+    return "max-content";
+  }
+}
+
+function minWidths(minWidth) {
+  if (minWidth !== undefined) {
+    return minWidth;
+  } else {
     return "100%";
   }
 }
@@ -114,7 +122,7 @@ function SelectMenu(Props) {
                     position: "absolute",
                     right: right !== undefined ? right : "auto",
                     top: top !== undefined ? top : "auto",
-                    width: width !== undefined ? width : "100%",
+                    width: width !== undefined ? width : "max-content",
                     zIndex: "1200",
                     borderTopLeftRadius: borderRadiuses(topLeft),
                     borderTopRightRadius: borderRadiuses(topRight),
@@ -139,6 +147,7 @@ export {
   locations ,
   otherSizes ,
   widths ,
+  minWidths ,
   transforms ,
   overflows ,
   backgroundColors ,

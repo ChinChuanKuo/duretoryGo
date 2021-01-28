@@ -3,11 +3,43 @@
 import * as React from "react";
 import * as ReactIntl from "react-intl";
 import * as Caml_option from "bs-platform/lib/es6/caml_option.js";
+import * as Icons$BtsCore from "../../material-ui/icon/Icons.bs.js";
 import * as Button$BtsCore from "../../material-ui/core/Button/Button.bs.js";
 import * as Setting$BtsCore from "../../setting/Setting.bs.js";
+import * as GridItem$BtsCore from "../../material-ui/core/Grid/GridItem.bs.js";
+import * as IconAction$BtsCore from "../../material-ui/core/IconStyle/IconAction.bs.js";
+import * as IconButton$BtsCore from "../../material-ui/core/IconButton/IconButton.bs.js";
 import * as PasteBoard$BtsCore from "../../material-ui/core/PasteBoard/PasteBoard.bs.js";
 import * as PasteInformation$BtsCore from "../../material-ui/core/PasteBoard/PasteInformation.bs.js";
 import * as ProgressCircular$BtsCore from "../../material-ui/core/Progress/ProgressCircular.bs.js";
+
+function widths(width) {
+  if (width !== undefined) {
+    return width;
+  } else {
+    return "auto";
+  }
+}
+
+function heights(height) {
+  if (height !== undefined) {
+    return height;
+  } else {
+    return "200px";
+  }
+}
+
+function borderRadiuses(borderRadius) {
+  if (borderRadius !== undefined) {
+    if (borderRadius === "circle") {
+      return "50%";
+    } else {
+      return borderRadius + "px";
+    }
+  } else {
+    return "0px";
+  }
+}
 
 function CollectionUpload(Props) {
   var webLoad = Props.webLoad;
@@ -20,68 +52,123 @@ function CollectionUpload(Props) {
   var disabled = Props.disabled;
   var onClick = Props.onClick;
   var onChange = Props.onChange;
+  var showPrevious = Props.showPrevious;
+  var showNext = Props.showNext;
   var children = Props.children;
-  if (Setting$BtsCore.disabledObjects(webLoad)) {
-    return React.createElement(PasteBoard$BtsCore.make, {
-                children: null
-              }, React.createElement(PasteInformation$BtsCore.make, {
-                    tile: "Reviewing File..."
-                  }), React.createElement(ProgressCircular$BtsCore.make, {
-                    size: "80",
-                    color: "rgba(255,0,0,0.8)"
-                  }));
-  }
   var tmp = {
-    children: null
-  };
-  if (onDragOver !== undefined) {
-    tmp.onDragOver = Caml_option.valFromOption(onDragOver);
-  }
-  if (onDragLeave !== undefined) {
-    tmp.onDragLeave = Caml_option.valFromOption(onDragLeave);
-  }
-  if (onDrop !== undefined) {
-    tmp.onDrop = Caml_option.valFromOption(onDrop);
-  }
-  var match = Setting$BtsCore.disabledObjects(showFile);
-  var match$1 = Setting$BtsCore.disabledObjects(showDrop);
-  var tmp$1 = {
-    variant: "button",
-    color: "rgba(255,255,255,1)",
-    border: "contained",
-    size: "medium",
-    disabled: Setting$BtsCore.disabledObjects(disabled),
-    children: React.createElement(ReactIntl.FormattedMessage, {
-          id: "choose",
-          defaultMessage: "Choose"
+    padding: "6",
+    disabled: Setting$BtsCore.disabledObjects(webLoad),
+    children: React.createElement(IconAction$BtsCore.make, {
+          animation: "leftRight",
+          src: Icons$BtsCore.arrowBackIosBlack
         })
   };
-  if (onClick !== undefined) {
-    tmp$1.onClick = Caml_option.valFromOption(onClick);
+  if (showPrevious !== undefined) {
+    tmp.onClick = Caml_option.valFromOption(showPrevious);
   }
-  var tmp$2 = {
-    ref: Setting$BtsCore.refObjects(fileRef),
-    style: {
-      display: "none"
-    },
-    type: "file"
+  var tmp$1;
+  if (Setting$BtsCore.disabledObjects(webLoad)) {
+    tmp$1 = React.createElement(PasteBoard$BtsCore.make, {
+          children: null
+        }, React.createElement(PasteInformation$BtsCore.make, {
+              tile: "Reviewing File..."
+            }), React.createElement(ProgressCircular$BtsCore.make, {
+              size: "80",
+              color: "rgba(255,0,0,0.8)"
+            }));
+  } else {
+    var tmp$2 = {
+      children: null
+    };
+    if (onDragOver !== undefined) {
+      tmp$2.onDragOver = Caml_option.valFromOption(onDragOver);
+    }
+    if (onDragLeave !== undefined) {
+      tmp$2.onDragLeave = Caml_option.valFromOption(onDragLeave);
+    }
+    if (onDrop !== undefined) {
+      tmp$2.onDrop = Caml_option.valFromOption(onDrop);
+    }
+    var match = Setting$BtsCore.disabledObjects(showFile);
+    var match$1 = Setting$BtsCore.disabledObjects(showDrop);
+    var tmp$3 = {
+      variant: "button",
+      color: "rgba(255,255,255,1)",
+      border: "contained",
+      size: "medium",
+      disabled: Setting$BtsCore.disabledObjects(disabled),
+      children: React.createElement(ReactIntl.FormattedMessage, {
+            id: "choose",
+            defaultMessage: "Choose"
+          })
+    };
+    if (onClick !== undefined) {
+      tmp$3.onClick = Caml_option.valFromOption(onClick);
+    }
+    var tmp$4 = {
+      ref: Setting$BtsCore.refObjects(fileRef),
+      style: {
+        display: "none"
+      },
+      type: "file"
+    };
+    if (onChange !== undefined) {
+      tmp$4.onChange = Caml_option.valFromOption(onChange);
+    }
+    tmp$1 = React.createElement(PasteBoard$BtsCore.make, tmp$2, match ? children : (
+            match$1 ? React.createElement(PasteInformation$BtsCore.make, {
+                    tile: "Please Let Go"
+                  }) : React.createElement(PasteInformation$BtsCore.make, {
+                    tile: "Please Drop Photo In Here",
+                    instruction: "or you can ..."
+                  })
+          ), React.createElement(Button$BtsCore.make, tmp$3), React.createElement("input", tmp$4));
+  }
+  var tmp$5 = {
+    padding: "6",
+    disabled: Setting$BtsCore.disabledObjects(webLoad),
+    children: React.createElement(IconAction$BtsCore.make, {
+          animation: "leftRight",
+          src: Icons$BtsCore.arrowForwardIosBlack
+        })
   };
-  if (onChange !== undefined) {
-    tmp$2.onChange = Caml_option.valFromOption(onChange);
+  if (showNext !== undefined) {
+    tmp$5.onClick = Caml_option.valFromOption(showNext);
   }
-  return React.createElement(PasteBoard$BtsCore.make, tmp, match ? children : (
-                match$1 ? React.createElement(PasteInformation$BtsCore.make, {
-                        tile: "Please Let Go"
-                      }) : React.createElement(PasteInformation$BtsCore.make, {
-                        tile: "Please Drop Photo In Here",
-                        instruction: "or you can ..."
-                      })
-              ), React.createElement(Button$BtsCore.make, tmp$1), React.createElement("input", tmp$2));
+  return React.createElement("div", {
+              style: {
+                position: "relative"
+              }
+            }, React.createElement("div", {
+                  style: {
+                    left: "10px",
+                    position: "absolute",
+                    top: "50%",
+                    zIndex: "1",
+                    transform: "translate(0px, -50%)"
+                  }
+                }, React.createElement(IconButton$BtsCore.make, tmp)), React.createElement(GridItem$BtsCore.make, {
+                  right: "0",
+                  left: "0",
+                  xs: "12",
+                  children: tmp$1
+                }), React.createElement("div", {
+                  style: {
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    zIndex: "1",
+                    transform: "translate(0px, -50%)"
+                  }
+                }, React.createElement(IconButton$BtsCore.make, tmp$5)));
 }
 
 var make = CollectionUpload;
 
 export {
+  widths ,
+  heights ,
+  borderRadiuses ,
   make ,
   
 }
