@@ -663,7 +663,12 @@ let make = _ => {
                                  {item.collitems
                                   |> Array.mapi((ci, collitem) =>
                                        item.collIndex == ci
-                                         ? <MediaImage src={collitem.value} />
+                                         ? <MediaImage
+                                             src={
+                                               "data:image/jpg;base64,"
+                                               ++ collitem.value
+                                             }
+                                           />
                                          : null
                                      )
                                   |> array}

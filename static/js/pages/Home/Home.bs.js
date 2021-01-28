@@ -1684,7 +1684,7 @@ function Home(Props) {
                                                           children: $$Array.mapi((function (ci, collitem) {
                                                                   if (item.collIndex === ci) {
                                                                     return React.createElement(MediaImage$BtsCore.make, {
-                                                                                src: collitem.value
+                                                                                src: "data:image/jpg;base64," + collitem.value
                                                                               });
                                                                   } else {
                                                                     return null;
