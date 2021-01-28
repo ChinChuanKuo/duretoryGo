@@ -1841,10 +1841,22 @@ let make = _ => {
                                              xs="no">
                                              <IconButton
                                                padding="4"
-                                               disabled={state.showProgress}>
+                                               disabled={state.showProgress}
+                                               onClick={_ =>
+                                                 i
+                                                 |> clickElementItem(
+                                                      item.outValue,
+                                                      ai,
+                                                    )
+                                               }>
                                                <IconAction
                                                  animation="leftRight"
-                                                 src=radioButtonUncheckedBlack
+                                                 src={
+                                                   answeritem.showAnswer
+                                                   |> answerIcon(
+                                                        item.outValue,
+                                                      )
+                                                 }
                                                />
                                              </IconButton>
                                            </GridItem>
@@ -1873,32 +1885,6 @@ let make = _ => {
                                                disabled=true>
                                                null
                                              </TextFieldStandard>
-                                           </GridItem>
-                                           <GridItem
-                                             top="0"
-                                             right="6"
-                                             bottom="0"
-                                             left="0"
-                                             xs="no">
-                                             <IconButton
-                                               padding="4"
-                                               disabled={state.showProgress}
-                                               onClick={_ =>
-                                                 i
-                                                 |> clickElementItem(
-                                                      item.outValue,
-                                                      ai,
-                                                    )
-                                               }>
-                                               <IconAction
-                                                 animation="leftRight"
-                                                 src={
-                                                   answeritem.showAnswer
-                                                     ? doneSuccessful
-                                                     : errorWarn
-                                                 }
-                                               />
-                                             </IconButton>
                                            </GridItem>
                                          </GridContainer>
                                        </GridItem>

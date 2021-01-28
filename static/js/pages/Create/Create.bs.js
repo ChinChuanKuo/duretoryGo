@@ -1121,6 +1121,9 @@ function Create(Props) {
                                                                                         children: React.createElement(IconButton$BtsCore.make, {
                                                                                               padding: "4",
                                                                                               disabled: state.showProgress,
+                                                                                              onClick: (function (param) {
+                                                                                                  return Curry._3(clickElementItem, item.outValue, ai, i);
+                                                                                                }),
                                                                                               children: React.createElement(IconAction$BtsCore.make, {
                                                                                                     animation: "leftRight",
                                                                                                     src: IconAnimation$BtsCore.answerIcon(item.outValue, answeritem.showAnswer)
@@ -1141,23 +1144,6 @@ function Create(Props) {
                                                                                               value: answeritem.value,
                                                                                               disabled: true,
                                                                                               children: null
-                                                                                            })
-                                                                                      }), React.createElement(GridItem$BtsCore.make, {
-                                                                                        top: "0",
-                                                                                        right: "6",
-                                                                                        bottom: "0",
-                                                                                        left: "0",
-                                                                                        xs: "no",
-                                                                                        children: React.createElement(IconButton$BtsCore.make, {
-                                                                                              padding: "4",
-                                                                                              disabled: state.showProgress,
-                                                                                              onClick: (function (param) {
-                                                                                                  return Curry._3(clickElementItem, item.outValue, ai, i);
-                                                                                                }),
-                                                                                              children: React.createElement(IconAction$BtsCore.make, {
-                                                                                                    animation: "leftRight",
-                                                                                                    src: answeritem.showAnswer ? Icons$BtsCore.doneSuccessful : Icons$BtsCore.errorWarn
-                                                                                                  })
                                                                                             })
                                                                                       }))
                                                                             });
