@@ -9,7 +9,7 @@ function widths(width) {
   if (width !== undefined) {
     return width;
   } else {
-    return "auto";
+    return "100%";
   }
 }
 
@@ -18,6 +18,22 @@ function heights(height) {
     return height;
   } else {
     return "200px";
+  }
+}
+
+function imageWidths(imageWidth) {
+  if (imageWidth !== undefined) {
+    return imageWidth;
+  } else {
+    return "auto";
+  }
+}
+
+function imageHeights(imageHeight) {
+  if (imageHeight !== undefined) {
+    return imageHeight;
+  } else {
+    return "100%";
   }
 }
 
@@ -34,25 +50,35 @@ function borderRadiuses(borderRadius) {
 }
 
 function MediaImage(Props) {
+  var showImage = Props.showImage;
   var style = Props.style;
   var width = Props.width;
   var height = Props.height;
+  var imageWidth = Props.imageWidth;
+  var imageHeight = Props.imageHeight;
   var borderRadius = Props.borderRadius;
   var src = Props.src;
-  return React.createElement("div", {
-              style: Object.assign(({}), {
-                    opacity: "0",
-                    animation: "fadeIn 0.8s ease-in forwards"
-                  }, Setting$BtsCore.styleObjects(style))
-            }, React.createElement("img", {
-                  style: {
-                    cursor: "pointer",
-                    height: height !== undefined ? height : "200px",
-                    width: width !== undefined ? width : "auto",
-                    borderRadius: borderRadiuses(borderRadius)
-                  },
-                  src: Setting$BtsCore.stringObjects(src)
-                }));
+  if (Setting$BtsCore.disabledObjects(showImage)) {
+    return React.createElement("div", {
+                style: Object.assign(({}), {
+                      height: height !== undefined ? height : "200px",
+                      textAlign: "center",
+                      width: width !== undefined ? width : "100%",
+                      opacity: "0",
+                      animation: "fadeIn 0.8s ease-in forwards"
+                    }, Setting$BtsCore.styleObjects(style))
+              }, React.createElement("img", {
+                    style: {
+                      cursor: "pointer",
+                      height: imageHeight !== undefined ? imageHeight : "100%",
+                      width: imageWidth !== undefined ? imageWidth : "auto",
+                      borderRadius: borderRadiuses(borderRadius)
+                    },
+                    src: Setting$BtsCore.stringObjects(src)
+                  }));
+  } else {
+    return null;
+  }
 }
 
 var make = MediaImage;
@@ -60,6 +86,8 @@ var make = MediaImage;
 export {
   widths ,
   heights ,
+  imageWidths ,
+  imageHeights ,
   borderRadiuses ,
   make ,
   

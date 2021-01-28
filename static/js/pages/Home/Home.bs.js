@@ -10,7 +10,6 @@ import * as ReactIntl from "react-intl";
 import * as Card$BtsCore from "../../material-ui/core/Card/Card.bs.js";
 import * as Data$BtsCore from "../../features/Data.bs.js";
 import * as Icons$BtsCore from "../../material-ui/icon/Icons.bs.js";
-import * as Image$BtsCore from "../../example/Medias/Image.bs.js";
 import * as Avatar$BtsCore from "../../material-ui/core/Avatar/Avatar.bs.js";
 import * as Button$BtsCore from "../../material-ui/core/Button/Button.bs.js";
 import * as Status$BtsCore from "../../features/Status.bs.js";
@@ -186,13 +185,13 @@ function reducer(state, action) {
           return newrecord$14;
       case /* ShowCollections */10 :
           var index$3 = action[1];
-          var collIndex = action[0];
+          var cIndex = action[0];
           var newrecord$15 = Caml_obj.caml_obj_dup(state);
           newrecord$15.items = $$Array.mapi((function (i, item) {
                   if (index$3 === i) {
                     return {
                             id: item.id,
-                            index: collIndex,
+                            index: cIndex,
                             collections: item.collections,
                             tile: item.tile,
                             creator: item.creator,
@@ -330,7 +329,7 @@ function reducer(state, action) {
           return newrecord$20;
       case /* SettingCollection */16 :
           var index$8 = action[1];
-          var collIndex$1 = action[0];
+          var cIndex$1 = action[0];
           var newrecord$21 = Caml_obj.caml_obj_dup(state);
           newrecord$21.formitems = $$Array.mapi((function (i, item) {
                   if (index$8 === i) {
@@ -348,7 +347,7 @@ function reducer(state, action) {
                             showShow: item.showShow,
                             showCheck: item.showCheck,
                             showFilter: item.showFilter,
-                            collIndex: collIndex$1,
+                            collIndex: cIndex$1,
                             collitems: item.collitems,
                             optionitems: item.optionitems,
                             answeritems: item.answeritems,
@@ -359,12 +358,57 @@ function reducer(state, action) {
                   }
                 }), state.formitems);
           return newrecord$21;
-      case /* ChangeItem */17 :
+      case /* ActionCollection */17 :
           var index$9 = action[1];
-          var value$1 = action[0];
+          var cIndex$2 = action[0];
           var newrecord$22 = Caml_obj.caml_obj_dup(state);
           newrecord$22.formitems = $$Array.mapi((function (i, item) {
                   if (index$9 === i) {
+                    return {
+                            iid: item.iid,
+                            title: item.title,
+                            values: item.values,
+                            showMenu: item.showMenu,
+                            showDrop: item.showDrop,
+                            showFile: item.showFile,
+                            showImage: item.showImage,
+                            showVideo: item.showVideo,
+                            showAudio: item.showAudio,
+                            outValue: item.outValue,
+                            showShow: item.showShow,
+                            showCheck: item.showCheck,
+                            showFilter: item.showFilter,
+                            collIndex: item.collIndex,
+                            collitems: $$Array.mapi((function (ci, collitem) {
+                                    if (cIndex$2 === ci) {
+                                      return {
+                                              id: collitem.id,
+                                              showImage: collitem.showImage,
+                                              showVideo: collitem.showVideo,
+                                              showAudio: collitem.showAudio,
+                                              value: collitem.value,
+                                              collInsert: collitem.collInsert,
+                                              collDelete: !collitem.collDelete
+                                            };
+                                    } else {
+                                      return collitem;
+                                    }
+                                  }), item.collitems),
+                            optionitems: item.optionitems,
+                            answeritems: item.answeritems,
+                            formModify: item.formModify
+                          };
+                  } else {
+                    return item;
+                  }
+                }), state.formitems);
+          return newrecord$22;
+      case /* ChangeItem */18 :
+          var index$10 = action[1];
+          var value$1 = action[0];
+          var newrecord$23 = Caml_obj.caml_obj_dup(state);
+          newrecord$23.formitems = $$Array.mapi((function (i, item) {
+                  if (index$10 === i) {
                     return {
                             iid: item.iid,
                             title: item.title,
@@ -389,12 +433,12 @@ function reducer(state, action) {
                     return item;
                   }
                 }), state.formitems);
-          return newrecord$22;
-      case /* ShowMenuItem */18 :
-          var index$10 = action[0];
-          var newrecord$23 = Caml_obj.caml_obj_dup(state);
-          newrecord$23.formitems = $$Array.mapi((function (i, item) {
-                  if (index$10 === i) {
+          return newrecord$23;
+      case /* ShowMenuItem */19 :
+          var index$11 = action[0];
+          var newrecord$24 = Caml_obj.caml_obj_dup(state);
+          newrecord$24.formitems = $$Array.mapi((function (i, item) {
+                  if (index$11 === i) {
                     return {
                             iid: item.iid,
                             title: item.title,
@@ -419,13 +463,13 @@ function reducer(state, action) {
                     return item;
                   }
                 }), state.formitems);
-          return newrecord$23;
-      case /* ClickMenuItem */19 :
-          var index$11 = action[1];
+          return newrecord$24;
+      case /* ClickMenuItem */20 :
+          var index$12 = action[1];
           var value$2 = action[0];
-          var newrecord$24 = Caml_obj.caml_obj_dup(state);
-          newrecord$24.formitems = $$Array.mapi((function (i, item) {
-                  if (index$11 === i) {
+          var newrecord$25 = Caml_obj.caml_obj_dup(state);
+          newrecord$25.formitems = $$Array.mapi((function (i, item) {
+                  if (index$12 === i) {
                     return {
                             iid: item.iid,
                             title: item.title,
@@ -450,13 +494,13 @@ function reducer(state, action) {
                     return item;
                   }
                 }), state.formitems);
-          return newrecord$24;
-      case /* ClickRadioItem */20 :
-          var index$12 = action[1];
+          return newrecord$25;
+      case /* ClickRadioItem */21 :
+          var index$13 = action[1];
           var rindex = action[0];
-          var newrecord$25 = Caml_obj.caml_obj_dup(state);
-          newrecord$25.formitems = $$Array.mapi((function (i, item) {
-                  if (index$12 === i) {
+          var newrecord$26 = Caml_obj.caml_obj_dup(state);
+          newrecord$26.formitems = $$Array.mapi((function (i, item) {
+                  if (index$13 === i) {
                     return {
                             iid: item.iid,
                             title: item.title,
@@ -487,13 +531,13 @@ function reducer(state, action) {
                     return item;
                   }
                 }), state.formitems);
-          return newrecord$25;
-      case /* ClickCheckboxItem */21 :
-          var index$13 = action[1];
+          return newrecord$26;
+      case /* ClickCheckboxItem */22 :
+          var index$14 = action[1];
           var rindex$1 = action[0];
-          var newrecord$26 = Caml_obj.caml_obj_dup(state);
-          newrecord$26.formitems = $$Array.mapi((function (i, item) {
-                  if (index$13 === i) {
+          var newrecord$27 = Caml_obj.caml_obj_dup(state);
+          newrecord$27.formitems = $$Array.mapi((function (i, item) {
+                  if (index$14 === i) {
                     return {
                             iid: item.iid,
                             title: item.title,
@@ -528,12 +572,12 @@ function reducer(state, action) {
                     return item;
                   }
                 }), state.formitems);
-          return newrecord$26;
-      case /* ActionSnackBar */22 :
-          var newrecord$27 = Caml_obj.caml_obj_dup(state);
-          newrecord$27.youtubeText = action[0];
-          newrecord$27.showYoutube = action[1];
           return newrecord$27;
+      case /* ActionSnackBar */23 :
+          var newrecord$28 = Caml_obj.caml_obj_dup(state);
+          newrecord$28.youtubeText = action[0];
+          newrecord$28.showYoutube = action[1];
+          return newrecord$28;
       
     }
   }
@@ -598,12 +642,12 @@ function Home(Props) {
   var state = match[0];
   var fileRef = React.useRef(null);
   var barShowRestoreAction = function (youtubeText) {
-    Curry._1(dispatch, /* ActionSnackBar */Block.__(22, [
+    Curry._1(dispatch, /* ActionSnackBar */Block.__(23, [
             youtubeText,
             true
           ]));
     setTimeout((function (param) {
-            return Curry._1(dispatch, /* ActionSnackBar */Block.__(22, [
+            return Curry._1(dispatch, /* ActionSnackBar */Block.__(23, [
                           "",
                           false
                         ]));
@@ -1037,20 +1081,30 @@ function Home(Props) {
                           ]));
             });
         }));
+  var actionImage = React.useCallback((function (cindex) {
+          return (function (index, $$event) {
+              $$event.preventDefault();
+              $$event.stopPropagation();
+              return Curry._1(dispatch, /* ActionCollection */Block.__(17, [
+                            cindex,
+                            index
+                          ]));
+            });
+        }));
   var changeItem = React.useCallback((function (value) {
           return (function (i) {
-              return Curry._1(dispatch, /* ChangeItem */Block.__(17, [
+              return Curry._1(dispatch, /* ChangeItem */Block.__(18, [
                             value,
                             i
                           ]));
             });
         }));
   var showMenuItem = React.useCallback((function (i) {
-          return Curry._1(dispatch, /* ShowMenuItem */Block.__(18, [i]));
+          return Curry._1(dispatch, /* ShowMenuItem */Block.__(19, [i]));
         }));
   var clickMenuItem = React.useCallback((function (value) {
           return (function (i) {
-              return Curry._1(dispatch, /* ClickMenuItem */Block.__(19, [
+              return Curry._1(dispatch, /* ClickMenuItem */Block.__(20, [
                             value,
                             i
                           ]));
@@ -1059,12 +1113,12 @@ function Home(Props) {
   var clickElementItem = React.useCallback((function (value) {
           return (function (ri, i) {
               if (value === "checkbox") {
-                return Curry._1(dispatch, /* ClickCheckboxItem */Block.__(21, [
+                return Curry._1(dispatch, /* ClickCheckboxItem */Block.__(22, [
                               ri,
                               i
                             ]));
               } else {
-                return Curry._1(dispatch, /* ClickRadioItem */Block.__(20, [
+                return Curry._1(dispatch, /* ClickRadioItem */Block.__(21, [
                               ri,
                               i
                             ]));
@@ -1251,24 +1305,18 @@ function Home(Props) {
                                                                                         left: "0",
                                                                                         xs: "auto",
                                                                                         children: $$Array.mapi((function (ci, collitem) {
-                                                                                                if (item.index === ci) {
-                                                                                                  return React.createElement("div", {
-                                                                                                              className: "collectionBoard",
-                                                                                                              style: {
-                                                                                                                height: "155px",
-                                                                                                                left: "50%",
-                                                                                                                position: "absolute",
-                                                                                                                transform: "translate(-50%, 0)"
-                                                                                                              }
-                                                                                                            }, React.createElement(Image$BtsCore.make, {
-                                                                                                                  width: "auto",
-                                                                                                                  height: "100%",
-                                                                                                                  borderRadius: "6",
-                                                                                                                  src: "data:image/jpg;base64," + collitem
-                                                                                                                }));
-                                                                                                } else {
-                                                                                                  return null;
-                                                                                                }
+                                                                                                return React.createElement(MediaImage$BtsCore.make, {
+                                                                                                            showImage: item.index === ci,
+                                                                                                            style: {
+                                                                                                              height: "155px",
+                                                                                                              left: "50%",
+                                                                                                              position: "absolute",
+                                                                                                              transform: "translate(-50%, 0)"
+                                                                                                            },
+                                                                                                            width: "auto",
+                                                                                                            height: "100%",
+                                                                                                            src: "data:image/jpg;base64," + collitem
+                                                                                                          });
                                                                                               }), item.collections)
                                                                                       }), React.createElement(GridItem$BtsCore.make, {
                                                                                         top: "0",
@@ -1330,6 +1378,9 @@ function Home(Props) {
                                                                                               alignItem: "stretch",
                                                                                               children: null
                                                                                             }, React.createElement(GridItem$BtsCore.make, {
+                                                                                                  style: {
+                                                                                                    minHeight: "24px"
+                                                                                                  },
                                                                                                   top: "0",
                                                                                                   right: "0",
                                                                                                   bottom: "3",
@@ -1483,18 +1534,14 @@ function Home(Props) {
                                                                                     left: "0",
                                                                                     xs: "auto",
                                                                                     children: $$Array.mapi((function (vi, viewitem) {
-                                                                                            if (item.viewIndex === vi) {
-                                                                                              return React.createElement("div", {
-                                                                                                          className: "collectionBoard"
-                                                                                                        }, React.createElement(Image$BtsCore.make, {
-                                                                                                              width: "100%",
-                                                                                                              height: "auto",
-                                                                                                              borderRadius: "6",
-                                                                                                              src: "data:image/jpg;base64," + viewitem
-                                                                                                            }));
-                                                                                            } else {
-                                                                                              return null;
-                                                                                            }
+                                                                                            return React.createElement(MediaImage$BtsCore.make, {
+                                                                                                        showImage: item.viewIndex === vi,
+                                                                                                        width: "100%",
+                                                                                                        height: "auto",
+                                                                                                        imageWidth: "100%",
+                                                                                                        imageHeight: "auto",
+                                                                                                        src: "data:image/jpg;base64," + viewitem
+                                                                                                      });
                                                                                           }), item.viewections)
                                                                                   }), React.createElement(GridItem$BtsCore.make, {
                                                                                     top: "0",
@@ -1542,12 +1589,14 @@ function Home(Props) {
                                                                                                         bottom: "6",
                                                                                                         left: "40",
                                                                                                         xs: "auto",
-                                                                                                        children: React.createElement(Typography$BtsCore.make, {
-                                                                                                              variant: "subheading",
-                                                                                                              fontWeight: "500",
-                                                                                                              noWrap: true,
-                                                                                                              children: dataitem.data
-                                                                                                            })
+                                                                                                        children: $$Array.map((function (data) {
+                                                                                                                return React.createElement(Typography$BtsCore.make, {
+                                                                                                                            variant: "subheading",
+                                                                                                                            fontWeight: "500",
+                                                                                                                            noWrap: true,
+                                                                                                                            children: data
+                                                                                                                          });
+                                                                                                              }), dataitem.data)
                                                                                                       }), React.createElement(GridItem$BtsCore.make, {
                                                                                                         right: "40",
                                                                                                         left: "40",
@@ -1681,14 +1730,15 @@ function Home(Props) {
                                                           showNext: (function ($$event) {
                                                               return Curry._3(showNext, item.collIndex, i, $$event);
                                                             }),
+                                                          showDelete: true,
+                                                          onDelete: (function ($$event) {
+                                                              return Curry._3(actionImage, item.collIndex, i, $$event);
+                                                            }),
                                                           children: $$Array.mapi((function (ci, collitem) {
-                                                                  if (item.collIndex === ci) {
-                                                                    return React.createElement(MediaImage$BtsCore.make, {
-                                                                                src: "data:image/jpg;base64," + collitem.value
-                                                                              });
-                                                                  } else {
-                                                                    return null;
-                                                                  }
+                                                                  return React.createElement(MediaImage$BtsCore.make, {
+                                                                              showImage: item.collIndex === ci,
+                                                                              src: "data:image/jpg;base64," + collitem.value
+                                                                            });
                                                                 }), item.collitems)
                                                         });
                                                     break;

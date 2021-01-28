@@ -30,6 +30,7 @@ import * as SwitchColor$BtsCore from "../../controls/SwitchColor.bs.js";
 import * as GridContainer$BtsCore from "../../material-ui/core/Grid/GridContainer.bs.js";
 import * as IconAnimation$BtsCore from "../../controls/IconAnimation.bs.js";
 import * as SelectOutline$BtsCore from "../../material-ui/core/Select/SelectOutline.bs.js";
+import * as SelectPosition$BtsCore from "../../controls/SelectPosition.bs.js";
 import * as BackgroundBoard$BtsCore from "../../example/Boards/BackgroundBoard.bs.js";
 import * as SnackbarYoutube$BtsCore from "../../material-ui/core/Snackbar/SnackbarYoutube.bs.js";
 import * as CardOrPaperBoard$BtsCore from "../../example/Boards/CardOrPaperBoard.bs.js";
@@ -1204,7 +1205,7 @@ function Formor(Props) {
                                               top: "100%",
                                               right: "0",
                                               transform: "translate(0, -100%)",
-                                              width: "256",
+                                              minWidth: "256px",
                                               maxHeight: "280",
                                               minHeight: "0",
                                               topLeft: "12",
@@ -1495,8 +1496,9 @@ function Formor(Props) {
                                                                                       }),
                                                                                     children: /* tuple */[
                                                                                       item.showOut && !item.itemDelete ? React.createElement(SelectMenu$BtsCore.make, {
-                                                                                              top: "50%",
-                                                                                              transform: "translate(0, -50%)",
+                                                                                              top: SelectPosition$BtsCore.Position.top(i),
+                                                                                              transform: SelectPosition$BtsCore.Position.transform(i),
+                                                                                              width: "100%",
                                                                                               maxHeight: "280",
                                                                                               minHeight: "0",
                                                                                               topLeft: "12",

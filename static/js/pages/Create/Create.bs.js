@@ -28,6 +28,7 @@ import * as ImageUpload$BtsCore from "../../example/Uploads/ImageUpload.bs.js";
 import * as NewFacetube$BtsCore from "../../example/Facebook/NewFacetube.bs.js";
 import * as GridContainer$BtsCore from "../../material-ui/core/Grid/GridContainer.bs.js";
 import * as IconAnimation$BtsCore from "../../controls/IconAnimation.bs.js";
+import * as SelectPosition$BtsCore from "../../controls/SelectPosition.bs.js";
 import * as SelectStandard$BtsCore from "../../material-ui/core/Select/SelectStandard.bs.js";
 import * as BackgroundBoard$BtsCore from "../../example/Boards/BackgroundBoard.bs.js";
 import * as SnackbarYoutube$BtsCore from "../../material-ui/core/Snackbar/SnackbarYoutube.bs.js";
@@ -37,15 +38,15 @@ import * as TextFieldMultiline$BtsCore from "../../material-ui/core/TextField/Te
 
 ((require('../../../scss/pages/Together/together.scss')));
 
-function newcollectitem(id, collectionImage, collectionVideo, collectionAudio, value) {
+function newcollitem(id, showImage, showVideo, showAudio, value) {
   return [{
             id: id,
-            collectionImage: collectionImage,
-            collectionVideo: collectionVideo,
-            collectionAudio: collectionAudio,
+            showImage: showImage,
+            showVideo: showVideo,
+            showAudio: showAudio,
             value: value,
-            collectionInsert: true,
-            collectionDelete: false
+            collInsert: true,
+            collDelete: false
           }];
 }
 
@@ -264,7 +265,7 @@ function reducer(state, action) {
                                     showCheck: item.showCheck,
                                     showFilter: item.showFilter,
                                     collIndex: item.collIndex,
-                                    collitems: $$Array.append(item.collitems, newcollectitem(item.collitems.length + 1 | 0, showImage$1, showVideo$1, showAudio$1, values$1)),
+                                    collitems: $$Array.append(item.collitems, newcollitem(item.collitems.length + 1 | 0, showImage$1, showVideo$1, showAudio$1, values$1)),
                                     optionitems: item.optionitems,
                                     answeritems: item.answeritems
                                   };
@@ -947,13 +948,10 @@ function Create(Props) {
                                                                 return Curry._3(showNext, item.collIndex, i, $$event);
                                                               }),
                                                             children: $$Array.mapi((function (ci, collitem) {
-                                                                    if (item.collIndex === ci) {
-                                                                      return React.createElement(MediaImage$BtsCore.make, {
-                                                                                  src: "data:image/jpg;base64," + collitem.value
-                                                                                });
-                                                                    } else {
-                                                                      return null;
-                                                                    }
+                                                                    return React.createElement(MediaImage$BtsCore.make, {
+                                                                                showImage: item.collIndex === ci,
+                                                                                src: "data:image/jpg;base64," + collitem.value
+                                                                              });
                                                                   }), item.collitems)
                                                           });
                                                       break;
@@ -971,8 +969,8 @@ function Create(Props) {
                                                                   }),
                                                                 children: /* tuple */[
                                                                   item.showMenu ? React.createElement(SelectMenu$BtsCore.make, {
-                                                                          top: "50%",
-                                                                          transform: "translate(0, -50%)",
+                                                                          top: SelectPosition$BtsCore.Position.top(i),
+                                                                          transform: SelectPosition$BtsCore.Position.transform(i),
                                                                           maxHeight: "280",
                                                                           minHeight: "0",
                                                                           topLeft: "12",
@@ -1125,7 +1123,7 @@ function Create(Props) {
                                                                                               disabled: state.showProgress,
                                                                                               children: React.createElement(IconAction$BtsCore.make, {
                                                                                                     animation: "leftRight",
-                                                                                                    src: Icons$BtsCore.radioButtonUncheckedBlack
+                                                                                                    src: IconAnimation$BtsCore.answerIcon(item.outValue, answeritem.showAnswer)
                                                                                                   })
                                                                                             })
                                                                                       }), React.createElement(GridItem$BtsCore.make, {
@@ -1214,7 +1212,7 @@ function Create(Props) {
 var make = Create;
 
 export {
-  newcollectitem ,
+  newcollitem ,
   reducer ,
   initialState ,
   positionRelative ,

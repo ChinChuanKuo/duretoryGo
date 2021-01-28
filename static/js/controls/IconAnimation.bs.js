@@ -2,8 +2,8 @@
 
 import * as Icons$BtsCore from "../material-ui/icon/Icons.bs.js";
 
-function topDownRorate(outShow) {
-  if (outShow) {
+function topDownRorate(showOut) {
+  if (showOut) {
     return "justTopDown";
   } else {
     return "";

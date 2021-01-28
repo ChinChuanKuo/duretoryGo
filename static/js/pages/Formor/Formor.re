@@ -10,6 +10,7 @@ open Status;
 open Storage;
 open SwitchColor;
 open IconAnimation;
+open SelectPosition;
 [%bs.raw {|require('../../../scss/pages/Together/together.scss')|}];
 
 type answeritem = {
@@ -557,8 +558,11 @@ let make = _ => {
                                      ...(
                                           item.showOut && !item.itemDelete
                                             ? <SelectMenu
-                                                top="50%"
-                                                transform="translate(0, -50%)"
+                                                top={i |> Position.top}
+                                                transform={
+                                                  i |> Position.transform
+                                                }
+                                                width="100%"
                                                 maxHeight="280"
                                                 minHeight="0"
                                                 topLeft="12"
@@ -910,7 +914,7 @@ let make = _ => {
                                           top="100%"
                                           right="0"
                                           transform="translate(0, -100%)"
-                                          width="256"
+                                          minWidth="256px"
                                           maxHeight="280"
                                           minHeight="0"
                                           topLeft="12"

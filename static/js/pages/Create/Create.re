@@ -10,6 +10,7 @@ open Path;
 open Storage;
 open AnswerColor;
 open IconAnimation;
+open SelectPosition;
 [%bs.raw {|require('../../../scss/pages/Together/together.scss')|}];
 
 type answeritem = {
@@ -20,12 +21,12 @@ type answeritem = {
 
 type collitem = {
   id: int,
-  collectionImage: bool,
-  collectionVideo: bool,
-  collectionAudio: bool,
+  showImage: bool,
+  showVideo: bool,
+  showAudio: bool,
   value: string,
-  collectionInsert: bool,
-  collectionDelete: bool,
+  collInsert: bool,
+  collDelete: bool,
 };
 
 type item = {
@@ -48,16 +49,15 @@ type item = {
   answeritems: array(answeritem),
 };
 
-let newcollectitem =
-    (id, collectionImage, collectionVideo, collectionAudio, value) => [|
+let newcollitem = (id, showImage, showVideo, showAudio, value) => [|
   {
     id,
-    collectionImage,
-    collectionVideo,
-    collectionAudio,
-    collectionInsert: true,
-    collectionDelete: false,
+    showImage,
+    showVideo,
+    showAudio,
     value,
+    collInsert: true,
+    collDelete: false,
   },
 |];
 
@@ -149,7 +149,7 @@ let reducer = (state, action) =>
                 collitems:
                   Array.append(
                     item.collitems,
-                    newcollectitem(
+                    newcollitem(
                       Js_array.length(item.collitems) + 1,
                       showImage,
                       showVideo,
@@ -662,14 +662,13 @@ let make = _ => {
                                  }>
                                  {item.collitems
                                   |> Array.mapi((ci, collitem) =>
-                                       item.collIndex == ci
-                                         ? <MediaImage
-                                             src={
-                                               "data:image/jpg;base64,"
-                                               ++ collitem.value
-                                             }
-                                           />
-                                         : null
+                                       <MediaImage
+                                         showImage={item.collIndex == ci}
+                                         src={
+                                           "data:image/jpg;base64,"
+                                           ++ collitem.value
+                                         }
+                                       />
                                      )
                                   |> array}
                                </CollectionUpload>
@@ -748,8 +747,10 @@ let make = _ => {
                                    ...(
                                         item.showMenu
                                           ? <SelectMenu
-                                              top="50%"
-                                              transform="translate(0, -50%)"
+                                              top={i |> Position.top}
+                                              transform={
+                                                i |> Position.transform
+                                              }
                                               maxHeight="280"
                                               minHeight="0"
                                               topLeft="12"
@@ -828,7 +829,12 @@ let make = _ => {
                                                disabled={state.showProgress}>
                                                <IconAction
                                                  animation="leftRight"
-                                                 src=radioButtonUncheckedBlack
+                                                 src={
+                                                   answeritem.showAnswer
+                                                   |> answerIcon(
+                                                        item.outValue,
+                                                      )
+                                                 }
                                                />
                                              </IconButton>
                                            </GridItem>

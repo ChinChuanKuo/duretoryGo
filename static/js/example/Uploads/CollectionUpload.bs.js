@@ -13,34 +13,6 @@ import * as PasteBoard$BtsCore from "../../material-ui/core/PasteBoard/PasteBoar
 import * as PasteInformation$BtsCore from "../../material-ui/core/PasteBoard/PasteInformation.bs.js";
 import * as ProgressCircular$BtsCore from "../../material-ui/core/Progress/ProgressCircular.bs.js";
 
-function widths(width) {
-  if (width !== undefined) {
-    return width;
-  } else {
-    return "auto";
-  }
-}
-
-function heights(height) {
-  if (height !== undefined) {
-    return height;
-  } else {
-    return "200px";
-  }
-}
-
-function borderRadiuses(borderRadius) {
-  if (borderRadius !== undefined) {
-    if (borderRadius === "circle") {
-      return "50%";
-    } else {
-      return borderRadius + "px";
-    }
-  } else {
-    return "0px";
-  }
-}
-
 function CollectionUpload(Props) {
   var webLoad = Props.webLoad;
   var showDrop = Props.showDrop;
@@ -54,6 +26,8 @@ function CollectionUpload(Props) {
   var onChange = Props.onChange;
   var showPrevious = Props.showPrevious;
   var showNext = Props.showNext;
+  var showDelete = Props.showDelete;
+  var onDelete = Props.onDelete;
   var children = Props.children;
   var tmp = {
     padding: "6",
@@ -135,13 +109,38 @@ function CollectionUpload(Props) {
   if (showNext !== undefined) {
     tmp$5.onClick = Caml_option.valFromOption(showNext);
   }
+  var tmp$6;
+  if (Setting$BtsCore.disabledObjects(showDelete)) {
+    var tmp$7 = {
+      padding: "6",
+      disabled: Setting$BtsCore.disabledObjects(webLoad),
+      children: React.createElement(IconAction$BtsCore.make, {
+            animation: "leftRight",
+            src: Icons$BtsCore.deleteBlack
+          })
+    };
+    if (onDelete !== undefined) {
+      tmp$7.onClick = Caml_option.valFromOption(onDelete);
+    }
+    tmp$6 = React.createElement("div", {
+          style: {
+            position: "absolute",
+            right: "20px",
+            top: "20px",
+            zIndex: "1",
+            transform: "translate(0px, 0%)"
+          }
+        }, React.createElement(IconButton$BtsCore.make, tmp$7));
+  } else {
+    tmp$6 = null;
+  }
   return React.createElement("div", {
               style: {
                 position: "relative"
               }
             }, React.createElement("div", {
                   style: {
-                    left: "10px",
+                    left: "20px",
                     position: "absolute",
                     top: "50%",
                     zIndex: "1",
@@ -155,20 +154,17 @@ function CollectionUpload(Props) {
                 }), React.createElement("div", {
                   style: {
                     position: "absolute",
-                    right: "10px",
+                    right: "20px",
                     top: "50%",
                     zIndex: "1",
                     transform: "translate(0px, -50%)"
                   }
-                }, React.createElement(IconButton$BtsCore.make, tmp$5)));
+                }, React.createElement(IconButton$BtsCore.make, tmp$5)), tmp$6);
 }
 
 var make = CollectionUpload;
 
 export {
-  widths ,
-  heights ,
-  borderRadiuses ,
   make ,
   
 }

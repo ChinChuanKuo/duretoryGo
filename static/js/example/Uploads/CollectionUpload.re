@@ -3,25 +3,6 @@ open Setting;
 open ReactIntl;
 open Icons;
 
-let widths = width =>
-  switch (width) {
-  | None => "auto"
-  | Some(width) => width
-  };
-
-let heights = height =>
-  switch (height) {
-  | None => "200px"
-  | Some(height) => height
-  };
-
-let borderRadiuses = borderRadius =>
-  switch (borderRadius) {
-  | None => "0px"
-  | Some("circle") => "50%"
-  | Some(borderRadius) => borderRadius ++ "px"
-  };
-
 [@react.component]
 let make =
     (
@@ -37,6 +18,8 @@ let make =
       ~onChange: option(ReactEvent.Form.t => unit)=?,
       ~showPrevious: option(ReactEvent.Mouse.t => unit)=?,
       ~showNext: option(ReactEvent.Mouse.t => unit)=?,
+      ~showDelete: option(bool)=?,
+      ~onDelete: option(ReactEvent.Mouse.t => unit)=?,
       ~children,
     ) =>
   <div style={ReactDOMRe.Style.make(~position="relative", ())}>
@@ -44,9 +27,9 @@ let make =
       style={ReactDOMRe.Style.make(
         ~position="absolute",
         ~top="50%",
+        ~left="20px",
         ~transform="translate(0px, -50%)",
         ~zIndex="1",
-        ~left="10px",
         (),
       )}>
       <IconButton
@@ -96,9 +79,9 @@ let make =
       style={ReactDOMRe.Style.make(
         ~position="absolute",
         ~top="50%",
+        ~right="20px",
         ~transform="translate(0px, -50%)",
         ~zIndex="1",
-        ~right="10px",
         (),
       )}>
       <IconButton
@@ -106,4 +89,22 @@ let make =
         <IconAction animation="leftRight" src=arrowForwardIosBlack />
       </IconButton>
     </div>
+    {showDelete |> disabledObjects
+       ? <div
+           style={ReactDOMRe.Style.make(
+             ~position="absolute",
+             ~top="20px",
+             ~right="20px",
+             ~transform="translate(0px, 0%)",
+             ~zIndex="1",
+             (),
+           )}>
+           <IconButton
+             padding="6"
+             disabled={webLoad |> disabledObjects}
+             onClick=?onDelete>
+             <IconAction animation="leftRight" src=deleteBlack />
+           </IconButton>
+         </div>
+       : null}
   </div>;

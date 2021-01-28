@@ -138,6 +138,7 @@ type action =
   | ShowFile(bool, bool, bool, string, int)
   | ShowFiles(bool, bool, bool, string, int)
   | SettingCollection(int, int)
+  | ActionCollection(int, int)
   | ChangeItem(string, int)
   | ShowMenuItem(int)
   | ClickMenuItem(string, int)
@@ -233,11 +234,11 @@ let reducer = (state, action) =>
           state.filtitems,
         ),
     }
-  | ShowCollections(collIndex, index) => {
+  | ShowCollections(cIndex, index) => {
       ...state,
       items:
         Array.mapi(
-          (i, item) => index == i ? {...item, index: collIndex} : item,
+          (i, item) => index == i ? {...item, index: cIndex} : item,
           state.items,
         ),
     }
@@ -309,11 +310,32 @@ let reducer = (state, action) =>
           state.formitems,
         ),
     }
-  | SettingCollection(collIndex, index) => {
+  | SettingCollection(cIndex, index) => {
       ...state,
       formitems:
         Array.mapi(
-          (i, item) => index == i ? {...item, collIndex} : item,
+          (i, item) => index == i ? {...item, collIndex: cIndex} : item,
+          state.formitems,
+        ),
+    }
+  | ActionCollection(cIndex, index) => {
+      ...state,
+      formitems:
+        Array.mapi(
+          (i, item) =>
+            index == i
+              ? {
+                ...item,
+                collitems:
+                  Array.mapi(
+                    (ci, collitem) =>
+                      cIndex == ci
+                        ? {...collitem, collDelete: !collitem.collDelete}
+                        : collitem,
+                    item.collitems,
+                  ),
+              }
+              : item,
           state.formitems,
         ),
     }
@@ -950,6 +972,13 @@ let make = _ => {
       SettingCollection(collIndex, index) |> dispatch;
     });
 
+  let actionImage =
+    useCallback((cindex, index, event) => {
+      ReactEvent.Mouse.preventDefault(event);
+      ReactEvent.Mouse.stopPropagation(event);
+      ActionCollection(cindex, index) |> dispatch;
+    });
+
   let changeItem =
     useCallback((value, i) => ChangeItem(value, i) |> dispatch);
 
@@ -1138,28 +1167,22 @@ let make = _ => {
                                   xs="auto">
                                   {item.collections
                                    |> Array.mapi((ci, collitem) =>
-                                        item.index == ci
-                                          ? <div
-                                              style={ReactDOMRe.Style.make(
-                                                ~position="absolute",
-                                                ~height="155px",
-                                                ~left="50%",
-                                                ~transform=
-                                                  "translate(-50%, 0)",
-                                                (),
-                                              )}
-                                              className="collectionBoard">
-                                              <Image
-                                                width="auto"
-                                                height="100%"
-                                                borderRadius="6"
-                                                src={
-                                                  "data:image/jpg;base64,"
-                                                  ++ collitem
-                                                }
-                                              />
-                                            </div>
-                                          : null
+                                        <MediaImage
+                                          showImage={item.index == ci}
+                                          style={ReactDOMRe.Style.make(
+                                            ~position="absolute",
+                                            ~height="155px",
+                                            ~left="50%",
+                                            ~transform="translate(-50%, 0)",
+                                            (),
+                                          )}
+                                          width="auto"
+                                          height="100%"
+                                          src={
+                                            "data:image/jpg;base64,"
+                                            ++ collitem
+                                          }
+                                        />
                                       )
                                    |> array}
                                 </GridItem>
@@ -1389,19 +1412,14 @@ let make = _ => {
                                 xs="auto">
                                 {item.viewections
                                  |> Array.mapi((vi, viewitem) =>
-                                      item.viewIndex == vi
-                                        ? <div className="collectionBoard">
-                                            <Image
-                                              width="100%"
-                                              height="auto"
-                                              borderRadius="6"
-                                              src={
-                                                "data:image/jpg;base64,"
-                                                ++ viewitem
-                                              }
-                                            />
-                                          </div>
-                                        : null
+                                      <MediaImage
+                                        showImage={item.viewIndex == vi}
+                                        width="100%"
+                                        height="auto"
+                                        src={
+                                          "data:image/jpg;base64," ++ viewitem
+                                        }
+                                      />
                                     )
                                  |> array}
                               </GridItem>
@@ -1611,17 +1629,20 @@ let make = _ => {
                                  }
                                  showNext={event =>
                                    event |> showNext(item.collIndex, i)
+                                 }
+                                 showDelete=true
+                                 onDelete={event =>
+                                   event |> actionImage(item.collIndex, i)
                                  }>
                                  {item.collitems
                                   |> Array.mapi((ci, collitem) =>
-                                       item.collIndex == ci
-                                         ? <MediaImage
-                                             src={
-                                               "data:image/jpg;base64,"
-                                               ++ collitem.value
-                                             }
-                                           />
-                                         : null
+                                       <MediaImage
+                                         showImage={item.collIndex == ci}
+                                         src={
+                                           "data:image/jpg;base64,"
+                                           ++ collitem.value
+                                         }
+                                       />
                                      )
                                   |> array}
                                </CollectionUpload>

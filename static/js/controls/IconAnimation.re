@@ -1,7 +1,7 @@
 open Icons;
 
 [@genType]
-let topDownRorate = outShow => outShow ? "justTopDown" : "";
+let topDownRorate = showOut => showOut ? "justTopDown" : "";
 
 [@genType]
 let answerIcon = (outValue, showAnswer) =>
