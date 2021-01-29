@@ -62,6 +62,7 @@ type viewitem = {
 type filtitem = {
   filtIndex: int,
   filtTile: string,
+  filtOutValue: string,
   filtValue: string,
   filtMenu: bool,
   filtOptions: array(optionitem),
@@ -606,7 +607,7 @@ let make = _ => {
 
   let showFiltMenu = useCallback(index => ShowFiltMenu(index) |> dispatch);
 
-  let sfilterAJax = (index, value) =>
+  let sfilterAJax = (index, outValue, value) =>
     Js.Promise.(
       "newid"
       |> Locals.select
@@ -616,6 +617,7 @@ let make = _ => {
              state.filtitems,
            ),
            index,
+           outValue,
            value,
          )
       |> Default.sFilter
@@ -636,9 +638,9 @@ let make = _ => {
     );
 
   let clickFiltMenu =
-    useCallback((value, itemIndex, index) => {
+    useCallback((value, itemIndex, outValue, index) => {
       ClickFiltMenu(value, index) |> dispatch;
-      value |> sfilterAJax(itemIndex);
+      value |> sfilterAJax(itemIndex, outValue);
     });
 
   let showPreviousCollections =
@@ -1060,6 +1062,7 @@ let make = _ => {
                                              |> clickFiltMenu(
                                                   filtOption.value,
                                                   filtitem.filtIndex,
+                                                  filtitem.filtOutValue,
                                                 )
                                            }>
                                            {filtOption.value |> string}

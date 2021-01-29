@@ -157,6 +157,7 @@ function reducer(state, action) {
                     return {
                             filtIndex: filtitem.filtIndex,
                             filtTile: filtitem.filtTile,
+                            filtOutValue: filtitem.filtOutValue,
                             filtValue: filtitem.filtValue,
                             filtMenu: !filtitem.filtMenu,
                             filtOptions: filtitem.filtOptions
@@ -175,6 +176,7 @@ function reducer(state, action) {
                     return {
                             filtIndex: filtitem.filtIndex,
                             filtTile: filtitem.filtTile,
+                            filtOutValue: filtitem.filtOutValue,
                             filtValue: value,
                             filtMenu: !filtitem.filtMenu,
                             filtOptions: filtitem.filtOptions
@@ -741,14 +743,14 @@ function Search(Props) {
           return Curry._1(dispatch, /* ShowFiltMenu */Block.__(9, [index]));
         }));
   var clickFiltMenu = React.useCallback((function (value) {
-          return (function (itemIndex, index) {
+          return (function (itemIndex, outValue, index) {
               Curry._1(dispatch, /* ClickFiltMenu */Block.__(10, [
                       value,
                       index
                     ]));
               Axiosapi$BtsCore.Default.sFilter(Data$BtsCore.sFiltData(state.filtitems.filter((function (filtitem) {
                                   return filtitem.filtValue !== "";
-                                })), itemIndex, value, localStorage.getItem("newid"))).then((function (response) {
+                                })), itemIndex, outValue, value, localStorage.getItem("newid"))).then((function (response) {
                         return Promise.resolve((Curry._1(dispatch, /* SettingFormItems */Block.__(4, [
                                             response.data.showItem,
                                             response.data.itemCount,
@@ -1179,7 +1181,7 @@ function Search(Props) {
                                                                                             bottomRight: "12",
                                                                                             bottomLeft: "12",
                                                                                             onClick: (function (param) {
-                                                                                                return Curry._3(clickFiltMenu, filtOption.value, filtitem.filtIndex, i);
+                                                                                                return Curry._4(clickFiltMenu, filtOption.value, filtitem.filtIndex, filtitem.filtOutValue, i);
                                                                                               }),
                                                                                             children: filtOption.value
                                                                                           });

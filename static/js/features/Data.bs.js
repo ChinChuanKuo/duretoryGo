@@ -113,10 +113,11 @@ function sScollData(items, value, newid) {
         };
 }
 
-function sFiltData(items, index, value, newid) {
+function sFiltData(items, index, outValue, value, newid) {
   return {
           items: items,
           index: index,
+          outValue: outValue,
           value: value,
           newid: newid
         };

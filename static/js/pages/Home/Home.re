@@ -63,6 +63,7 @@ type viewitem = {
 type filtitem = {
   filtIndex: int,
   filtTile: string,
+  filtOutValue: string,
   filtValue: string,
   filtMenu: bool,
   filtOptions: array(optionitem),
@@ -639,7 +640,7 @@ let make = _ => {
 
   let showFiltMenu = useCallback(index => ShowFiltMenu(index) |> dispatch);
 
-  let sfilterAJax = (index, value) =>
+  let sfilterAJax = (index, outValue, value) =>
     Js.Promise.(
       "newid"
       |> Locals.select
@@ -649,18 +650,24 @@ let make = _ => {
              state.filtitems,
            ),
            index,
+           outValue,
            value,
          )
       |> Default.sFilter
       |> then_(response =>
            {
-             SettingFormItems(
-               response##data##showItem,
-               response##data##itemCount,
-               response##data##items,
-             )
-             |> dispatch;
-             response##data##status |> statusModule |> barShowRestoreAction;
+             switch (response##data##status) {
+             | "istrue" =>
+               SettingFormItems(
+                 response##data##showItem,
+                 response##data##itemCount,
+                 response##data##items,
+               )
+               |> dispatch
+             | _ =>
+               SettingError |> dispatch;
+               response##data##status |> statusModule |> barShowRestoreAction;
+             };
            }
            |> resolve
          )
@@ -669,9 +676,9 @@ let make = _ => {
     );
 
   let clickFiltMenu =
-    useCallback((value, itemIndex, index) => {
+    useCallback((value, itemIndex, outValue, index) => {
       ClickFiltMenu(value, index) |> dispatch;
-      value |> sfilterAJax(itemIndex);
+      value |> sfilterAJax(itemIndex, outValue);
     });
 
   let showPreviousCollections =
@@ -1093,6 +1100,7 @@ let make = _ => {
                                              |> clickFiltMenu(
                                                   filtOption.value,
                                                   filtitem.filtIndex,
+                                                  filtitem.filtOutValue,
                                                 )
                                            }>
                                            {filtOption.value |> string}

@@ -67,9 +67,10 @@ let sScollData = (items, value, newid) => {
   "newid": newid,
 };
 [@genType]
-let sFiltData = (items, index, value, newid) => {
+let sFiltData = (items, index, outValue, value, newid) => {
   "items": items,
   "index": index,
+  "outValue": outValue,
   "value": value,
   "newid": newid,
 };

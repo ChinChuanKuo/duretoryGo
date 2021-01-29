@@ -156,6 +156,7 @@ function reducer(state, action) {
                     return {
                             filtIndex: filtitem.filtIndex,
                             filtTile: filtitem.filtTile,
+                            filtOutValue: filtitem.filtOutValue,
                             filtValue: filtitem.filtValue,
                             filtMenu: !filtitem.filtMenu,
                             filtOptions: filtitem.filtOptions
@@ -174,6 +175,7 @@ function reducer(state, action) {
                     return {
                             filtIndex: filtitem.filtIndex,
                             filtTile: filtitem.filtTile,
+                            filtOutValue: filtitem.filtOutValue,
                             filtValue: value,
                             filtMenu: !filtitem.filtMenu,
                             filtOptions: filtitem.filtOptions
@@ -764,19 +766,27 @@ function Home(Props) {
           return Curry._1(dispatch, /* ShowFiltMenu */Block.__(8, [index]));
         }));
   var clickFiltMenu = React.useCallback((function (value) {
-          return (function (itemIndex, index) {
+          return (function (itemIndex, outValue, index) {
               Curry._1(dispatch, /* ClickFiltMenu */Block.__(9, [
                       value,
                       index
                     ]));
               Axiosapi$BtsCore.Default.sFilter(Data$BtsCore.sFiltData(state.filtitems.filter((function (filtitem) {
                                   return filtitem.filtValue !== "";
-                                })), itemIndex, value, localStorage.getItem("newid"))).then((function (response) {
-                        return Promise.resolve((Curry._1(dispatch, /* SettingFormItems */Block.__(3, [
-                                            response.data.showItem,
-                                            response.data.itemCount,
-                                            response.data.items
-                                          ])), barShowRestoreAction(Status$BtsCore.statusModule(response.data.status))));
+                                })), itemIndex, outValue, value, localStorage.getItem("newid"))).then((function (response) {
+                        var match = response.data.status;
+                        var tmp;
+                        if (match === "istrue") {
+                          tmp = Curry._1(dispatch, /* SettingFormItems */Block.__(3, [
+                                  response.data.showItem,
+                                  response.data.itemCount,
+                                  response.data.items
+                                ]));
+                        } else {
+                          Curry._1(dispatch, /* SettingError */0);
+                          tmp = barShowRestoreAction(Status$BtsCore.statusModule(response.data.status));
+                        }
+                        return Promise.resolve(tmp);
                       })).catch((function (error) {
                       return Promise.resolve((console.log(error), undefined));
                     }));
@@ -1202,7 +1212,7 @@ function Home(Props) {
                                                                                             bottomRight: "12",
                                                                                             bottomLeft: "12",
                                                                                             onClick: (function (param) {
-                                                                                                return Curry._3(clickFiltMenu, filtOption.value, filtitem.filtIndex, i);
+                                                                                                return Curry._4(clickFiltMenu, filtOption.value, filtitem.filtIndex, filtitem.filtOutValue, i);
                                                                                               }),
                                                                                             children: filtOption.value
                                                                                           });
