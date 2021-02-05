@@ -45,7 +45,6 @@ function newcollitem(id, showImage, showVideo, showAudio, value) {
             showVideo: showVideo,
             showAudio: showAudio,
             value: value,
-            collInsert: true,
             collDelete: false
           }];
 }

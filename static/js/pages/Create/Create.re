@@ -25,7 +25,6 @@ type collitem = {
   showVideo: bool,
   showAudio: bool,
   value: string,
-  collInsert: bool,
   collDelete: bool,
 };
 
@@ -50,15 +49,7 @@ type item = {
 };
 
 let newcollitem = (id, showImage, showVideo, showAudio, value) => [|
-  {
-    id,
-    showImage,
-    showVideo,
-    showAudio,
-    value,
-    collInsert: true,
-    collDelete: false,
-  },
+  {id, showImage, showVideo, showAudio, value, collDelete: false},
 |];
 
 type state = {

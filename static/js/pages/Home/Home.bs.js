@@ -54,7 +54,6 @@ function newcollitem(id, showImage, showVideo, showAudio, value) {
             showVideo: showVideo,
             showAudio: showAudio,
             value: value,
-            collInsert: true,
             collDelete: false
           }];
 }
@@ -389,7 +388,6 @@ function reducer(state, action) {
                                               showVideo: collitem.showVideo,
                                               showAudio: collitem.showAudio,
                                               value: collitem.value,
-                                              collInsert: collitem.collInsert,
                                               collDelete: !collitem.collDelete
                                             };
                                     } else {
