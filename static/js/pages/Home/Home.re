@@ -455,7 +455,6 @@ let outsideCollections =
     ~position="absolute",
     ~top="100%",
     ~transform="translate(0, -150%)",
-    ~zIndex="1",
     (),
   );
 

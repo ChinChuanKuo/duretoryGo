@@ -625,7 +625,6 @@ var positionRelative = {
 var outsideCollections = {
   position: "absolute",
   top: "100%",
-  zIndex: "1",
   transform: "translate(0, -150%)"
 };
 
