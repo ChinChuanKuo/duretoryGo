@@ -98,7 +98,7 @@ module Default = {
   let sItem = data =>
     postData("http://10.10.50.50:2250/Home/sItemData", data);
   let insert = data =>
-    postData("http://localhost:5000/Home/insertData", data);
+    postData("http://10.10.50.50:2250/Home/insertData", data);
   let sRefresh = data =>
     postData("http://10.10.50.50:2250/Home/sRefreshData", data);
 };
