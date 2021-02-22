@@ -398,7 +398,7 @@ function reducer(state, action) {
                                   }), item.collitems),
                             optionitems: item.optionitems,
                             answeritems: item.answeritems,
-                            formModify: item.formModify
+                            formModify: true
                           };
                   } else {
                     return item;
@@ -1094,12 +1094,10 @@ function Home(Props) {
           return (function (index, $$event) {
               $$event.preventDefault();
               $$event.stopPropagation();
-              Curry._1(dispatch, /* ActionCollection */Block.__(17, [
-                      cindex,
-                      index
-                    ]));
-              console.log("action image");
-              
+              return Curry._1(dispatch, /* ActionCollection */Block.__(17, [
+                            cindex,
+                            index
+                          ]));
             });
         }));
   var changeItem = React.useCallback((function (value) {

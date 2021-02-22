@@ -335,6 +335,7 @@ let reducer = (state, action) =>
                         : collitem,
                     item.collitems,
                   ),
+                formModify: true,
               }
               : item,
           state.formitems,

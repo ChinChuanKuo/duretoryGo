@@ -336,6 +336,7 @@ let reducer = (state, action) =>
                         : collitem,
                     item.collitems,
                   ),
+                formModify: true,
               }
               : item,
           state.formitems,
@@ -1016,7 +1017,6 @@ let make = _ => {
       ReactEvent.Mouse.preventDefault(event);
       ReactEvent.Mouse.stopPropagation(event);
       ActionCollection(cindex, index) |> dispatch;
-      "action image" |> Js.log;
     });
 
   let changeItem =

@@ -399,7 +399,7 @@ function reducer(state, action) {
                                   }), item.collitems),
                             optionitems: item.optionitems,
                             answeritems: item.answeritems,
-                            formModify: item.formModify
+                            formModify: true
                           };
                   } else {
                     return item;
