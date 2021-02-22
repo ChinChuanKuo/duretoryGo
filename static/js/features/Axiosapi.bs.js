@@ -175,7 +175,7 @@ function sItem(data) {
 }
 
 function insert$1(data) {
-  return Axios$1.post("http://10.10.50.50:2250/Home/insertData", data);
+  return Axios$1.post("http://localhost:5000/Home/insertData", data);
 }
 
 function sRefresh(data) {

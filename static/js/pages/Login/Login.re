@@ -271,7 +271,6 @@ let make = _ => {
              ? <SelectMenu
                  top="50%"
                  transform="translate(0, -50%)"
-                 
                  maxHeight="280"
                  minHeight="0"
                  topLeft="12"

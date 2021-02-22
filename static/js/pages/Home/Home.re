@@ -24,6 +24,7 @@ type collitem = {
   showVideo: bool,
   showAudio: bool,
   value: string,
+  showDelete: bool,
   collDelete: bool,
 };
 
@@ -111,7 +112,15 @@ type state = {
 };
 
 let newcollitem = (id, showImage, showVideo, showAudio, value) => [|
-  {id, showImage, showVideo, showAudio, value, collDelete: false},
+  {
+    id,
+    showImage,
+    showVideo,
+    showAudio,
+    value,
+    showDelete: true,
+    collDelete: false,
+  },
 |];
 
 type action =
@@ -1007,6 +1016,7 @@ let make = _ => {
       ReactEvent.Mouse.preventDefault(event);
       ReactEvent.Mouse.stopPropagation(event);
       ActionCollection(cindex, index) |> dispatch;
+      "action image" |> Js.log;
     });
 
   let changeItem =

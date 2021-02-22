@@ -54,6 +54,7 @@ function newcollitem(id, showImage, showVideo, showAudio, value) {
             showVideo: showVideo,
             showAudio: showAudio,
             value: value,
+            showDelete: true,
             collDelete: false
           }];
 }
@@ -388,6 +389,7 @@ function reducer(state, action) {
                                               showVideo: collitem.showVideo,
                                               showAudio: collitem.showAudio,
                                               value: collitem.value,
+                                              showDelete: collitem.showDelete,
                                               collDelete: !collitem.collDelete
                                             };
                                     } else {
@@ -1092,10 +1094,12 @@ function Home(Props) {
           return (function (index, $$event) {
               $$event.preventDefault();
               $$event.stopPropagation();
-              return Curry._1(dispatch, /* ActionCollection */Block.__(17, [
-                            cindex,
-                            index
-                          ]));
+              Curry._1(dispatch, /* ActionCollection */Block.__(17, [
+                      cindex,
+                      index
+                    ]));
+              console.log("action image");
+              
             });
         }));
   var changeItem = React.useCallback((function (value) {
