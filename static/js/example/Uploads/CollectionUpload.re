@@ -18,8 +18,6 @@ let make =
       ~onChange: option(ReactEvent.Form.t => unit)=?,
       ~showPrevious: option(ReactEvent.Mouse.t => unit)=?,
       ~showNext: option(ReactEvent.Mouse.t => unit)=?,
-      ~showDelete: option(bool)=?,
-      ~onDelete: option(ReactEvent.Mouse.t => unit)=?,
       ~children,
     ) =>
   <div style={ReactDOMRe.Style.make(~position="relative", ())}>
@@ -89,22 +87,4 @@ let make =
         <IconAction animation="leftRight" src=arrowForwardIosBlack />
       </IconButton>
     </div>
-    {showDelete |> disabledObjects
-       ? <div
-           style={ReactDOMRe.Style.make(
-             ~position="absolute",
-             ~top="20px",
-             ~right="20px",
-             ~transform="translate(0px, 0%)",
-             ~zIndex="1",
-             (),
-           )}>
-           <IconButton
-             padding="6"
-             disabled={webLoad |> disabledObjects}
-             onClick=?onDelete>
-             <IconAction animation="leftRight" src=deleteBlack />
-           </IconButton>
-         </div>
-       : null}
   </div>;

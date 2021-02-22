@@ -23,7 +23,7 @@ type collitem = {
   showVideo: bool,
   showAudio: bool,
   value: string,
-  collInsert: bool,
+  showDelete: bool,
   collDelete: bool,
 };
 
@@ -113,7 +113,7 @@ let newcollitem = (id, showImage, showVideo, showAudio, value) => [|
     showVideo,
     showAudio,
     value,
-    collInsert: true,
+    showDelete: true,
     collDelete: false,
   },
 |];
@@ -1632,20 +1632,55 @@ let make = _ => {
                                  }
                                  showNext={event =>
                                    event |> showNext(item.collIndex, i)
-                                 }
-                                 showDelete=true
-                                 onDelete={event =>
-                                   event |> actionImage(item.collIndex, i)
                                  }>
                                  {item.collitems
                                   |> Array.mapi((ci, collitem) =>
-                                       <MediaImage
-                                         showImage={item.collIndex == ci}
-                                         src={
-                                           "data:image/jpg;base64,"
-                                           ++ collitem.value
-                                         }
-                                       />
+                                       <>
+                                         <MediaImage
+                                           showImage={item.collIndex == ci}
+                                           src={
+                                             "data:image/jpg;base64,"
+                                             ++ collitem.value
+                                           }
+                                         />
+                                         {switch (
+                                            item.collIndex == ci,
+                                            collitem.showDelete,
+                                          ) {
+                                          | (true, true) =>
+                                            <div
+                                              style={ReactDOMRe.Style.make(
+                                                ~position="absolute",
+                                                ~top="20px",
+                                                ~right="20px",
+                                                ~transform=
+                                                  "translate(0px, 0%)",
+                                                ~zIndex="1",
+                                                (),
+                                              )}>
+                                              <IconButton
+                                                padding="6"
+                                                disabled={state.showProgress}
+                                                onClick={event =>
+                                                  event
+                                                  |> actionImage(
+                                                       item.collIndex,
+                                                       i,
+                                                     )
+                                                }>
+                                                <IconAction
+                                                  animation="leftRight"
+                                                  src={
+                                                    collitem.collDelete
+                                                      ? refreshBlack
+                                                      : clearWarn
+                                                  }
+                                                />
+                                              </IconButton>
+                                            </div>
+                                          | (_, _) => null
+                                          }}
+                                       </>
                                      )
                                   |> array}
                                </CollectionUpload>

@@ -26,8 +26,6 @@ function CollectionUpload(Props) {
   var onChange = Props.onChange;
   var showPrevious = Props.showPrevious;
   var showNext = Props.showNext;
-  var showDelete = Props.showDelete;
-  var onDelete = Props.onDelete;
   var children = Props.children;
   var tmp = {
     padding: "6",
@@ -109,31 +107,6 @@ function CollectionUpload(Props) {
   if (showNext !== undefined) {
     tmp$5.onClick = Caml_option.valFromOption(showNext);
   }
-  var tmp$6;
-  if (Setting$BtsCore.disabledObjects(showDelete)) {
-    var tmp$7 = {
-      padding: "6",
-      disabled: Setting$BtsCore.disabledObjects(webLoad),
-      children: React.createElement(IconAction$BtsCore.make, {
-            animation: "leftRight",
-            src: Icons$BtsCore.deleteBlack
-          })
-    };
-    if (onDelete !== undefined) {
-      tmp$7.onClick = Caml_option.valFromOption(onDelete);
-    }
-    tmp$6 = React.createElement("div", {
-          style: {
-            position: "absolute",
-            right: "20px",
-            top: "20px",
-            zIndex: "1",
-            transform: "translate(0px, 0%)"
-          }
-        }, React.createElement(IconButton$BtsCore.make, tmp$7));
-  } else {
-    tmp$6 = null;
-  }
   return React.createElement("div", {
               style: {
                 position: "relative"
@@ -159,7 +132,7 @@ function CollectionUpload(Props) {
                     zIndex: "1",
                     transform: "translate(0px, -50%)"
                   }
-                }, React.createElement(IconButton$BtsCore.make, tmp$5)), tmp$6);
+                }, React.createElement(IconButton$BtsCore.make, tmp$5)));
 }
 
 var make = CollectionUpload;

@@ -1741,15 +1741,31 @@ function Home(Props) {
                                                           showNext: (function ($$event) {
                                                               return Curry._3(showNext, item.collIndex, i, $$event);
                                                             }),
-                                                          showDelete: true,
-                                                          onDelete: (function ($$event) {
-                                                              return Curry._3(actionImage, item.collIndex, i, $$event);
-                                                            }),
                                                           children: $$Array.mapi((function (ci, collitem) {
-                                                                  return React.createElement(MediaImage$BtsCore.make, {
-                                                                              showImage: item.collIndex === ci,
-                                                                              src: "data:image/jpg;base64," + collitem.value
-                                                                            });
+                                                                  var match = item.collIndex === ci;
+                                                                  var match$1 = collitem.showDelete;
+                                                                  return React.createElement(React.Fragment, undefined, React.createElement(MediaImage$BtsCore.make, {
+                                                                                  showImage: item.collIndex === ci,
+                                                                                  src: "data:image/jpg;base64," + collitem.value
+                                                                                }), match && match$1 ? React.createElement("div", {
+                                                                                    style: {
+                                                                                      position: "absolute",
+                                                                                      right: "20px",
+                                                                                      top: "20px",
+                                                                                      zIndex: "1",
+                                                                                      transform: "translate(0px, 0%)"
+                                                                                    }
+                                                                                  }, React.createElement(IconButton$BtsCore.make, {
+                                                                                        padding: "6",
+                                                                                        disabled: state.showProgress,
+                                                                                        onClick: (function ($$event) {
+                                                                                            return Curry._3(actionImage, item.collIndex, i, $$event);
+                                                                                          }),
+                                                                                        children: React.createElement(IconAction$BtsCore.make, {
+                                                                                              animation: "leftRight",
+                                                                                              src: collitem.collDelete ? Icons$BtsCore.refreshBlack : Icons$BtsCore.clearWarn
+                                                                                            })
+                                                                                      })) : null);
                                                                 }), item.collitems)
                                                         });
                                                     break;
