@@ -14,6 +14,7 @@ import * as Avatar$BtsCore from "../../material-ui/core/Avatar/Avatar.bs.js";
 import * as Button$BtsCore from "../../material-ui/core/Button/Button.bs.js";
 import * as Status$BtsCore from "../../features/Status.bs.js";
 import * as Divider$BtsCore from "../../material-ui/core/Divider/Divider.bs.js";
+import * as OutSide$BtsCore from "../../styles/OutSide/OutSide.bs.js";
 import * as Tooltip$BtsCore from "../../material-ui/core/Tooltip/Tooltip.bs.js";
 import * as Axiosapi$BtsCore from "../../features/Axiosapi.bs.js";
 import * as GridItem$BtsCore from "../../material-ui/core/Grid/GridItem.bs.js";
@@ -751,11 +752,21 @@ function Search(Props) {
               Axiosapi$BtsCore.Default.sFilter(Data$BtsCore.sFiltData(state.filtitems.filter((function (filtitem) {
                                   return filtitem.filtValue !== "";
                                 })), itemIndex, outValue, value, localStorage.getItem("newid"))).then((function (response) {
-                        return Promise.resolve((Curry._1(dispatch, /* SettingFormItems */Block.__(4, [
-                                            response.data.showItem,
-                                            response.data.itemCount,
-                                            response.data.items
-                                          ])), barShowRestoreAction(Status$BtsCore.statusModule(response.data.status))));
+                        var match = response.data.status;
+                        var tmp;
+                        if (match === "istrue") {
+                          Curry._1(dispatch, /* SettingFormItems */Block.__(4, [
+                                  response.data.showItem,
+                                  response.data.itemCount,
+                                  response.data.items
+                                ]));
+                          tmp = Curry._1(dispatch, /* ActionShowProgress */1);
+                        } else {
+                          Curry._1(dispatch, /* SettingError */0);
+                          barShowRestoreAction(Status$BtsCore.statusModule(response.data.status));
+                          tmp = Curry._1(dispatch, /* ActionShowProgress */1);
+                        }
+                        return Promise.resolve(tmp);
                       })).catch((function (error) {
                       return Promise.resolve((console.log(error), undefined));
                     }));
@@ -1110,6 +1121,255 @@ function Search(Props) {
   var closeAnimationFull = React.useCallback((function (param) {
           return Curry._1(dispatch, /* CloseAnimationFull */3);
         }));
+  var match$1 = state.showProgress;
+  var match$2 = state.itemCount;
+  var tmp;
+  var exit = 0;
+  if (match$1) {
+    if (match$2 !== 0) {
+      exit = 1;
+    } else {
+      tmp = null;
+    }
+  } else if (match$2 !== 0) {
+    exit = 1;
+  } else {
+    tmp = React.createElement(GridItem$BtsCore.make, {
+          style: OutSide$BtsCore.errorForm,
+          top: "0",
+          right: "0",
+          bottom: "0",
+          left: "0",
+          xs: "auto",
+          children: React.createElement(Typography$BtsCore.make, {
+                variant: "tile",
+                color: "rgba(255,0,0,0.8)",
+                fontSize: "x-large",
+                children: "UNDEFINED THIS DATABASE"
+              })
+        });
+  }
+  if (exit === 1) {
+    tmp = $$Array.mapi((function (i, item) {
+            return React.createElement("div", {
+                        onClick: (function (param) {
+                            return Curry._1(clickFormBoard, item.id);
+                          })
+                      }, React.createElement(GridItem$BtsCore.make, {
+                            style: {
+                              height: "250px",
+                              marginRight: "12px"
+                            },
+                            top: "0",
+                            right: "0",
+                            bottom: "0",
+                            left: "0",
+                            width: "276px",
+                            cursor: "pointer",
+                            enterBorderWidth: "2",
+                            borderWidth: "2",
+                            enterBorderColor: "rgba(255,0,0,0.8)",
+                            enterBorderRadius: "4",
+                            borderRadius: "1",
+                            xs: "no",
+                            children: React.createElement(Card$BtsCore.make, {
+                                  children: React.createElement(GridContainer$BtsCore.make, {
+                                        direction: "column",
+                                        justify: "center",
+                                        alignItem: "stretch",
+                                        children: null
+                                      }, React.createElement(GridItem$BtsCore.make, {
+                                            style: Object.assign(({}), positionRelative, {
+                                                  height: "159px"
+                                                }),
+                                            top: "0",
+                                            right: "0",
+                                            bottom: "0",
+                                            left: "0",
+                                            width: "276px",
+                                            xs: "no",
+                                            children: React.createElement(GridContainer$BtsCore.make, {
+                                                  direction: "row",
+                                                  justify: "center",
+                                                  alignItem: "center",
+                                                  children: null
+                                                }, React.createElement(GridItem$BtsCore.make, {
+                                                      top: "0",
+                                                      right: "0",
+                                                      bottom: "0",
+                                                      left: "0",
+                                                      xs: "no",
+                                                      children: React.createElement("div", {
+                                                            style: Object.assign(({}), outsideCollections, {
+                                                                  left: "0"
+                                                                })
+                                                          }, React.createElement(IconButton$BtsCore.make, {
+                                                                padding: "6",
+                                                                disabled: state.showProgress,
+                                                                onClick: (function ($$event) {
+                                                                    return Curry._3(showPreviousCollections, item.index, i, $$event);
+                                                                  }),
+                                                                children: React.createElement(IconAction$BtsCore.make, {
+                                                                      animation: "leftRight",
+                                                                      src: Icons$BtsCore.arrowBackIosBlack
+                                                                    })
+                                                              }))
+                                                    }), React.createElement(GridItem$BtsCore.make, {
+                                                      style: {
+                                                        height: "155px"
+                                                      },
+                                                      top: "0",
+                                                      right: "0",
+                                                      bottom: "0",
+                                                      left: "0",
+                                                      xs: "auto",
+                                                      children: $$Array.mapi((function (ci, collitem) {
+                                                              return React.createElement(MediaImage$BtsCore.make, {
+                                                                          showImage: item.index === ci,
+                                                                          style: {
+                                                                            height: "155px",
+                                                                            left: "50%",
+                                                                            position: "absolute",
+                                                                            transform: "translate(-50%, 0)"
+                                                                          },
+                                                                          width: "auto",
+                                                                          height: "100%",
+                                                                          src: "data:image/jpg;base64," + collitem
+                                                                        });
+                                                            }), item.collections)
+                                                    }), React.createElement(GridItem$BtsCore.make, {
+                                                      top: "0",
+                                                      right: "0",
+                                                      bottom: "0",
+                                                      left: "0",
+                                                      xs: "no",
+                                                      children: React.createElement("div", {
+                                                            style: Object.assign(({}), outsideCollections, {
+                                                                  right: "0"
+                                                                })
+                                                          }, React.createElement(IconButton$BtsCore.make, {
+                                                                padding: "6",
+                                                                disabled: state.showProgress,
+                                                                onClick: (function ($$event) {
+                                                                    return Curry._3(showNextCollections, item.index, i, $$event);
+                                                                  }),
+                                                                children: React.createElement(IconAction$BtsCore.make, {
+                                                                      animation: "leftRight",
+                                                                      src: Icons$BtsCore.arrowForwardIosBlack
+                                                                    })
+                                                              }))
+                                                    }))
+                                          }), React.createElement(GridItem$BtsCore.make, {
+                                            bottom: "0",
+                                            left: "16",
+                                            xs: "auto",
+                                            children: React.createElement(GridContainer$BtsCore.make, {
+                                                  direction: "row",
+                                                  justify: "center",
+                                                  alignItem: "start",
+                                                  children: null
+                                                }, React.createElement(GridItem$BtsCore.make, {
+                                                      top: "0",
+                                                      right: "0",
+                                                      bottom: "0",
+                                                      left: "0",
+                                                      xs: "no",
+                                                      children: React.createElement(Avatar$BtsCore.make, {
+                                                            top: "0",
+                                                            right: "12",
+                                                            bottom: "0",
+                                                            left: "0",
+                                                            color: "#909090",
+                                                            enterBorderColor: "transparent",
+                                                            downBorderColor: "transparent",
+                                                            backgroundColor: "rgba(0,0,0,0.08)",
+                                                            children: item.creator
+                                                          })
+                                                    }), React.createElement(GridItem$BtsCore.make, {
+                                                      top: "0",
+                                                      right: "0",
+                                                      bottom: "0",
+                                                      left: "0",
+                                                      xs: "auto",
+                                                      children: React.createElement(GridContainer$BtsCore.make, {
+                                                            direction: "column",
+                                                            justify: "center",
+                                                            alignItem: "stretch",
+                                                            children: null
+                                                          }, React.createElement(GridItem$BtsCore.make, {
+                                                                style: {
+                                                                  minHeight: "24px"
+                                                                },
+                                                                top: "0",
+                                                                right: "0",
+                                                                bottom: "3",
+                                                                left: "0",
+                                                                xs: "auto",
+                                                                children: React.createElement(Typography$BtsCore.make, {
+                                                                      variant: "subheading",
+                                                                      noWrap: true,
+                                                                      children: item.tile
+                                                                    })
+                                                              }), React.createElement(GridItem$BtsCore.make, {
+                                                                top: "0",
+                                                                right: "0",
+                                                                bottom: "0",
+                                                                left: "0",
+                                                                xs: "auto",
+                                                                children: React.createElement(Typography$BtsCore.make, {
+                                                                      variant: "caption",
+                                                                      color: "#606060",
+                                                                      children: item.datetime
+                                                                    })
+                                                              }), React.createElement(GridItem$BtsCore.make, {
+                                                                style: positionRelative,
+                                                                top: "0",
+                                                                right: "0",
+                                                                bottom: "0",
+                                                                left: "0",
+                                                                xs: "auto",
+                                                                children: null
+                                                              }, state.update ? React.createElement("div", {
+                                                                      style: {
+                                                                        bottom: "-100%",
+                                                                        position: "absolute",
+                                                                        right: "50%",
+                                                                        transform: "translate(50px, 20px)"
+                                                                      }
+                                                                    }, React.createElement(IconButton$BtsCore.make, {
+                                                                          padding: "6",
+                                                                          disabled: state.showProgress,
+                                                                          onClick: (function ($$event) {
+                                                                              return Curry._3(editForm, i, item.id, $$event);
+                                                                            }),
+                                                                          children: React.createElement(IconAction$BtsCore.make, {
+                                                                                animation: "leftRight",
+                                                                                src: Icons$BtsCore.editBlack
+                                                                              })
+                                                                        })) : null, state.delete ? React.createElement("div", {
+                                                                      style: {
+                                                                        bottom: "-100%",
+                                                                        position: "absolute",
+                                                                        right: "0",
+                                                                        transform: "translate(0px, 20px)"
+                                                                      }
+                                                                    }, React.createElement(IconButton$BtsCore.make, {
+                                                                          padding: "6",
+                                                                          disabled: state.showProgress,
+                                                                          onClick: (function ($$event) {
+                                                                              return Curry._2(deleteForm, item.id, $$event);
+                                                                            }),
+                                                                          children: React.createElement(IconAction$BtsCore.make, {
+                                                                                animation: "leftRight",
+                                                                                src: Icons$BtsCore.deleteBlack
+                                                                              })
+                                                                        })) : null))
+                                                    }))
+                                          }))
+                                })
+                          }));
+          }), state.items);
+  }
   return React.createElement(React.Fragment, undefined, React.createElement(NewFacetube$BtsCore.make, {
                   showProgress: state.showProgress,
                   error: state.error,
@@ -1210,222 +1470,7 @@ function Search(Props) {
                                       direction: "row",
                                       justify: "start",
                                       alignItem: "center",
-                                      children: $$Array.mapi((function (i, item) {
-                                              return React.createElement("div", {
-                                                          onClick: (function (param) {
-                                                              return Curry._1(clickFormBoard, item.id);
-                                                            })
-                                                        }, React.createElement(GridItem$BtsCore.make, {
-                                                              style: {
-                                                                height: "250px",
-                                                                marginRight: "12px"
-                                                              },
-                                                              top: "0",
-                                                              right: "0",
-                                                              bottom: "0",
-                                                              left: "0",
-                                                              width: "276px",
-                                                              cursor: "pointer",
-                                                              enterBorderWidth: "2",
-                                                              borderWidth: "2",
-                                                              enterBorderColor: "rgba(255,0,0,0.8)",
-                                                              enterBorderRadius: "4",
-                                                              borderRadius: "1",
-                                                              xs: "no",
-                                                              children: React.createElement(Card$BtsCore.make, {
-                                                                    children: React.createElement(GridContainer$BtsCore.make, {
-                                                                          direction: "column",
-                                                                          justify: "center",
-                                                                          alignItem: "stretch",
-                                                                          children: null
-                                                                        }, React.createElement(GridItem$BtsCore.make, {
-                                                                              style: Object.assign(({}), positionRelative, {
-                                                                                    height: "159px"
-                                                                                  }),
-                                                                              top: "0",
-                                                                              right: "0",
-                                                                              bottom: "0",
-                                                                              left: "0",
-                                                                              width: "276px",
-                                                                              xs: "no",
-                                                                              children: React.createElement(GridContainer$BtsCore.make, {
-                                                                                    direction: "row",
-                                                                                    justify: "center",
-                                                                                    alignItem: "center",
-                                                                                    children: null
-                                                                                  }, React.createElement(GridItem$BtsCore.make, {
-                                                                                        top: "0",
-                                                                                        right: "0",
-                                                                                        bottom: "0",
-                                                                                        left: "0",
-                                                                                        xs: "no",
-                                                                                        children: React.createElement("div", {
-                                                                                              style: Object.assign(({}), outsideCollections, {
-                                                                                                    left: "0"
-                                                                                                  })
-                                                                                            }, React.createElement(IconButton$BtsCore.make, {
-                                                                                                  padding: "6",
-                                                                                                  disabled: state.showProgress,
-                                                                                                  onClick: (function ($$event) {
-                                                                                                      return Curry._3(showPreviousCollections, item.index, i, $$event);
-                                                                                                    }),
-                                                                                                  children: React.createElement(IconAction$BtsCore.make, {
-                                                                                                        animation: "leftRight",
-                                                                                                        src: Icons$BtsCore.arrowBackIosBlack
-                                                                                                      })
-                                                                                                }))
-                                                                                      }), React.createElement(GridItem$BtsCore.make, {
-                                                                                        style: {
-                                                                                          height: "155px"
-                                                                                        },
-                                                                                        top: "0",
-                                                                                        right: "0",
-                                                                                        bottom: "0",
-                                                                                        left: "0",
-                                                                                        xs: "auto",
-                                                                                        children: $$Array.mapi((function (ci, collitem) {
-                                                                                                return React.createElement(MediaImage$BtsCore.make, {
-                                                                                                            showImage: item.index === ci,
-                                                                                                            style: {
-                                                                                                              height: "155px",
-                                                                                                              left: "50%",
-                                                                                                              position: "absolute",
-                                                                                                              transform: "translate(-50%, 0)"
-                                                                                                            },
-                                                                                                            width: "auto",
-                                                                                                            height: "100%",
-                                                                                                            src: "data:image/jpg;base64," + collitem
-                                                                                                          });
-                                                                                              }), item.collections)
-                                                                                      }), React.createElement(GridItem$BtsCore.make, {
-                                                                                        top: "0",
-                                                                                        right: "0",
-                                                                                        bottom: "0",
-                                                                                        left: "0",
-                                                                                        xs: "no",
-                                                                                        children: React.createElement("div", {
-                                                                                              style: Object.assign(({}), outsideCollections, {
-                                                                                                    right: "0"
-                                                                                                  })
-                                                                                            }, React.createElement(IconButton$BtsCore.make, {
-                                                                                                  padding: "6",
-                                                                                                  disabled: state.showProgress,
-                                                                                                  onClick: (function ($$event) {
-                                                                                                      return Curry._3(showNextCollections, item.index, i, $$event);
-                                                                                                    }),
-                                                                                                  children: React.createElement(IconAction$BtsCore.make, {
-                                                                                                        animation: "leftRight",
-                                                                                                        src: Icons$BtsCore.arrowForwardIosBlack
-                                                                                                      })
-                                                                                                }))
-                                                                                      }))
-                                                                            }), React.createElement(GridItem$BtsCore.make, {
-                                                                              bottom: "0",
-                                                                              left: "16",
-                                                                              xs: "auto",
-                                                                              children: React.createElement(GridContainer$BtsCore.make, {
-                                                                                    direction: "row",
-                                                                                    justify: "center",
-                                                                                    alignItem: "start",
-                                                                                    children: null
-                                                                                  }, React.createElement(GridItem$BtsCore.make, {
-                                                                                        top: "0",
-                                                                                        right: "0",
-                                                                                        bottom: "0",
-                                                                                        left: "0",
-                                                                                        xs: "no",
-                                                                                        children: React.createElement(Avatar$BtsCore.make, {
-                                                                                              top: "0",
-                                                                                              right: "12",
-                                                                                              bottom: "0",
-                                                                                              left: "0",
-                                                                                              color: "#909090",
-                                                                                              enterBorderColor: "transparent",
-                                                                                              downBorderColor: "transparent",
-                                                                                              backgroundColor: "rgba(0,0,0,0.08)",
-                                                                                              children: item.creator
-                                                                                            })
-                                                                                      }), React.createElement(GridItem$BtsCore.make, {
-                                                                                        top: "0",
-                                                                                        right: "0",
-                                                                                        bottom: "0",
-                                                                                        left: "0",
-                                                                                        xs: "auto",
-                                                                                        children: React.createElement(GridContainer$BtsCore.make, {
-                                                                                              direction: "column",
-                                                                                              justify: "center",
-                                                                                              alignItem: "stretch",
-                                                                                              children: null
-                                                                                            }, React.createElement(GridItem$BtsCore.make, {
-                                                                                                  top: "0",
-                                                                                                  right: "0",
-                                                                                                  bottom: "3",
-                                                                                                  left: "0",
-                                                                                                  xs: "auto",
-                                                                                                  children: React.createElement(Typography$BtsCore.make, {
-                                                                                                        variant: "subheading",
-                                                                                                        noWrap: true,
-                                                                                                        children: item.tile
-                                                                                                      })
-                                                                                                }), React.createElement(GridItem$BtsCore.make, {
-                                                                                                  top: "0",
-                                                                                                  right: "0",
-                                                                                                  bottom: "0",
-                                                                                                  left: "0",
-                                                                                                  xs: "auto",
-                                                                                                  children: React.createElement(Typography$BtsCore.make, {
-                                                                                                        variant: "caption",
-                                                                                                        color: "#606060",
-                                                                                                        children: item.datetime
-                                                                                                      })
-                                                                                                }), React.createElement(GridItem$BtsCore.make, {
-                                                                                                  style: positionRelative,
-                                                                                                  top: "0",
-                                                                                                  right: "0",
-                                                                                                  bottom: "0",
-                                                                                                  left: "0",
-                                                                                                  xs: "auto",
-                                                                                                  children: null
-                                                                                                }, state.update ? React.createElement("div", {
-                                                                                                        style: {
-                                                                                                          bottom: "-100%",
-                                                                                                          position: "absolute",
-                                                                                                          right: "50%",
-                                                                                                          transform: "translate(50px, 20px)"
-                                                                                                        }
-                                                                                                      }, React.createElement(IconButton$BtsCore.make, {
-                                                                                                            padding: "6",
-                                                                                                            disabled: state.showProgress,
-                                                                                                            onClick: (function ($$event) {
-                                                                                                                return Curry._3(editForm, i, item.id, $$event);
-                                                                                                              }),
-                                                                                                            children: React.createElement(IconAction$BtsCore.make, {
-                                                                                                                  animation: "leftRight",
-                                                                                                                  src: Icons$BtsCore.editBlack
-                                                                                                                })
-                                                                                                          })) : null, state.delete ? React.createElement("div", {
-                                                                                                        style: {
-                                                                                                          bottom: "-100%",
-                                                                                                          position: "absolute",
-                                                                                                          right: "0",
-                                                                                                          transform: "translate(0px, 20px)"
-                                                                                                        }
-                                                                                                      }, React.createElement(IconButton$BtsCore.make, {
-                                                                                                            padding: "6",
-                                                                                                            disabled: state.showProgress,
-                                                                                                            onClick: (function ($$event) {
-                                                                                                                return Curry._2(deleteForm, item.id, $$event);
-                                                                                                              }),
-                                                                                                            children: React.createElement(IconAction$BtsCore.make, {
-                                                                                                                  animation: "leftRight",
-                                                                                                                  src: Icons$BtsCore.deleteBlack
-                                                                                                                })
-                                                                                                          })) : null))
-                                                                                      }))
-                                                                            }))
-                                                                  })
-                                                            }));
-                                            }), state.items)
+                                      children: tmp
                                     })
                               })), React.createElement(BottomScroll$BtsCore.make, {
                             showBar: state.showItem,

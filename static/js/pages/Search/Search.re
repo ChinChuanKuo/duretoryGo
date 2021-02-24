@@ -5,6 +5,7 @@ open Icons;
 open Data;
 open Items;
 open Axiosapi;
+open OutSide;
 open Status;
 open Storage;
 open AnswerColor;
@@ -624,13 +625,20 @@ let make = _ => {
       |> Default.sFilter
       |> then_(response =>
            {
-             SettingFormItems(
-               response##data##showItem,
-               response##data##itemCount,
-               response##data##items,
-             )
-             |> dispatch;
-             response##data##status |> statusModule |> barShowRestoreAction;
+             switch (response##data##status) {
+             | "istrue" =>
+               SettingFormItems(
+                 response##data##showItem,
+                 response##data##itemCount,
+                 response##data##items,
+               )
+               |> dispatch;
+               ActionShowProgress |> dispatch;
+             | _ =>
+               SettingError |> dispatch;
+               response##data##status |> statusModule |> barShowRestoreAction;
+               ActionShowProgress |> dispatch;
+             };
            }
            |> resolve
          )
@@ -1090,252 +1098,280 @@ let make = _ => {
           </GridItem>
           <GridItem right="24" bottom="0" left="24" xs="auto">
             <GridContainer direction="row" justify="start" alignItem="center">
-              {state.items
-               |> Array.mapi((i, item) =>
-                    <div onClick={_ => item.id |> clickFormBoard}>
-                      <GridItem
-                        style={ReactDOMRe.Style.make(
-                          ~height="250px",
-                          ~marginRight="12px",
-                          (),
-                        )}
-                        top="0"
-                        right="0"
-                        bottom="0"
-                        left="0"
-                        width="276px"
-                        cursor="pointer"
-                        enterBorderWidth="2"
-                        borderWidth="2"
-                        enterBorderColor="rgba(255,0,0,0.8)"
-                        enterBorderRadius="4"
-                        borderRadius="1"
-                        xs="no">
-                        <Card>
-                          <GridContainer
-                            direction="column"
-                            justify="center"
-                            alignItem="stretch">
-                            <GridItem
-                              style={ReactDOMRe.Style.combine(
-                                positionRelative,
-                                ReactDOMRe.Style.make(~height="159px", ()),
-                              )}
-                              top="0"
-                              right="0"
-                              bottom="0"
-                              left="0"
-                              width="276px"
-                              xs="no">
-                              <GridContainer
-                                direction="row"
-                                justify="center"
-                                alignItem="center">
-                                <GridItem
-                                  top="0"
-                                  right="0"
-                                  bottom="0"
-                                  left="0"
-                                  xs="no">
-                                  <div
-                                    style={ReactDOMRe.Style.combine(
-                                      outsideCollections,
-                                      ReactDOMRe.Style.make(~left="0", ()),
-                                    )}>
-                                    <IconButton
-                                      padding="6"
-                                      disabled={state.showProgress}
-                                      onClick={event =>
-                                        event
-                                        |> showPreviousCollections(
-                                             item.index,
-                                             i,
-                                           )
-                                      }>
-                                      <IconAction
-                                        animation="leftRight"
-                                        src=arrowBackIosBlack
-                                      />
-                                    </IconButton>
-                                  </div>
-                                </GridItem>
-                                <GridItem
-                                  style={ReactDOMRe.Style.make(
-                                    ~height="155px",
-                                    (),
-                                  )}
-                                  top="0"
-                                  right="0"
-                                  bottom="0"
-                                  left="0"
-                                  xs="auto">
-                                  {item.collections
-                                   |> Array.mapi((ci, collitem) =>
-                                        <MediaImage
-                                          showImage={item.index == ci}
-                                          style={ReactDOMRe.Style.make(
-                                            ~position="absolute",
-                                            ~height="155px",
-                                            ~left="50%",
-                                            ~transform="translate(-50%, 0)",
-                                            (),
-                                          )}
-                                          width="auto"
-                                          height="100%"
-                                          src={
-                                            "data:image/jpg;base64,"
-                                            ++ collitem
-                                          }
-                                        />
-                                      )
-                                   |> array}
-                                </GridItem>
-                                <GridItem
-                                  top="0"
-                                  right="0"
-                                  bottom="0"
-                                  left="0"
-                                  xs="no">
-                                  <div
-                                    style={ReactDOMRe.Style.combine(
-                                      outsideCollections,
-                                      ReactDOMRe.Style.make(~right="0", ()),
-                                    )}>
-                                    <IconButton
-                                      padding="6"
-                                      disabled={state.showProgress}
-                                      onClick={event =>
-                                        event
-                                        |> showNextCollections(item.index, i)
-                                      }>
-                                      <IconAction
-                                        animation="leftRight"
-                                        src=arrowForwardIosBlack
-                                      />
-                                    </IconButton>
-                                  </div>
-                                </GridItem>
-                              </GridContainer>
-                            </GridItem>
-                            <GridItem bottom="0" left="16" xs="auto">
-                              <GridContainer
-                                direction="row"
-                                justify="center"
-                                alignItem="start">
-                                <GridItem
-                                  top="0"
-                                  right="0"
-                                  bottom="0"
-                                  left="0"
-                                  xs="no">
-                                  <Avatar
+              {switch (state.showProgress, state.itemCount) {
+               | (true, 0) => null
+               | (false, 0) =>
+                 <GridItem
+                   style=errorForm
+                   top="0"
+                   right="0"
+                   bottom="0"
+                   left="0"
+                   xs="auto">
+                   <Typography
+                     variant="tile"
+                     color="rgba(255,0,0,0.8)"
+                     fontSize="x-large">
+                     {"UNDEFINED THIS DATABASE" |> string}
+                   </Typography>
+                 </GridItem>
+               | (_, _) =>
+                 state.items
+                 |> Array.mapi((i, item) =>
+                      <div onClick={_ => item.id |> clickFormBoard}>
+                        <GridItem
+                          style={ReactDOMRe.Style.make(
+                            ~height="250px",
+                            ~marginRight="12px",
+                            (),
+                          )}
+                          top="0"
+                          right="0"
+                          bottom="0"
+                          left="0"
+                          width="276px"
+                          cursor="pointer"
+                          enterBorderWidth="2"
+                          borderWidth="2"
+                          enterBorderColor="rgba(255,0,0,0.8)"
+                          enterBorderRadius="4"
+                          borderRadius="1"
+                          xs="no">
+                          <Card>
+                            <GridContainer
+                              direction="column"
+                              justify="center"
+                              alignItem="stretch">
+                              <GridItem
+                                style={ReactDOMRe.Style.combine(
+                                  positionRelative,
+                                  ReactDOMRe.Style.make(~height="159px", ()),
+                                )}
+                                top="0"
+                                right="0"
+                                bottom="0"
+                                left="0"
+                                width="276px"
+                                xs="no">
+                                <GridContainer
+                                  direction="row"
+                                  justify="center"
+                                  alignItem="center">
+                                  <GridItem
                                     top="0"
-                                    right="12"
+                                    right="0"
                                     bottom="0"
                                     left="0"
-                                    color="#909090"
-                                    enterBorderColor="transparent"
-                                    downBorderColor="transparent"
-                                    backgroundColor="rgba(0,0,0,0.08)">
-                                    {item.creator |> string}
-                                  </Avatar>
-                                </GridItem>
-                                <GridItem
-                                  top="0"
-                                  right="0"
-                                  bottom="0"
-                                  left="0"
-                                  xs="auto">
-                                  <GridContainer
-                                    direction="column"
-                                    justify="center"
-                                    alignItem="stretch">
-                                    <GridItem
+                                    xs="no">
+                                    <div
+                                      style={ReactDOMRe.Style.combine(
+                                        outsideCollections,
+                                        ReactDOMRe.Style.make(~left="0", ()),
+                                      )}>
+                                      <IconButton
+                                        padding="6"
+                                        disabled={state.showProgress}
+                                        onClick={event =>
+                                          event
+                                          |> showPreviousCollections(
+                                               item.index,
+                                               i,
+                                             )
+                                        }>
+                                        <IconAction
+                                          animation="leftRight"
+                                          src=arrowBackIosBlack
+                                        />
+                                      </IconButton>
+                                    </div>
+                                  </GridItem>
+                                  <GridItem
+                                    style={ReactDOMRe.Style.make(
+                                      ~height="155px",
+                                      (),
+                                    )}
+                                    top="0"
+                                    right="0"
+                                    bottom="0"
+                                    left="0"
+                                    xs="auto">
+                                    {item.collections
+                                     |> Array.mapi((ci, collitem) =>
+                                          <MediaImage
+                                            showImage={item.index == ci}
+                                            style={ReactDOMRe.Style.make(
+                                              ~position="absolute",
+                                              ~height="155px",
+                                              ~left="50%",
+                                              ~transform="translate(-50%, 0)",
+                                              (),
+                                            )}
+                                            width="auto"
+                                            height="100%"
+                                            src={
+                                              "data:image/jpg;base64,"
+                                              ++ collitem
+                                            }
+                                          />
+                                        )
+                                     |> array}
+                                  </GridItem>
+                                  <GridItem
+                                    top="0"
+                                    right="0"
+                                    bottom="0"
+                                    left="0"
+                                    xs="no">
+                                    <div
+                                      style={ReactDOMRe.Style.combine(
+                                        outsideCollections,
+                                        ReactDOMRe.Style.make(~right="0", ()),
+                                      )}>
+                                      <IconButton
+                                        padding="6"
+                                        disabled={state.showProgress}
+                                        onClick={event =>
+                                          event
+                                          |> showNextCollections(
+                                               item.index,
+                                               i,
+                                             )
+                                        }>
+                                        <IconAction
+                                          animation="leftRight"
+                                          src=arrowForwardIosBlack
+                                        />
+                                      </IconButton>
+                                    </div>
+                                  </GridItem>
+                                </GridContainer>
+                              </GridItem>
+                              <GridItem bottom="0" left="16" xs="auto">
+                                <GridContainer
+                                  direction="row"
+                                  justify="center"
+                                  alignItem="start">
+                                  <GridItem
+                                    top="0"
+                                    right="0"
+                                    bottom="0"
+                                    left="0"
+                                    xs="no">
+                                    <Avatar
                                       top="0"
-                                      right="0"
-                                      bottom="3"
-                                      left="0"
-                                      xs="auto">
-                                      <Typography
-                                        variant="subheading" noWrap=true>
-                                        {item.tile |> string}
-                                      </Typography>
-                                    </GridItem>
-                                    <GridItem
-                                      top="0"
-                                      right="0"
+                                      right="12"
                                       bottom="0"
                                       left="0"
-                                      xs="auto">
-                                      <Typography
-                                        variant="caption" color="#606060">
-                                        {item.datetime |> string}
-                                      </Typography>
-                                    </GridItem>
-                                    <GridItem
-                                      style=positionRelative
-                                      top="0"
-                                      right="0"
-                                      bottom="0"
-                                      left="0"
-                                      xs="auto">
-                                      {state.update
-                                         ? <div
-                                             style={ReactDOMRe.Style.make(
-                                               ~position="absolute",
-                                               ~right="50%",
-                                               ~bottom="-100%",
-                                               ~transform=
-                                                 "translate(50px, 20px)",
-                                               (),
-                                             )}>
-                                             <IconButton
-                                               padding="6"
-                                               disabled={state.showProgress}
-                                               onClick={event =>
-                                                 event |> editForm(i, item.id)
-                                               }>
-                                               <IconAction
-                                                 animation="leftRight"
-                                                 src=editBlack
-                                               />
-                                             </IconButton>
-                                           </div>
-                                         : null}
-                                      {state.delete
-                                         ? <div
-                                             style={ReactDOMRe.Style.make(
-                                               ~position="absolute",
-                                               ~right="0",
-                                               ~bottom="-100%",
-                                               ~transform=
-                                                 "translate(0px, 20px)",
-                                               (),
-                                             )}>
-                                             <IconButton
-                                               padding="6"
-                                               disabled={state.showProgress}
-                                               onClick={event =>
-                                                 event |> deleteForm(item.id)
-                                               }>
-                                               <IconAction
-                                                 animation="leftRight"
-                                                 src=deleteBlack
-                                               />
-                                             </IconButton>
-                                           </div>
-                                         : null}
-                                    </GridItem>
-                                  </GridContainer>
-                                </GridItem>
-                              </GridContainer>
-                            </GridItem>
-                          </GridContainer>
-                        </Card>
-                      </GridItem>
-                    </div>
-                  )
-               |> array}
+                                      color="#909090"
+                                      enterBorderColor="transparent"
+                                      downBorderColor="transparent"
+                                      backgroundColor="rgba(0,0,0,0.08)">
+                                      {item.creator |> string}
+                                    </Avatar>
+                                  </GridItem>
+                                  <GridItem
+                                    top="0"
+                                    right="0"
+                                    bottom="0"
+                                    left="0"
+                                    xs="auto">
+                                    <GridContainer
+                                      direction="column"
+                                      justify="center"
+                                      alignItem="stretch">
+                                      <GridItem
+                                        style={ReactDOMRe.Style.make(
+                                          ~minHeight="24px",
+                                          (),
+                                        )}
+                                        top="0"
+                                        right="0"
+                                        bottom="3"
+                                        left="0"
+                                        xs="auto">
+                                        <Typography
+                                          variant="subheading" noWrap=true>
+                                          {item.tile |> string}
+                                        </Typography>
+                                      </GridItem>
+                                      <GridItem
+                                        top="0"
+                                        right="0"
+                                        bottom="0"
+                                        left="0"
+                                        xs="auto">
+                                        <Typography
+                                          variant="caption" color="#606060">
+                                          {item.datetime |> string}
+                                        </Typography>
+                                      </GridItem>
+                                      <GridItem
+                                        style=positionRelative
+                                        top="0"
+                                        right="0"
+                                        bottom="0"
+                                        left="0"
+                                        xs="auto">
+                                        {state.update
+                                           ? <div
+                                               style={ReactDOMRe.Style.make(
+                                                 ~position="absolute",
+                                                 ~right="50%",
+                                                 ~bottom="-100%",
+                                                 ~transform=
+                                                   "translate(50px, 20px)",
+                                                 (),
+                                               )}>
+                                               <IconButton
+                                                 padding="6"
+                                                 disabled={state.showProgress}
+                                                 onClick={event =>
+                                                   event
+                                                   |> editForm(i, item.id)
+                                                 }>
+                                                 <IconAction
+                                                   animation="leftRight"
+                                                   src=editBlack
+                                                 />
+                                               </IconButton>
+                                             </div>
+                                           : null}
+                                        {state.delete
+                                           ? <div
+                                               style={ReactDOMRe.Style.make(
+                                                 ~position="absolute",
+                                                 ~right="0",
+                                                 ~bottom="-100%",
+                                                 ~transform=
+                                                   "translate(0px, 20px)",
+                                                 (),
+                                               )}>
+                                               <IconButton
+                                                 padding="6"
+                                                 disabled={state.showProgress}
+                                                 onClick={event =>
+                                                   event
+                                                   |> deleteForm(item.id)
+                                                 }>
+                                                 <IconAction
+                                                   animation="leftRight"
+                                                   src=deleteBlack
+                                                 />
+                                               </IconButton>
+                                             </div>
+                                           : null}
+                                      </GridItem>
+                                    </GridContainer>
+                                  </GridItem>
+                                </GridContainer>
+                              </GridItem>
+                            </GridContainer>
+                          </Card>
+                        </GridItem>
+                      </div>
+                    )
+                 |> array
+               }}
             </GridContainer>
           </GridItem>
         </GridContainer>
