@@ -8,6 +8,6 @@
 
 <body style="overflow:hidden;">
   <div id="app"></div>
-  <script src="/static/dist/js/bundle.js?234314131231"></script>
+  <script src="/static/dist/js/bundle.js?34131231312313231"></script>
 </body>
 </html>

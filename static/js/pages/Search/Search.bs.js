@@ -1559,6 +1559,8 @@ function Search(Props) {
                                                                                                         showImage: item.viewIndex === vi,
                                                                                                         width: "100%",
                                                                                                         height: "auto",
+                                                                                                        imageWidth: "100%",
+                                                                                                        imageHeight: "auto",
                                                                                                         src: "data:image/jpg;base64," + viewitem
                                                                                                       });
                                                                                           }), item.viewections)
